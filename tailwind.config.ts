@@ -11,6 +11,14 @@ export default {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+        main_blue: "#131f42",
+        main_brown: "#ab8e66",
+      },
+      fontFamily: {
+        cardo: ["Cardo", "serif"],
+      },
+      rotate: {
+        "135": "135deg",
       },
     },
   },
