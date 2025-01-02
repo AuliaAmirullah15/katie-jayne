@@ -1,34 +1,64 @@
+"use client";
 import Image from "next/image";
 import heroUrl from "@/assets/images/jpg/hero.jpg";
+import heroMobileUrl from "@/assets/images/jpg/heroMobile.jpg";
+import { useEffect, useState } from "react";
 
 export default function Hero() {
+  const [height, setHeight] = useState(700);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const updateSize = () => {
+      const windowHeight = window.innerHeight;
+      const windowWidth = window.innerWidth;
+      const baseHeight = 800;
+      const ratio = windowWidth / windowHeight;
+      const newHeight = Math.max(
+        300,
+        Math.min(900, baseHeight * (ratio > 1 ? 1 : ratio))
+      );
+
+      setHeight(newHeight);
+      setIsMobile(window.innerWidth < 768); // 768px is tailwind's md breakpoint
+    };
+
+    updateSize();
+    window.addEventListener("resize", updateSize);
+    return () => window.removeEventListener("resize", updateSize);
+  }, []);
+
   return (
-    <section className="relative flex items-center justify-start h-[700px] bg-cover bg-center">
-      <Image
-        src={heroUrl}
-        alt="Hero background"
-        layout="fill"
-        objectFit="cover"
-        quality={100}
-        priority={true}
-        className="-z-10"
-      />
-      <div className="hidden md:flex flex-col mx-12 max-w-lg text-white">
-        <div className="max-w-md">
-          <h1 className="text-6xl mb-4 font-cardo">
+    <section className="md:relative flex flex-col md:flex-row w-full">
+      <div className="relative w-full" style={{ height: `${height}px` }}>
+        <Image
+          src={isMobile ? heroMobileUrl : heroUrl}
+          alt="Beautiful handcrafted glassware showcased on a table"
+          fill
+          className="object-cover"
+          quality={100}
+          priority
+        />
+      </div>
+
+      <div className="w-full md:absolute md:inset-0 flex flex-col items-start justify-center px-6 py-4">
+        <div className="text-left md:max-w-lg mx-6">
+          <h1 className="text-4xl md:text-6xl mb-4 font-cardo text-main_brown md:text-white">
             Masterfully crafted glassware
           </h1>
-        </div>
-        <p className="text-lg mb-6">
-          Discover the beauty of handcrafted glassware, where each piece is
-          shaped by skilled artisans using traditional techniques. Every glass
-          is a unique work of art, crafted to bring a touch of timeless beauty
-          and expert craftsmanship to your table.
-        </p>
-        <div>
-          <button className="px-6 py-3 bg-white text-main_blue rounded-full hover:bg-main_blue hover:text-white transition">
-            Shop Now
-          </button>
+          <div className="flex flex-col-reverse md:flex-col">
+            <p className="text-lg mb-6 text-black md:text-white">
+              Discover the beauty of handcrafted glassware, where each piece is
+              shaped by skilled artisans using traditional techniques. Every
+              glass is a unique work of art, crafted to bring a touch of
+              timeless beauty and expert craftsmanship to your table.
+            </p>
+            <div className="pb-8 md:pb-0">
+              <button className="px-6 py-3 bg-black md:bg-white text-white md:text-black rounded-full hover:bg-main_brown hover:text-white transition">
+                Shop Now
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </section>
