@@ -13,6 +13,7 @@ export default {
         foreground: "var(--foreground)",
         main_blue: "#131f42",
         main_brown: "#ab8e66",
+        bg_brown: "#faf7f6",
       },
       fontFamily: {
         cardo: ["Cardo", "serif"],
