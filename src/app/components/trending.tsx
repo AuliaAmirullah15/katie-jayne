@@ -34,9 +34,9 @@ const BasicSwiper = ({ products }: { products: Array<trendingProduct> }) => {
 
 const TrendingItem = ({ product }: { product: trendingProduct }) => {
   return (
-    <div className="relative lg:w-1/5 h-60 sm:h-50 group cursor-pointer">
+    <div className="relative lg:w-1/5 flex flex-col h-96 sm:h-50 group cursor-pointer">
       <div
-        className="h-full bg-cover bg-center"
+        className="h-full relative bg-cover bg-center"
         style={{ backgroundImage: `url(${product.image.src})` }}
       >
         <div className="absolute bottom-0 left-0 w-full opacity-0 group-hover:opacity-100 transition-all transform group-hover:translate-y-0 translate-y-6">
@@ -93,7 +93,7 @@ const Trending = () => {
   ];
 
   return (
-    <div className="mx-12 my-12">
+    <div className="mx-6 md:mx-12 my-12">
       <h1 className="text-main_brown text-4xl font-cardo">Whats trending</h1>
       <div className="flex lg:hidden py-8 h-[480px]">
         <BasicSwiper products={products} />

@@ -2,22 +2,20 @@
 import Image from "next/image";
 import heroUrl from "@/assets/images/jpg/hero.jpg";
 import heroMobileUrl from "@/assets/images/jpg/heroMobile.jpg";
+import PrimaryButton, { ButtonType } from "./buttons/primaryButton";
 import { useEffect, useState } from "react";
 
 export default function Hero() {
-  const [height, setHeight] = useState(700);
+  const [height, setHeight] = useState(500);
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
     const updateSize = () => {
       const windowHeight = window.innerHeight;
       const windowWidth = window.innerWidth;
-      const baseHeight = 800;
+      const baseHeight = window.innerWidth < 768 ? 800 : 500;
       const ratio = windowWidth / windowHeight;
-      const newHeight = Math.max(
-        300,
-        Math.min(900, baseHeight * (ratio > 1 ? 1 : ratio))
-      );
+      const newHeight = baseHeight * ratio;
 
       setHeight(newHeight);
       setIsMobile(window.innerWidth < 768); // 768px is tailwind's md breakpoint
@@ -42,7 +40,7 @@ export default function Hero() {
       </div>
 
       <div className="w-full md:absolute md:inset-0 flex flex-col items-start justify-center px-6 py-4">
-        <div className="text-left md:max-w-lg mx-6">
+        <div className="text-left md:max-w-lg md:mx-6">
           <h1 className="text-4xl md:text-6xl mb-4 font-cardo text-main_brown md:text-white">
             Masterfully crafted glassware
           </h1>
@@ -54,9 +52,7 @@ export default function Hero() {
               timeless beauty and expert craftsmanship to your table.
             </p>
             <div className="pb-8 md:pb-0">
-              <button className="px-6 py-3 bg-black md:bg-white text-white md:text-black rounded-full hover:bg-main_brown hover:text-white transition">
-                Shop Now
-              </button>
+              <PrimaryButton title="Shop Now" type={ButtonType.Primary} />
             </div>
           </div>
         </div>

@@ -8,6 +8,7 @@ import bag from "@/assets/images/svg/bag.svg";
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const menuItems = ["Collections", "New Arrivals", "Sales"];
 
   return (
     <header className="bg-white shadow">
@@ -16,18 +17,15 @@ export default function Header() {
           <Image src={logo} alt="Katie Jayne" className="w-28 md:w-auto" />
           <nav className="hidden lg:flex">
             <ul className="flex space-x-8 text-gray-800">
-              <li className="group relative hover:text-main_brown cursor-pointer">
-                Collections
-                <span className="absolute left-0 bottom-[-6px] w-0 h-[2px] bg-main_brown rounded-full transition-all duration-500 ease-in-out group-hover:w-full"></span>
-              </li>
-              <li className="group relative hover:text-main_brown cursor-pointer">
-                New Arrivals
-                <span className="absolute left-0 bottom-[-6px] w-0 h-[2px] bg-main_brown rounded-full transition-all duration-500 ease-in-out group-hover:w-full"></span>
-              </li>
-              <li className="group relative hover:text-main_brown cursor-pointer">
-                Sales
-                <span className="absolute left-0 bottom-[-6px] w-0 h-[2px] bg-main_brown rounded-full transition-all duration-500 ease-in-out group-hover:w-full"></span>
-              </li>
+              {menuItems.map((menuItem) => (
+                <li
+                  key={menuItem}
+                  className="group relative hover:text-main_brown cursor-pointer"
+                >
+                  {menuItem}
+                  <span className="absolute left-0 bottom-[-6px] w-0 h-[2px] bg-main_brown rounded-full transition-all duration-500 ease-in-out group-hover:w-full"></span>
+                </li>
+              ))}
             </ul>
           </nav>
         </div>
@@ -57,27 +55,37 @@ export default function Header() {
         </div>
       </div>
 
-      {menuOpen && (
-        <div className="fixed top-0 left-0 w-full h-full bg-white z-50 flex flex-col items-center justify-center">
-          <nav className="space-y-6 text-gray-800 text-xl">
-            <div
-              className="absolute top-4 right-6 text-2xl cursor-pointer"
-              onClick={() => setMenuOpen(false)}
-            >
-              &times;
-            </div>
-            <ul className="flex flex-col items-center space-y-6">
-              <li className="cursor-pointer hover:text-main_brown">
-                Collections
+      <div
+        className={`fixed top-0 left-0 w-full h-full bg-white z-50 flex flex-col items-center justify-center transform transition-transform duration-500 ${
+          menuOpen ? "translate-x-0" : "-translate-x-full"
+        }`}
+      >
+        <nav className="space-y-6 text-gray-800 text-xl">
+          <div
+            className="absolute top-4 right-6 text-2xl cursor-pointer"
+            onClick={() => setMenuOpen(false)}
+          >
+            &times;
+          </div>
+          <ul className="flex flex-col items-center space-y-6">
+            {menuItems.map((menuItem) => (
+              <li
+                key="menuItem"
+                className="cursor-pointer hover:text-main_brown"
+              >
+                {menuItem}
               </li>
-              <li className="cursor-pointer hover:text-main_brown">
-                New Arrivals
-              </li>
-              <li className="cursor-pointer hover:text-main_brown">Sales</li>
-            </ul>
-          </nav>
-        </div>
-      )}
+            ))}
+            {/* <li className="cursor-pointer hover:text-main_brown">
+              Collections
+            </li>
+            <li className="cursor-pointer hover:text-main_brown">
+              New Arrivals
+            </li>
+            <li className="cursor-pointer hover:text-main_brown">Sales</li> */}
+          </ul>
+        </nav>
+      </div>
     </header>
   );
 }
