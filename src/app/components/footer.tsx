@@ -1,6 +1,7 @@
 import Image from "next/image";
 import logo2 from "@/assets/images/svg/logo2.svg";
 import PrimaryButton, { ButtonType } from "./buttons/primaryButton";
+import EmailInput from "./inputs/emailInput";
 
 const LinkSection = ({
   title,
@@ -33,12 +34,7 @@ const EmailSection = () => {
       <h2 className="text-xl lg:text-2xl text-main_brown font-cardo mb-4">
         Sign up to our newsletter
       </h2>
-      <input
-        type="email"
-        name="email"
-        placeholder="Enter your email address"
-        className="w-full h-12 px-4 text-sm border border-gray-300 focus:outline-none focus:ring-2 focus:ring-main_brown mb-2"
-      />
+      <EmailInput />
       <p>
         By signing up, you agree to our{" "}
         <a href="#" className="underline">

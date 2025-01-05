@@ -9,10 +9,12 @@ export default function PrimaryButton({
   title,
   className,
   type,
+  onClick,
 }: {
   title: string;
   className?: string;
   type: ButtonType;
+  onClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 }) {
   const [style] = useState(() => {
     if (type === ButtonType.Primary)
@@ -23,6 +25,7 @@ export default function PrimaryButton({
   return (
     <button
       className={`px-6 py-3 ${style} rounded-full hover:bg-main_brown hover:text-white transition ${className}`}
+      onClick={onClick}
     >
       {title}
     </button>
