@@ -1,4 +1,5 @@
-import EmailPopup from "./components/emailPopup";
+// import EmailPopup from "./components/emailPopup";
+import MailChimp from "./components/email/mailChimp";
 import Banner from "./components/banner";
 import Header from "./components/header";
 import Hero from "./components/hero";
@@ -10,7 +11,8 @@ import Footer from "./components/footer";
 export default function Home() {
   return (
     <>
-      <EmailPopup />
+      {/* <EmailPopup /> */}
+      <MailChimp />
       <Banner bannerText="Complimentary shipping on orders of £100 or more. Shop now" />
       <Header />
       <Hero />
