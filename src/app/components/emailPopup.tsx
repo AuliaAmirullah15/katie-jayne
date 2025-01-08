@@ -4,15 +4,16 @@ import Image from "next/image"; // Import the Image component
 import heroMobileUrl from "@/assets/images/jpg/heroMobile.jpg";
 import PrimaryButton, { ButtonType } from "./buttons/primaryButton";
 import EmailInput from "./inputs/emailInput";
+import { useMailchimp } from "@/hooks/useMailChimp";
 
 const EmailPopup = () => {
   const [isPopupVisible, setIsPopupVisible] = useState(false);
+  const [email, setEmail] = useState("");
+  const { status, message, subscribe } = useMailchimp();
 
   useEffect(() => {
-    // Check if the popup has already been shown
     const isPopupShown = localStorage.getItem("popupShown");
     if (!isPopupShown) {
-      // Show popup after a delay (e.g., 5 seconds)
       const timer = setTimeout(() => {
         setIsPopupVisible(true);
       }, 5000);
@@ -23,10 +24,15 @@ const EmailPopup = () => {
 
   const handleClose = () => {
     setIsPopupVisible(false);
-    localStorage.setItem("popupShown", "true"); // Mark popup as shown
+    localStorage.setItem("popupShown", "true");
   };
 
-  //   console.log("isPopupVisible: " + isPopupVisible);
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    subscribe({ EMAIL: email, MERGE0: email });
+  };
+
+  // console.log("isPopupVisible: " + isPopupVisible);
 
   if (!isPopupVisible) return null;
 
@@ -55,12 +61,24 @@ const EmailPopup = () => {
           <p className="text-sm text-gray-600 mb-6">
             Plus, get insider access to promotions, launches, events, and more.
           </p>
-          <EmailInput className="mb-4" />
-          <PrimaryButton
-            title="Unlock Access"
-            type={ButtonType.Secondary}
-            onClick={handleClose}
-          />
+          <form onSubmit={handleSubmit} className="flex flex-col">
+            <EmailInput
+              className="mb-4"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+            <PrimaryButton
+              title="Unlock Access"
+              type="submit"
+              buttonType={ButtonType.Secondary}
+              onClick={handleClose}
+            />
+          </form>
+
+          {status === "sending" && <p>Sending...</p>}
+          {status === "success" && <p>{message}</p>}
+          {status === "error" && <p className="text-red-500">{message}</p>}
         </div>
       </div>
     </div>

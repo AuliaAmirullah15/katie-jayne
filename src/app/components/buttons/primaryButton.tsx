@@ -8,16 +8,15 @@ export enum ButtonType {
 export default function PrimaryButton({
   title,
   className,
-  type,
-  onClick,
-}: {
+  buttonType,
+  ...props
+}: React.ButtonHTMLAttributes<HTMLButtonElement> & {
   title: string;
   className?: string;
-  type: ButtonType;
-  onClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+  buttonType: ButtonType;
 }) {
   const [style] = useState(() => {
-    if (type === ButtonType.Primary)
+    if (buttonType === ButtonType.Primary)
       return "bg-black text-white md:bg-white md:text-black";
     else return "bg-black text-white";
   });
@@ -25,7 +24,7 @@ export default function PrimaryButton({
   return (
     <button
       className={`px-6 py-3 ${style} rounded-full hover:bg-main_brown hover:text-white transition ${className}`}
-      onClick={onClick}
+      {...props}
     >
       {title}
     </button>

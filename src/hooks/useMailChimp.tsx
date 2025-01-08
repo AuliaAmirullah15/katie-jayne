@@ -1,13 +1,13 @@
 "use client";
 
-import React, { useState } from "react";
-import CustomForm from "./customForm";
+import { useState } from "react";
 
-const MailchimpFormContainer: React.FC = () => {
-  const [status, setStatus] = useState<"sending" | "error" | "success" | null>(
-    null
-  );
-  const [message, setMessage] = useState<string | null>(null);
+type StatusType = "error" | "success" | "sending" | null;
+type MessageType = string | null;
+
+export const useMailchimp = () => {
+  const [status, setStatus] = useState<StatusType>(null);
+  const [message, setMessage] = useState<MessageType>(null);
 
   const subscribe = async (formData: { EMAIL: string; MERGE0: string }) => {
     setStatus("sending");
@@ -21,7 +21,6 @@ const MailchimpFormContainer: React.FC = () => {
     };
 
     try {
-      // Send data to the backend API (/api/subscribe)
       const response = await fetch("/api/subscribe", {
         method: "POST",
         headers: {
@@ -48,17 +47,5 @@ const MailchimpFormContainer: React.FC = () => {
     }
   };
 
-  return (
-    <div className="mc__form-container">
-      <CustomForm
-        status={status}
-        message={message}
-        onValidated={(formData: { EMAIL: string; MERGE0: string }) =>
-          subscribe(formData)
-        }
-      />
-    </div>
-  );
+  return { status, message, subscribe };
 };
-
-export default MailchimpFormContainer;

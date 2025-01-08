@@ -1,7 +1,10 @@
+"use client";
 import Image from "next/image";
 import logo2 from "@/assets/images/svg/logo2.svg";
 import PrimaryButton, { ButtonType } from "./buttons/primaryButton";
 import EmailInput from "./inputs/emailInput";
+import { useState } from "react";
+import { useMailchimp } from "@/hooks/useMailChimp";
 
 const LinkSection = ({
   title,
@@ -29,28 +32,47 @@ const LinkSection = ({
 };
 
 const EmailSection = () => {
+  const [email, setEmail] = useState("");
+  const { status, message, subscribe } = useMailchimp();
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    subscribe({ EMAIL: email, MERGE0: email });
+  };
+
   return (
     <>
       <h2 className="text-xl lg:text-2xl text-main_brown font-cardo mb-4">
         Sign up to our newsletter
       </h2>
-      <EmailInput />
-      <p>
-        By signing up, you agree to our{" "}
-        <a href="#" className="underline">
-          Privacy Policy
-        </a>{" "}
-        and{" "}
-        <a href="#" className="underline">
-          Terms of Service
-        </a>
-        .
-      </p>
-      <PrimaryButton
-        title="Sign up"
-        className="mt-2"
-        type={ButtonType.Secondary}
-      />
+      <form onSubmit={handleSubmit}>
+        <EmailInput
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+        />
+        <p>
+          By signing up, you agree to our{" "}
+          <a href="#" className="underline">
+            Privacy Policy
+          </a>{" "}
+          and{" "}
+          <a href="#" className="underline">
+            Terms of Service
+          </a>
+          .
+        </p>
+        <PrimaryButton
+          title="Sign up"
+          type="submit"
+          className="mt-2"
+          buttonType={ButtonType.Secondary}
+        />
+      </form>
+      {status === "sending" && <p>Sending...</p>}
+      {status === "success" && <p>{message}</p>}
+      {status === "error" && <p className="text-red-500">{message}</p>}
     </>
   );
 };
