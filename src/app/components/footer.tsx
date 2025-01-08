@@ -6,6 +6,7 @@ import EmailInput from "./inputs/emailInput";
 import { useState } from "react";
 import { useMailchimp } from "@/hooks/useMailChimp";
 import Spinner from "./spinner/spinner";
+import SuccessSubscription from "./successSubscription";
 
 const LinkSection = ({
   title,
@@ -43,14 +44,7 @@ const EmailSection = () => {
 
   return (
     <>
-      {status === "success" && (
-        <>
-          <h2 className="text-2xl lg:text-4xl text-main_brown font-cardo mb-4">
-            Thanks for signing up!
-          </h2>
-          <p className="text-xl">You are now part of the squad!</p>
-        </>
-      )}
+      {status === "success" && <SuccessSubscription />}
       {status !== "success" && (
         <>
           <h2 className="text-xl lg:text-2xl text-main_brown font-cardo mb-4">

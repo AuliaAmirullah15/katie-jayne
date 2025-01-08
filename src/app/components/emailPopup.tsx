@@ -5,6 +5,8 @@ import heroMobileUrl from "@/assets/images/jpg/heroMobile.jpg";
 import PrimaryButton, { ButtonType } from "./buttons/primaryButton";
 import EmailInput from "./inputs/emailInput";
 import { useMailchimp } from "@/hooks/useMailChimp";
+import Spinner from "./spinner/spinner";
+import SuccessSubscription from "./successSubscription";
 
 const EmailPopup = () => {
   const [isPopupVisible, setIsPopupVisible] = useState(false);
@@ -32,8 +34,6 @@ const EmailPopup = () => {
     subscribe({ EMAIL: email, MERGE0: email });
   };
 
-  // console.log("isPopupVisible: " + isPopupVisible);
-
   if (!isPopupVisible) return null;
 
   return (
@@ -56,30 +56,38 @@ const EmailPopup = () => {
         </div>
 
         <div className="w-full md:basis-1/2 grow p-12 flex flex-col justify-center text-center">
-          <p className="mb-6">Enter your email to unlock</p>
-          <h2 className="text-2xl font-bold mb-6">15% off your first order</h2>
-          <p className="text-sm text-gray-600 mb-6">
-            Plus, get insider access to promotions, launches, events, and more.
-          </p>
-          <form onSubmit={handleSubmit} className="flex flex-col">
-            <EmailInput
-              className="mb-4"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
-            <PrimaryButton
-              type="submit"
-              buttonType={ButtonType.Secondary}
-              onClick={handleClose}
-            >
-              Unlock Access
-            </PrimaryButton>
-          </form>
-
-          {status === "sending" && <p>Sending...</p>}
-          {status === "success" && <p>{message}</p>}
-          {status === "error" && <p className="text-red-500">{message}</p>}
+          {status === "success" && <SuccessSubscription />}
+          {status !== "success" && (
+            <>
+              <p className="mb-6">Enter your email to unlock</p>
+              <h2 className="text-2xl font-bold mb-6">
+                15% off your first order
+              </h2>
+              <p className="text-sm text-gray-600 mb-6">
+                Plus, get insider access to promotions, launches, events, and
+                more.
+              </p>
+              <form onSubmit={handleSubmit} className="flex flex-col">
+                <EmailInput
+                  className="mb-4"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  disabled={status === "sending"}
+                  required
+                />
+                {status === "error" && (
+                  <p className="text-red-500 font-cardo">{message}</p>
+                )}
+                <PrimaryButton
+                  type="submit"
+                  buttonType={ButtonType.Secondary}
+                  onClick={handleClose}
+                >
+                  {status === "sending" ? <Spinner /> : "Unlock Access"}
+                </PrimaryButton>
+              </form>
+            </>
+          )}
         </div>
       </div>
     </div>
