@@ -1,14 +1,21 @@
 "use client";
 import React, { useState, useEffect } from "react";
+import Image from "next/image";
+import heroMobileUrl from "@/assets/images/jpg/heroMobile.jpg";
+import PrimaryButton, { ButtonType } from "./buttons/primaryButton";
+import EmailInput from "./inputs/emailInput";
+import { useMailchimp } from "@/hooks/useMailChimp";
+import Spinner from "./spinner/spinner";
+import SuccessSubscription from "./successSubscription";
 
 const EmailPopup = () => {
   const [isPopupVisible, setIsPopupVisible] = useState(false);
+  const [email, setEmail] = useState("");
+  const { status, message, subscribe } = useMailchimp();
 
   useEffect(() => {
-    // Check if the popup has already been shown
     const isPopupShown = localStorage.getItem("popupShown");
     if (!isPopupShown) {
-      // Show popup after a delay (e.g., 5 seconds)
       const timer = setTimeout(() => {
         setIsPopupVisible(true);
       }, 5000);
@@ -19,37 +26,69 @@ const EmailPopup = () => {
 
   const handleClose = () => {
     setIsPopupVisible(false);
-    localStorage.setItem("popupShown", "true"); // Mark popup as shown
+    localStorage.setItem("popupShown", "true");
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    subscribe({ EMAIL: email, MERGE0: email });
   };
 
   if (!isPopupVisible) return null;
 
   return (
-    <div className="fixed inset-0 bg-black !bg-opacity-50 flex flex-row items-center justify-center z-50">
-      <div className="bg-white p-6 rounded-lg shadow-lg w-80">
-        <h2 className="text-xl font-bold mb-2 text-center">
-          Subscribe to our Newsletter!
-        </h2>
-        <p className="text-sm text-gray-600 mb-4 text-center">
-          Get 10% off your first purchase.
-        </p>
-        <input
-          type="email"
-          placeholder="Enter your email"
-          className="w-full border border-gray-300 rounded-md px-3 py-2 mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
-        />
+    <div className="fixed inset-0 bg-black !bg-opacity-50 flex items-center justify-center z-50">
+      <div className="relative flex bg-white shadow-lg w-full m-6 md:mx-0 md:max-w-[600px]">
         <button
+          className="absolute top-4 right-4 text-xl text-gray-700"
           onClick={handleClose}
-          className="w-full bg-blue-500 text-white font-semibold py-2 rounded-md hover:bg-blue-600 transition"
         >
-          Subscribe
+          &#x2715;
         </button>
-        <button
-          onClick={handleClose}
-          className="mt-4 text-sm text-gray-500 hover:text-gray-700 underline block mx-auto"
-        >
-          Close
-        </button>
+
+        <div className="hidden md:block basis-1/2 grow relative">
+          <Image
+            src={heroMobileUrl}
+            alt="Popup Image"
+            layout="fill"
+            objectFit="cover"
+          />
+        </div>
+
+        <div className="w-full md:basis-1/2 grow p-12 flex flex-col justify-center text-center">
+          {status === "success" && <SuccessSubscription />}
+          {status !== "success" && (
+            <>
+              <p className="mb-6">Enter your email to unlock</p>
+              <h2 className="text-2xl font-bold mb-6">
+                15% off your first order
+              </h2>
+              <p className="text-sm text-gray-600 mb-6">
+                Plus, get insider access to promotions, launches, events, and
+                more.
+              </p>
+              <form onSubmit={handleSubmit} className="flex flex-col">
+                <EmailInput
+                  className="mb-4"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  disabled={status === "sending"}
+                  required
+                />
+                {status === "error" && (
+                  <p className="text-red-500 font-cardo">{message}</p>
+                )}
+                <PrimaryButton
+                  type="submit"
+                  buttonType={ButtonType.Secondary}
+                  onClick={handleClose}
+                >
+                  {status === "sending" ? <Spinner /> : "Unlock Access"}
+                </PrimaryButton>
+              </form>
+            </>
+          )}
+        </div>
       </div>
     </div>
   );

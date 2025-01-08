@@ -5,17 +5,19 @@ export enum ButtonType {
   Primary,
   Secondary,
 }
+
 export default function PrimaryButton({
-  title,
+  children,
   className,
-  type,
-}: {
-  title: string;
+  buttonType,
+  ...props
+}: React.ButtonHTMLAttributes<HTMLButtonElement> & {
+  children: React.ReactNode;
   className?: string;
-  type: ButtonType;
+  buttonType: ButtonType;
 }) {
   const [style] = useState(() => {
-    if (type === ButtonType.Primary)
+    if (buttonType === ButtonType.Primary)
       return "bg-black text-white md:bg-white md:text-black";
     else return "bg-black text-white";
   });
@@ -23,8 +25,9 @@ export default function PrimaryButton({
   return (
     <button
       className={`px-6 py-3 ${style} rounded-full hover:bg-main_brown hover:text-white transition ${className}`}
+      {...props}
     >
-      {title}
+      {children}
     </button>
   );
 }
