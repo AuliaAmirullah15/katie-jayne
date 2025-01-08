@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import Image from "next/image"; // Import the Image component
+import Image from "next/image";
 import heroMobileUrl from "@/assets/images/jpg/heroMobile.jpg";
 import PrimaryButton, { ButtonType } from "./buttons/primaryButton";
 import EmailInput from "./inputs/emailInput";
@@ -69,11 +69,12 @@ const EmailPopup = () => {
               required
             />
             <PrimaryButton
-              title="Unlock Access"
               type="submit"
               buttonType={ButtonType.Secondary}
               onClick={handleClose}
-            />
+            >
+              Unlock Access
+            </PrimaryButton>
           </form>
 
           {status === "sending" && <p>Sending...</p>}

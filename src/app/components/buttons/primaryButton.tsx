@@ -5,13 +5,14 @@ export enum ButtonType {
   Primary,
   Secondary,
 }
+
 export default function PrimaryButton({
-  title,
+  children,
   className,
   buttonType,
   ...props
 }: React.ButtonHTMLAttributes<HTMLButtonElement> & {
-  title: string;
+  children: React.ReactNode;
   className?: string;
   buttonType: ButtonType;
 }) {
@@ -26,7 +27,7 @@ export default function PrimaryButton({
       className={`px-6 py-3 ${style} rounded-full hover:bg-main_brown hover:text-white transition ${className}`}
       {...props}
     >
-      {title}
+      {children}
     </button>
   );
 }

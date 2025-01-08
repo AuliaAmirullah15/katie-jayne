@@ -5,6 +5,7 @@ import PrimaryButton, { ButtonType } from "./buttons/primaryButton";
 import EmailInput from "./inputs/emailInput";
 import { useState } from "react";
 import { useMailchimp } from "@/hooks/useMailChimp";
+import Spinner from "./spinner/spinner";
 
 const LinkSection = ({
   title,
@@ -42,37 +43,51 @@ const EmailSection = () => {
 
   return (
     <>
-      <h2 className="text-xl lg:text-2xl text-main_brown font-cardo mb-4">
-        Sign up to our newsletter
-      </h2>
-      <form onSubmit={handleSubmit}>
-        <EmailInput
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
-        <p>
-          By signing up, you agree to our{" "}
-          <a href="#" className="underline">
-            Privacy Policy
-          </a>{" "}
-          and{" "}
-          <a href="#" className="underline">
-            Terms of Service
-          </a>
-          .
-        </p>
-        <PrimaryButton
-          title="Sign up"
-          type="submit"
-          className="mt-2"
-          buttonType={ButtonType.Secondary}
-        />
-      </form>
-      {status === "sending" && <p>Sending...</p>}
-      {status === "success" && <p>{message}</p>}
-      {status === "error" && <p className="text-red-500">{message}</p>}
+      {status === "success" && (
+        <>
+          <h2 className="text-2xl lg:text-4xl text-main_brown font-cardo mb-4">
+            Thanks for signing up!
+          </h2>
+          <p className="text-xl">You are now part of the squad!</p>
+        </>
+      )}
+      {status !== "success" && (
+        <>
+          <h2 className="text-xl lg:text-2xl text-main_brown font-cardo mb-4">
+            Sign up to our newsletter
+          </h2>
+          <form onSubmit={handleSubmit}>
+            <EmailInput
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+              disabled={status === "sending"}
+            />
+            {status === "error" && (
+              <p className="text-red-500 font-cardo">{message}</p>
+            )}
+            <p>
+              By signing up, you agree to our{" "}
+              <a href="#" className="underline">
+                Privacy Policy
+              </a>{" "}
+              and{" "}
+              <a href="#" className="underline">
+                Terms of Service
+              </a>
+              .
+            </p>
+            <PrimaryButton
+              type="submit"
+              className="mt-2"
+              buttonType={ButtonType.Secondary}
+            >
+              {status === "sending" ? <Spinner /> : "Sign up"}
+            </PrimaryButton>
+          </form>
+        </>
+      )}
     </>
   );
 };
