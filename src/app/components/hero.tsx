@@ -6,14 +6,14 @@ import PrimaryButton, { ButtonType } from "./buttons/primaryButton";
 import { useEffect, useState } from "react";
 
 export default function Hero() {
-  const [height, setHeight] = useState(300);
+  const [height, setHeight] = useState(325);
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
     const updateSize = () => {
       const windowHeight = window.innerHeight;
       const windowWidth = window.innerWidth;
-      const baseHeight = window.innerWidth < 768 ? 500 : 300;
+      const baseHeight = window.innerWidth < 768 ? 500 : 325;
       const ratio = windowWidth / windowHeight;
       const newHeight = baseHeight * ratio;
 

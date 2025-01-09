@@ -76,13 +76,6 @@ export default function Header() {
                 {menuItem}
               </li>
             ))}
-            {/* <li className="cursor-pointer hover:text-main_brown">
-              Collections
-            </li>
-            <li className="cursor-pointer hover:text-main_brown">
-              New Arrivals
-            </li>
-            <li className="cursor-pointer hover:text-main_brown">Sales</li> */}
           </ul>
         </nav>
       </div>
