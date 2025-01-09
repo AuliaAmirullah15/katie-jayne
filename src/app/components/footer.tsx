@@ -35,12 +35,7 @@ const LinkSection = ({
 
 const EmailSection = () => {
   const [email, setEmail] = useState("");
-  const { status, message, subscribe } = useMailchimp();
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    subscribe({ EMAIL: email, MERGE0: email });
-  };
+  const { status, message, handleSubmit } = useMailchimp();
 
   return (
     <>
@@ -50,7 +45,7 @@ const EmailSection = () => {
           <h2 className="text-xl lg:text-2xl text-main_brown font-cardo mb-4">
             Sign up to our newsletter
           </h2>
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={(event) => handleSubmit(event, email)}>
             <EmailInput
               type="email"
               value={email}

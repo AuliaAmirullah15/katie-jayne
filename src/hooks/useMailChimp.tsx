@@ -9,6 +9,11 @@ export const useMailchimp = () => {
   const [status, setStatus] = useState<StatusType>(null);
   const [message, setMessage] = useState<MessageType>(null);
 
+  const handleSubmit = (e: React.FormEvent, email: string) => {
+    e.preventDefault();
+    subscribe({ EMAIL: email, MERGE0: email });
+  };
+
   const subscribe = async (formData: { EMAIL: string; MERGE0: string }) => {
     setStatus("sending");
     setMessage(null);
@@ -47,5 +52,5 @@ export const useMailchimp = () => {
     }
   };
 
-  return { status, message, subscribe };
+  return { status, message, handleSubmit };
 };

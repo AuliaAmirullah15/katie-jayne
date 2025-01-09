@@ -11,7 +11,7 @@ import SuccessSubscription from "./successSubscription";
 const EmailPopup = () => {
   const [isPopupVisible, setIsPopupVisible] = useState(false);
   const [email, setEmail] = useState("");
-  const { status, message, subscribe } = useMailchimp();
+  const { status, message, handleSubmit } = useMailchimp();
 
   useEffect(() => {
     const isPopupShown = localStorage.getItem("popupShown");
@@ -27,11 +27,6 @@ const EmailPopup = () => {
   const handleClose = () => {
     setIsPopupVisible(false);
     localStorage.setItem("popupShown", "true");
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    subscribe({ EMAIL: email, MERGE0: email });
   };
 
   if (!isPopupVisible) return null;
@@ -67,7 +62,10 @@ const EmailPopup = () => {
                 Plus, get insider access to promotions, launches, events, and
                 more.
               </p>
-              <form onSubmit={handleSubmit} className="flex flex-col">
+              <form
+                onSubmit={(event) => handleSubmit(event, email)}
+                className="flex flex-col"
+              >
                 <EmailInput
                   className="mb-4"
                   value={email}
