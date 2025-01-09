@@ -12,11 +12,11 @@ export default function Header() {
 
   return (
     <header className="bg-white shadow">
-      <div className="mx-6 md:mx-12 flex items-center justify-between py-2 md:py-4">
+      <div className="mx-6 md:mx-12 flex items-center justify-between py-2">
         <div className="flex space-x-8 justify-between">
-          <Image src={logo} alt="Katie Jayne" className="w-28 md:w-auto" />
+          <Image src={logo} alt="Katie Jayne" className="w-24 md:w-auto" />
           <nav className="hidden lg:flex">
-            <ul className="flex space-x-8 text-gray-800">
+            <ul className="flex space-x-8 text-gray-800 text-sm">
               {menuItems.map((menuItem) => (
                 <li
                   key={menuItem}
