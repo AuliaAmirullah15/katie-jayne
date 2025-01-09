@@ -4,6 +4,7 @@ import React, { useState } from "react";
 export enum ButtonType {
   Primary,
   Secondary,
+  Ternary,
 }
 
 export default function PrimaryButton({
@@ -19,12 +20,13 @@ export default function PrimaryButton({
   const [style] = useState(() => {
     if (buttonType === ButtonType.Primary)
       return "bg-black text-white md:bg-white md:text-black";
-    else return "bg-black text-white";
+    else if (buttonType === ButtonType.Secondary) return "bg-black text-white";
+    else return "bg-white text-black";
   });
 
   return (
     <button
-      className={`px-6 py-3 ${style} rounded-full hover:bg-main_brown hover:text-white transition ${className}`}
+      className={`text-sm px-6 py-3 ${style} rounded-full hover:bg-main_brown hover:text-white transition ${className}`}
       {...props}
     >
       {children}

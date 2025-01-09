@@ -33,10 +33,11 @@ export default function ShopBanner() {
         style={{ backgroundImage: `url(${banner1.src})` }}
       >
         <PrimaryButton
-          title="Shop Crystal"
           className="absolute bottom-4 left-2"
-          type={ButtonType.Primary}
-        />
+          buttonType={ButtonType.Ternary}
+        >
+          Shop Crystal
+        </PrimaryButton>
       </div>
 
       <div
@@ -44,10 +45,11 @@ export default function ShopBanner() {
         style={{ backgroundImage: `url(${banner2.src})` }}
       >
         <PrimaryButton
-          title="Shop Essentials"
           className="absolute bottom-4 left-2"
-          type={ButtonType.Primary}
-        />
+          buttonType={ButtonType.Ternary}
+        >
+          Shop Essentials
+        </PrimaryButton>
       </div>
     </div>
   );
