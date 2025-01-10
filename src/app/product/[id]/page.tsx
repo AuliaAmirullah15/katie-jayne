@@ -1,3 +1,5 @@
+import Banner from "@/app/components/banner";
+import Header from "@/app/components/header";
 import React from "react";
 
 interface ProductPageProps {
@@ -8,10 +10,11 @@ const ProductPage: React.FC<ProductPageProps> = ({ params }) => {
   const { id } = params;
 
   return (
-    <div>
-      <h1>Product Page</h1>
-      <p>Product ID: {id}</p>
-    </div>
+    <>
+      <Banner bannerText="Complimentary shipping on orders of £100 or more. Shop now" />
+      <Header />
+      <p>ID: {id}</p>
+    </>
   );
 };
 
