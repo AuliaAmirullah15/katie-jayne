@@ -40,7 +40,7 @@ export default function Header() {
   ];
 
   return (
-    <header className="bg-white shadow">
+    <header className="bg-white shadow sticky top-[35px] z-40">
       <div className="mx-6 md:mx-12 flex items-center justify-between py-2">
         {/* Logo and Navigation */}
         <div className="flex space-x-8 justify-between">
