@@ -40,35 +40,37 @@ const ProductLayout: React.FC<ProductLayoutProps> = ({ productId }) => {
   // }
 
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className="lg:container mx-auto md:px-4 md:py-8">
       <div className="grid grid-cols-12 gap-6">
-        {/* Thumbnails */}
-        <div className="col-span-1 flex flex-col space-y-4">
+        {/* Thumbnails - Inline on small screens, stacked on larger screens */}
+        <div className="hidden col-span-12 md:flex mb-6 md:col-span-1 md:flex-col md:space-y-4">
           {thumbnails.map((image, index) => (
             <Image
               key={index}
               src={image}
               alt={`Thumbnail ${index + 1}`}
-              className={`cursor-pointer rounded-lg border-2 p-0.5 w-full transition-all hover:scale-105 ${
+              className={`cursor-pointer rounded-lg border-2 p-0.5 transition-all hover:scale-105 ${
                 activeImage === image ? "border-main_brown" : "border-gray-300"
               }`}
               onClick={() => setActiveImage(image)}
+              width={100}
+              height={100}
             />
           ))}
         </div>
 
         {/* Main Image */}
-        <div className="col-span-6 flex items-center justify-center">
+        <div className="col-span-12 md:col-span-6 flex items-center justify-center mb-4 md:mb-0">
           <Image
             src={activeImage}
             alt="Active Product"
-            className="w-full max-h-[500px] rounded-lg object-cover shadow-md"
+            className="w-full max-h-[500px] md:rounded-lg object-cover md:shadow-md"
           />
         </div>
 
         {/* Description Section */}
-        <div className="col-span-4">
-          <h2 className="text-2xl font-semibold mb-4 font-cardo">
+        <div className="col-span-12 md:col-span-4 mx-4 md:mx-0">
+          <h2 className="text-center md:text-left text-2xl font-semibold mb-4 font-cardo">
             Katie Crystal Square Decanter
           </h2>
           <p className="text-gray-600 mb-6">
@@ -77,18 +79,23 @@ const ProductLayout: React.FC<ProductLayoutProps> = ({ productId }) => {
             Customers can make informed decisions based on this description.
           </p>
 
-          <div className="flex items-center space-x-4">
+          {/* Quantity and Add to Cart */}
+          <div className="flex flex-col space-y-4 lg:space-y-0 lg:gap-x-4 lg:flex-row-reverse lg:justify-end">
+            {/* Quantity Selector */}
+            <QuantitySelector
+              quantity={quantity}
+              setQuantity={setQuantity}
+              className="w-full md:w-auto justify-center"
+            />
+
             {/* Add to Cart Button */}
             <PrimaryButton
               type="submit"
-              className="mt-2"
+              className="w-full md:w-auto mt-2 md:mt-0 mx-0"
               buttonType={ButtonType.Secondary}
             >
               Add To Cart
             </PrimaryButton>
-
-            {/* Quantity Selector */}
-            <QuantitySelector quantity={quantity} setQuantity={setQuantity} />
           </div>
         </div>
       </div>

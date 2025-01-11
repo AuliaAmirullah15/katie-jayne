@@ -6,6 +6,7 @@ interface QuantitySelectorProps {
   setQuantity: React.Dispatch<React.SetStateAction<number>>;
   onIncrement?: () => void;
   onDecrement?: () => void;
+  className?: string;
 }
 
 const QuantitySelector: React.FC<QuantitySelectorProps> = ({
@@ -13,6 +14,7 @@ const QuantitySelector: React.FC<QuantitySelectorProps> = ({
   setQuantity,
   onIncrement,
   onDecrement,
+  className,
 }) => {
   const defaultIncrement = () => {
     if (onIncrement) onIncrement();
@@ -25,7 +27,7 @@ const QuantitySelector: React.FC<QuantitySelectorProps> = ({
   };
 
   return (
-    <div className="flex items-center space-x-2">
+    <div className={`flex items-center space-x-2 ${className}`}>
       <PrimaryButton
         type="button"
         className="mt-2"
