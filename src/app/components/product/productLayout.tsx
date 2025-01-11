@@ -5,6 +5,7 @@ import product2 from "@/assets/images/jpg/product2.jpg";
 import product3 from "@/assets/images/jpg/product3.jpg";
 import product4 from "@/assets/images/jpg/product4.jpg";
 import PrimaryButton, { ButtonType } from "../buttons/primaryButton";
+import QuantitySelector from "../inputs/quantityControl";
 
 interface ProductLayoutProps {
   productId: string;
@@ -37,14 +38,6 @@ const ProductLayout: React.FC<ProductLayoutProps> = ({ productId }) => {
   // if (!productData) {
   //   return <p>Loading...</p>;
   // }
-
-  const incrementQuantity = () => {
-    setQuantity((prev) => prev + 1); // Increase quantity
-  };
-
-  const decrementQuantity = () => {
-    setQuantity((prev) => (prev > 1 ? prev - 1 : 1)); // Decrease quantity, but don't go below 1
-  };
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -95,29 +88,7 @@ const ProductLayout: React.FC<ProductLayoutProps> = ({ productId }) => {
             </PrimaryButton>
 
             {/* Quantity Selector */}
-            <div className="flex items-center space-x-2">
-              <PrimaryButton
-                type="button"
-                className="mt-2"
-                buttonType={ButtonType.Outlined}
-                onClick={decrementQuantity}
-              >
-                -
-              </PrimaryButton>
-
-              <span className="pt-2 text-xl w-12 text-center font-semibold">
-                {quantity}
-              </span>
-
-              <PrimaryButton
-                type="button"
-                className="mt-2"
-                buttonType={ButtonType.Outlined}
-                onClick={incrementQuantity}
-              >
-                +
-              </PrimaryButton>
-            </div>
+            <QuantitySelector quantity={quantity} setQuantity={setQuantity} />
           </div>
         </div>
       </div>
