@@ -12,9 +12,11 @@ interface ProductLayoutProps {
 
 const ProductLayout: React.FC<ProductLayoutProps> = ({ productId }) => {
   const [activeImage, setActiveImage] = useState(product1);
+  const [quantity, setQuantity] = useState(1);
   const thumbnails = [product1, product2, product3, product4];
 
   console.log("PRODUCT ID: " + productId);
+
   // IF LATER WE USE API ENDPOINT
   // const [productData, setProductData] = useState<any>(null);
   // const [activeImage, setActiveImage] = useState<string>("");
@@ -35,6 +37,14 @@ const ProductLayout: React.FC<ProductLayoutProps> = ({ productId }) => {
   // if (!productData) {
   //   return <p>Loading...</p>;
   // }
+
+  const incrementQuantity = () => {
+    setQuantity((prev) => prev + 1); // Increase quantity
+  };
+
+  const decrementQuantity = () => {
+    setQuantity((prev) => (prev > 1 ? prev - 1 : 1)); // Decrease quantity, but don't go below 1
+  };
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -87,11 +97,25 @@ const ProductLayout: React.FC<ProductLayoutProps> = ({ productId }) => {
             {/* Quantity Selector */}
             <div className="flex items-center space-x-2">
               <PrimaryButton
-                type="submit"
+                type="button"
                 className="mt-2"
                 buttonType={ButtonType.Outlined}
+                onClick={decrementQuantity}
               >
-                QTY
+                -
+              </PrimaryButton>
+
+              <span className="pt-2 text-xl w-12 text-center font-semibold">
+                {quantity}
+              </span>
+
+              <PrimaryButton
+                type="button"
+                className="mt-2"
+                buttonType={ButtonType.Outlined}
+                onClick={incrementQuantity}
+              >
+                +
               </PrimaryButton>
             </div>
           </div>
