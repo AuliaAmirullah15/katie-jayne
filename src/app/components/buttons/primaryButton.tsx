@@ -5,6 +5,7 @@ export enum ButtonType {
   Primary,
   Secondary,
   Ternary,
+  Outlined,
 }
 
 export default function PrimaryButton({
@@ -21,7 +22,8 @@ export default function PrimaryButton({
     if (buttonType === ButtonType.Primary)
       return "bg-black text-white md:bg-white md:text-black";
     else if (buttonType === ButtonType.Secondary) return "bg-black text-white";
-    else return "bg-white text-black";
+    else if (buttonType === ButtonType.Ternary) return "bg-white text-black";
+    else return "bg-white text-black outline border-black";
   });
 
   return (
