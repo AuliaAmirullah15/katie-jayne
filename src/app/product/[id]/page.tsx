@@ -6,8 +6,8 @@ interface ProductPageProps {
   params: { id: string };
 }
 
-const ProductPage: React.FC<ProductPageProps> = ({ params }) => {
-  const { id } = params;
+const ProductPage: React.FC<ProductPageProps> = async ({ params }) => {
+  const { id } = await params;
 
   return (
     <>
