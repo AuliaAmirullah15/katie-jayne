@@ -28,7 +28,7 @@ export default function PrimaryButton({
 
   return (
     <button
-      className={`text-sm px-6 py-3 ${style} rounded-full hover:bg-main_brown hover:text-white transition ${className}`}
+      className={`px-6 py-3 ${style} rounded-full hover:bg-main_brown hover:text-white transition ${className}`}
       {...props}
     >
       {children}
