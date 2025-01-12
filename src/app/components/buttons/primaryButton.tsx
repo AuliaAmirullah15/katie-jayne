@@ -23,12 +23,23 @@ export default function PrimaryButton({
       return "bg-black text-white md:bg-white md:text-black";
     else if (buttonType === ButtonType.Secondary) return "bg-black text-white";
     else if (buttonType === ButtonType.Ternary) return "bg-white text-black";
-    else return "bg-white text-black outline border-black";
+    else return "bg-white text-black border-2 border-black";
+  });
+
+  const [disabledStyle] = useState(() => {
+    return buttonType === ButtonType.Outlined
+      ? "bg-white border-2 text-gray-400 border-gray-200 cursor-not-allowed"
+      : "opacity-50 cursor-not-allowed";
   });
 
   return (
     <button
-      className={`text-sm px-6 py-3 ${style} rounded-full hover:bg-main_brown hover:text-white transition ${className}`}
+      className={`px-6 py-3 rounded-full transition ${className} ${
+        props.disabled
+          ? disabledStyle
+          : style +
+            " hover:bg-main_brown hover:text-whit hover:border-0 hover:text-white"
+      }`}
       {...props}
     >
       {children}

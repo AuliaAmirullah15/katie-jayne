@@ -33,6 +33,7 @@ const QuantitySelector: React.FC<QuantitySelectorProps> = ({
         className="mt-2"
         buttonType={ButtonType.Outlined}
         onClick={defaultDecrement}
+        disabled={quantity <= 1}
       >
         -
       </PrimaryButton>
