@@ -15,6 +15,7 @@ const EmailPopup = () => {
 
   useEffect(() => {
     const isPopupShown = localStorage.getItem("popupShown");
+    // const isPopupShown = false;
     if (!isPopupShown) {
       const timer = setTimeout(() => {
         setIsPopupVisible(true);
@@ -32,7 +33,7 @@ const EmailPopup = () => {
   if (!isPopupVisible) return null;
 
   return (
-    <div className="fixed inset-0 bg-black !bg-opacity-50 flex items-center justify-center z-50">
+    <div className="fixed inset-0 z-50 bg-black !bg-opacity-50 flex items-center justify-center">
       <div className="relative flex bg-white shadow-lg w-full m-6 md:mx-0 md:max-w-[600px]">
         <button
           className="absolute top-4 right-4 text-xl text-gray-700"

@@ -30,10 +30,9 @@ const Thumbnails = ({
           alt={`Thumbnail ${index + 1}`}
           className={`cursor-pointer rounded-lg border-2 p-0.5 transition-all hover:scale-105 ${
             activeImage === image ? "border-main_brown" : "border-gray-300"
-          }`}
+          } 
+           w-[50px] h-[50px] md:w-[80px] md:h-[80px] lg:w-[120px] lg:h-[120px]`}
           onClick={() => onActiveImage(image)}
-          width={100}
-          height={100}
         />
       ))}
     </>
