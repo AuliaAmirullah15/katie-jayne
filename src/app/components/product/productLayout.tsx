@@ -44,6 +44,7 @@ const ProductLayout: React.FC<ProductLayoutProps> = ({ productId }) => {
   const [activeImage, setActiveImage] = useState(product1);
   const [quantity, setQuantity] = useState(1);
   const [totalPrice, setTotalPrice] = useState(0);
+  const [isZooming, setIsZooming] = useState(false);
   const product = {
     id: "product01",
     name: "Katie Crystal Square Decanter",
@@ -81,6 +82,23 @@ const ProductLayout: React.FC<ProductLayoutProps> = ({ productId }) => {
     setTotalPrice(quantity * product.price);
   }, [quantity, product.price]);
 
+  const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
+
+  // Handle mouse move to change image position during zoom
+  const handleMouseMove = (event: React.MouseEvent) => {
+    if (!isZooming) return;
+
+    const { clientX, clientY } = event;
+    const img = event.currentTarget as HTMLElement;
+    const { top, left, width, height } = img.getBoundingClientRect();
+
+    // Calculate the position of the cursor relative to the image
+    const xPos = ((clientX - left) / width) * 100;
+    const yPos = ((clientY - top) / height) * 100;
+
+    setCursorPosition({ x: xPos, y: yPos });
+  };
+
   return (
     <div className="lg:container mx-auto md:px-4 md:py-8">
       <div className="grid grid-cols-12 gap-6">
@@ -94,8 +112,36 @@ const ProductLayout: React.FC<ProductLayoutProps> = ({ productId }) => {
             />
           </div>
 
-          {/* Main Image */}
-          <div className="flex flex-auto items-start">
+          {/* Main Image for Desktop*/}
+          <div
+            className="hidden md:flex flex-auto items-start relative group overflow-hidden"
+            onMouseMove={handleMouseMove}
+            onMouseEnter={() => setIsZooming(true)}
+            onMouseLeave={() => setIsZooming(false)}
+          >
+            {/* Image container with zoom and pan functionality */}
+            <div
+              className="w-full h-full flex flex-auto relative max-h-[500px] cursor-zoom-in transition-transform duration-300 ease-in-out transform"
+              style={{
+                backgroundImage: `url(${activeImage.src})`,
+                backgroundSize: isZooming ? "200%" : "100%", // Change zoom level based on hover
+                backgroundPosition: `${cursorPosition.x}% ${cursorPosition.y}%`, // Pan image based on cursor
+                backgroundRepeat: "no-repeat",
+                transform: isZooming ? "scale(1.5)" : "scale(1)", // Scale the image when zooming
+              }}
+            >
+              {/* Image component for small screen */}
+              <Image
+                src={activeImage}
+                alt="Active Product"
+                className="object-cover w-full max-h-[500px] h-full opacity-100 md:opacity-0" // Visible on small screens and hidden on large screens
+                layout="fill"
+              />
+            </div>
+          </div>
+
+          {/* Main image for mobile screens */}
+          <div className="flex md:hidden flex-auto items-start">
             <Image
               src={activeImage}
               alt="Active Product"
