@@ -84,7 +84,7 @@ const ProductLayout: React.FC<ProductLayoutProps> = ({ productId }) => {
   return (
     <div className="lg:container mx-auto md:px-4 md:py-8">
       <div className="grid grid-cols-12 gap-6">
-        <div className="col-span-12 md:col-span-8 flex flex-col-reverse md:flex-row space-x-0 md:space-x-4 space-y-8 space-y-reverse md:space-y-0">
+        <div className="col-span-12 md:col-span-7 flex flex-col-reverse md:flex-row space-x-0 md:space-x-4 space-y-8 space-y-reverse md:space-y-0">
           {/* Thumbnails  */}
           <div className="flex mb-6 md:mb-0 flex-row md:flex-col space-x-4 md:space-x-0 space-y-0 md:space-y-4 justify-center md:justify-start">
             <Thumbnails
@@ -95,7 +95,7 @@ const ProductLayout: React.FC<ProductLayoutProps> = ({ productId }) => {
           </div>
 
           {/* Main Image */}
-          <div className="flex flex-auto items-center justify-center">
+          <div className="flex flex-auto items-start">
             <Image
               src={activeImage}
               alt="Active Product"
@@ -105,7 +105,7 @@ const ProductLayout: React.FC<ProductLayoutProps> = ({ productId }) => {
         </div>
 
         {/* Description Section */}
-        <div className="col-span-12 md:col-span-4 mx-4 md:mx-0">
+        <div className="col-span-12 md:col-span-5 mx-4 md:mx-0">
           <h2 className="text-center md:text-left text-2xl font-semibold mb-4 font-cardo">
             {product.name}
           </h2>

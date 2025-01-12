@@ -26,9 +26,19 @@ export default function PrimaryButton({
     else return "bg-white text-black outline border-black";
   });
 
+  const [disabledStyle] = useState(() => {
+    return buttonType === ButtonType.Outlined
+      ? "bg-white text-gray-400 border-gray-200 outline cursor-not-allowed"
+      : "opacity-50 cursor-not-allowed";
+  });
+
   return (
     <button
-      className={`px-6 py-3 ${style} rounded-full hover:bg-main_brown hover:text-white transition ${className}`}
+      className={`px-6 py-3 rounded-full transition ${className} ${
+        props.disabled
+          ? disabledStyle
+          : style + " hover:bg-main_brown hover:text-white"
+      }`}
       {...props}
     >
       {children}
