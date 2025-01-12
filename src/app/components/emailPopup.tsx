@@ -77,11 +77,7 @@ const EmailPopup = () => {
                 {status === "error" && (
                   <p className="text-red-500 font-cardo">{message}</p>
                 )}
-                <PrimaryButton
-                  type="submit"
-                  buttonType={ButtonType.Secondary}
-                  onClick={handleClose}
-                >
+                <PrimaryButton type="submit" buttonType={ButtonType.Secondary}>
                   {status === "sending" ? <Spinner /> : "Unlock Access"}
                 </PrimaryButton>
               </form>
