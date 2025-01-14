@@ -14,8 +14,8 @@ const EmailPopup = () => {
   const { status, message, handleSubmit } = useMailchimp();
 
   useEffect(() => {
-    // const isPopupShown = localStorage.getItem("popupShown");
-    const isPopupShown = false;
+    const isPopupShown = localStorage.getItem("popupShown");
+    // const isPopupShown = false;
     if (!isPopupShown) {
       const timer = setTimeout(() => {
         setIsPopupVisible(true);
