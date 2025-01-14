@@ -8,9 +8,9 @@ import PrimaryButton, { ButtonType } from "../buttons/primaryButton";
 import QuantitySelector from "../inputs/quantityControl";
 import { formatCurrency } from "@/utils/currencyFormatter";
 
-interface ProductLayoutProps {
-  productId: string;
-}
+type ProductLayoutProps = {
+  params: { productId: string };
+};
 
 const Thumbnails = ({
   images,
@@ -39,11 +39,13 @@ const Thumbnails = ({
   );
 };
 
-const ProductLayout: React.FC<ProductLayoutProps> = ({ productId }) => {
+const ProductLayout: React.FC<ProductLayoutProps> = ({ params }) => {
   const [activeImage, setActiveImage] = useState(product1);
   const [quantity, setQuantity] = useState(1);
   const [totalPrice, setTotalPrice] = useState(0);
   const [isZooming, setIsZooming] = useState(false);
+  const [productId, setProductId] = useState("");
+
   const product = {
     id: "product01",
     name: "Katie Crystal Square Decanter",
@@ -53,6 +55,11 @@ const ProductLayout: React.FC<ProductLayoutProps> = ({ productId }) => {
     currency: "GBP" as const,
     thumbnails: [product1, product2, product3, product4],
   };
+
+  useEffect(() => {
+    // Directly set the productId from params
+    setProductId(params.productId);
+  }, [params.productId]);
 
   console.log("PRODUCT ID: " + productId);
 
@@ -171,7 +178,7 @@ const ProductLayout: React.FC<ProductLayoutProps> = ({ productId }) => {
             {/* Add to Cart Button */}
             <PrimaryButton
               type="submit"
-              className="w-full md:w-auto mt-2 md:mt-0 mx-0 text-lg"
+              className="w-full md:w-auto mt-2 md:mt-0 mx-0 text-md"
               buttonType={ButtonType.Secondary}
             >
               Add To Cart {formatCurrency(totalPrice, product.currency)}

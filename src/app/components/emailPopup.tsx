@@ -14,8 +14,8 @@ const EmailPopup = () => {
   const { status, message, handleSubmit } = useMailchimp();
 
   useEffect(() => {
-    const isPopupShown = localStorage.getItem("popupShown");
-    // const isPopupShown = false;
+    // const isPopupShown = localStorage.getItem("popupShown");
+    const isPopupShown = false;
     if (!isPopupShown) {
       const timer = setTimeout(() => {
         setIsPopupVisible(true);
@@ -24,6 +24,17 @@ const EmailPopup = () => {
       return () => clearTimeout(timer);
     }
   }, []);
+
+  useEffect(() => {
+    if (isPopupVisible) {
+      document.body.classList.add("no-scroll");
+    } else {
+      document.body.classList.remove("no-scroll");
+    }
+
+    // Cleanup on unmount
+    return () => document.body.classList.remove("no-scroll");
+  }, [isPopupVisible]);
 
   const handleClose = () => {
     setIsPopupVisible(false);
