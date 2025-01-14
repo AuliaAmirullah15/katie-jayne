@@ -38,7 +38,7 @@ export default function PrimaryButton({
         props.disabled
           ? disabledStyle
           : style +
-            " hover:bg-main_brown hover:text-whit hover:border-0 hover:text-white"
+            " hover:bg-main_brown hover:border-2 hover:border-main_brown hover:text-white"
       }`}
       {...props}
     >

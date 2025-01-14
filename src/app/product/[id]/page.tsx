@@ -3,26 +3,27 @@ import Banner from "@/app/components/banner";
 import Footer from "@/app/components/footer";
 import FooterBanner from "@/app/components/footerBanner";
 import Header from "@/app/components/header";
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import ProductLayout from "@/app/components/product/productLayout";
 
-interface ProductPageProps {
-  params: { id: string };
-}
+type ProductPageProps = {
+  params: { productId: string };
+};
 
 const ProductPage: React.FC<ProductPageProps> = ({ params }) => {
-  const { id } = params;
+  const [productId, setProductId] = useState("");
 
   useEffect(() => {
-    console.log("Product ID:", id);
-  }, [id]);
+    // Directly set the productId from params
+    setProductId(params.productId);
+  }, [params.productId]);
 
   return (
     <>
       <Banner bannerText="Complimentary shipping on orders of £100 or more. Shop now" />
       <Header />
 
-      <ProductLayout productId={id} />
+      <ProductLayout params={{ productId }} />
 
       <FooterBanner />
       <Footer />

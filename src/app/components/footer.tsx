@@ -29,7 +29,7 @@ export default function Footer() {
       <Image src={logo2} alt="Katie Jayne" className="w-6 md:w-auto mb-6" />
       <FooterContent />
       <div className="my-6">
-        &copy; 2024, <span className="underline">Katie Jayne Ltd</span>
+        &copy; 2025, <span className="underline">Katie Jayne Ltd</span>
       </div>
     </div>
   );

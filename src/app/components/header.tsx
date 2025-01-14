@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import Image from "next/image";
 import logo from "@/assets/images/svg/logo.svg";
 import magnifyingGlass from "@/assets/images/svg/magnifying_glass.svg";
@@ -32,6 +33,18 @@ const ActionIcon = ({ src, alt, badge }: IconProps) => (
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const toggleMenu = () => setMenuOpen((prev) => !prev);
+  const router = useRouter();
+
+  useEffect(() => {
+    if (menuOpen) {
+      document.body.classList.add("no-scroll");
+    } else {
+      document.body.classList.remove("no-scroll");
+    }
+
+    // Cleanup on unmount
+    return () => document.body.classList.remove("no-scroll");
+  }, [menuOpen]);
 
   const ICONS: IconProps[] = [
     { src: magnifyingGlass, alt: "Search" },
@@ -39,12 +52,23 @@ export default function Header() {
     { src: bag, alt: "Checkout", badge: "2" },
   ];
 
+  const handleLogoClick = () => {
+    if (router) {
+      router.push("/"); // This ensures the click works correctly
+    }
+  };
+
   return (
     <header className="bg-white shadow sticky top-[35px] z-40">
       <div className="mx-6 md:mx-12 flex items-center justify-between py-2">
         {/* Logo and Navigation */}
         <div className="flex space-x-8 justify-between">
-          <Image src={logo} alt="Katie Jayne" className="w-24 md:w-auto" />
+          <Image
+            src={logo}
+            alt="Katie Jayne"
+            className="w-24 md:w-auto cursor-pointer"
+            onClick={handleLogoClick}
+          />
 
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex">
@@ -71,7 +95,7 @@ export default function Header() {
         </div>
       </div>
 
-      {/* Mobile Menu */}
+      {/* Mobile Menu Navbar */}
       <div
         className={`fixed top-0 left-0 w-full h-full bg-white z-50 flex flex-col items-center justify-center transition-all duration-500 ease-in-out ${
           menuOpen ? "transform translate-x-0" : "transform -translate-x-full"
