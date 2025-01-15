@@ -1,14 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useReducer, useState } from "react";
 import Image, { StaticImageData } from "next/image";
 import product1 from "@/assets/images/jpg/product1.jpg";
 import product2 from "@/assets/images/jpg/product2.jpg";
 import product3 from "@/assets/images/jpg/product3.jpg";
 import product4 from "@/assets/images/jpg/product4.jpg";
 import PrimaryButton, { ButtonType } from "../buttons/primaryButton";
-import QuantitySelector from "../inputs/quantityControl";
+import QuantitySelector from "../inputs/quantitySelector";
 import { formatCurrency } from "@/utils/currencyFormatter";
 import Accordion from "../accordion/accordion";
 import FavoriteButton from "../buttons/favoriteButton";
+import quantityReducer from "@/app/reducers/quantityReducer";
 
 type ProductLayoutProps = {
   params: { productId: string };
@@ -66,7 +67,7 @@ const accordionContents = [
 
 const ProductLayout: React.FC<ProductLayoutProps> = ({ params }) => {
   const [activeImage, setActiveImage] = useState(product1);
-  const [quantity, setQuantity] = useState(1);
+  const [quantity, dispatch] = useReducer(quantityReducer, 1);
   const [totalPrice, setTotalPrice] = useState(0);
   const [isZooming, setIsZooming] = useState(false);
   const [productId, setProductId] = useState("");
@@ -196,7 +197,7 @@ const ProductLayout: React.FC<ProductLayoutProps> = ({ params }) => {
             {/* Quantity Selector */}
             <QuantitySelector
               quantity={quantity}
-              setQuantity={setQuantity}
+              dispatch={dispatch}
               className="w-full md:w-auto justify-center"
             />
 
