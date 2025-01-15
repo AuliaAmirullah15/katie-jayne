@@ -8,6 +8,7 @@ import PrimaryButton, { ButtonType } from "../buttons/primaryButton";
 import QuantitySelector from "../inputs/quantityControl";
 import { formatCurrency } from "@/utils/currencyFormatter";
 import Accordion from "../accordion/accordion";
+import FavoriteButton from "../buttons/favoriteButton";
 
 type ProductLayoutProps = {
   params: { productId: string };
@@ -200,13 +201,22 @@ const ProductLayout: React.FC<ProductLayoutProps> = ({ params }) => {
             />
 
             {/* Add to Cart Button */}
-            <PrimaryButton
-              type="submit"
-              className="w-full md:w-auto mt-2 md:mt-0 mx-0 text-md"
-              buttonType={ButtonType.Secondary}
-            >
-              Add To Cart {formatCurrency(totalPrice, product.currency)}
-            </PrimaryButton>
+            <div className="flex flex-row-reverse md:flex-row space-x-reverse md:space-x-2 space-x-2 w-full md:w-auto">
+              <PrimaryButton
+                type="button"
+                className="flex-0"
+                buttonType={ButtonType.Outlined}
+              >
+                <FavoriteButton />
+              </PrimaryButton>
+              <PrimaryButton
+                type="submit"
+                className="w-full md:w-auto md:mt-0 mx-0 text-md flex-auto"
+                buttonType={ButtonType.Secondary}
+              >
+                Add To Cart {formatCurrency(totalPrice, product.currency)}
+              </PrimaryButton>
+            </div>
           </div>
 
           <div className="mt-4">
