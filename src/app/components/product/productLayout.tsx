@@ -7,7 +7,7 @@ import product4 from "@/assets/images/jpg/product4.jpg";
 import PrimaryButton, { ButtonType } from "../buttons/primaryButton";
 import QuantitySelector from "../inputs/quantityControl";
 import { formatCurrency } from "@/utils/currencyFormatter";
-import { FaChevronDown } from "react-icons/fa";
+import Accordion from "../accordion/accordion";
 
 type ProductLayoutProps = {
   params: { productId: string };
@@ -40,11 +40,6 @@ const Thumbnails = ({
   );
 };
 
-interface contentsProps {
-  title: string;
-  description: string;
-}
-
 const accordionContents = [
   {
     title: "Check In-Store Availability",
@@ -67,55 +62,6 @@ const accordionContents = [
       "We offer reliable delivery straight to your doorstep, securely packaged to arrive in perfect condition. Should you need to make a return, our straightforward process ensures a hassle-free experience. Feel free to reach out to our customer care team for any assistance.",
   },
 ];
-
-const Accordion = ({ contents }: { contents: Array<contentsProps> }) => {
-  const [openSections, setOpenSections] = useState<boolean[]>([
-    false,
-    false,
-    false,
-    false,
-  ]);
-
-  const toggleSection = (index: number) => {
-    setOpenSections((prev) =>
-      prev.map((isOpen, idx) => (idx === index ? !isOpen : isOpen))
-    );
-  };
-
-  return (
-    <>
-      {contents.map((content: contentsProps, index: number) => (
-        <div key={index} className="border-t border-b py-4">
-          <div
-            onClick={() => toggleSection(index)}
-            className="flex justify-between items-center cursor-pointer"
-          >
-            <h3 className="text-md md:text-lg font-semibold">
-              {content.title}
-            </h3>
-            <span className="text-md md:text-lg font-semibold">
-              {openSections[index] ? (
-                <FaChevronDown className="w-6 h-6 text-gray-500 transform rotate-180 transition-transform duration-300" />
-              ) : (
-                <FaChevronDown className="w-6 h-6 text-gray-500 transform rotate-0 transition-transform duration-300" />
-              )}
-            </span>
-          </div>
-
-          <div
-            className={`overflow-hidden transition-all ease-in-out duration-500 ${
-              openSections[index] ? "h-auto" : "h-0"
-            }`}
-          >
-            <div className="mt-6 text-gray-600">
-              <p>{content.description}</p>
-            </div>
-          </div>
-        </div>
-      ))}
-    </>
-  );
-};
 
 const ProductLayout: React.FC<ProductLayoutProps> = ({ params }) => {
   const [activeImage, setActiveImage] = useState(product1);
