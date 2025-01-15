@@ -1,4 +1,4 @@
-type Action = { type: "INCREMENT" } | { type: "DECREMENT" };
+export type Action = { type: "INCREMENT" } | { type: "DECREMENT" };
 
 export default function quantityReducer(state: number, action: Action): number {
   switch (action.type) {
