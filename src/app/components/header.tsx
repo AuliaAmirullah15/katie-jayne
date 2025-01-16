@@ -7,6 +7,8 @@ import logo from "@/assets/images/svg/logo.svg";
 import magnifyingGlass from "@/assets/images/svg/magnifying_glass.svg";
 import heart from "@/assets/images/svg/heart.svg";
 import bag from "@/assets/images/svg/bag.svg";
+import { useSelector } from "react-redux";
+import { RootState } from "@/stores";
 
 const MENU_ITEMS = ["Collections", "New Arrivals", "Sales"];
 
@@ -33,6 +35,7 @@ const ActionIcon = ({ src, alt, badge }: IconProps) => (
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const toggleMenu = () => setMenuOpen((prev) => !prev);
+  const favorites = useSelector((state: RootState) => state.favorites);
   const router = useRouter();
 
   useEffect(() => {
@@ -48,7 +51,7 @@ export default function Header() {
 
   const ICONS: IconProps[] = [
     { src: magnifyingGlass, alt: "Search" },
-    { src: heart, alt: "Favorites", badge: "0" },
+    { src: heart, alt: "Favorites", badge: favorites.length.toString() },
     { src: bag, alt: "Checkout", badge: "2" },
   ];
 

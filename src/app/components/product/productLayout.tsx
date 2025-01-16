@@ -202,13 +202,7 @@ const ProductLayout: React.FC<ProductLayoutProps> = ({ params }) => {
 
             {/* Add to Cart Button */}
             <div className="flex flex-row-reverse md:flex-row space-x-reverse md:space-x-2 space-x-2 w-full md:w-auto">
-              <PrimaryButton
-                type="button"
-                className="flex-0"
-                buttonType={ButtonType.Outlined}
-              >
-                <FavoriteButton />
-              </PrimaryButton>
+              <FavoriteButton productId={product.id} />
               <PrimaryButton
                 type="submit"
                 className="w-full md:w-auto md:mt-0 mx-0 text-md flex-auto"
