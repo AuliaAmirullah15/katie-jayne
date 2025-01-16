@@ -42,29 +42,6 @@ const Thumbnails = ({
   );
 };
 
-const accordionContents = [
-  {
-    title: "Check In-Store Availability",
-    description:
-      "Looking to see the Katie Jayne Katie Crystal Square Decanter up close before you decide? Use our in-store availability checker to find it at a nearby location. It's always a delight to appreciate its fine craftsmanship in person.",
-  },
-  {
-    title: "Product Details",
-    description:
-      "Meticulously crafted from premium crystal, this square decanter combines sophistication and practicality. With its sleek, timeless design and substantial weight, it’s an elegant addition to any drinks cabinet—ideal for serving whisky, brandy, or your favourite spirits.",
-  },
-  {
-    title: "Care Instructions",
-    description:
-      "To ensure your Katie Crystal Square Decanter retains its clarity and brilliance, wash it gently by hand with warm soapy water and dry thoroughly with a soft cloth. Avoid dishwashers or abrasive materials that may dull the surface or compromise its beauty.",
-  },
-  {
-    title: "Delivery & Returns",
-    description:
-      "We offer reliable delivery straight to your doorstep, securely packaged to arrive in perfect condition. Should you need to make a return, our straightforward process ensures a hassle-free experience. Feel free to reach out to our customer care team for any assistance.",
-  },
-];
-
 const ProductLayout: React.FC<ProductLayoutProps> = ({ params }) => {
   const [activeImage, setActiveImage] = useState(product1);
   const [quantity, dispatch] = useReducer(quantityReducer, 1);
@@ -80,6 +57,28 @@ const ProductLayout: React.FC<ProductLayoutProps> = ({ params }) => {
     price: 5,
     currency: "GBP" as const,
     thumbnails: [product1, product2, product3, product4],
+    details: [
+      {
+        title: "Check In-Store Availability",
+        description:
+          "Looking to see the Katie Jayne Katie Crystal Square Decanter up close before you decide? Use our in-store availability checker to find it at a nearby location. It's always a delight to appreciate its fine craftsmanship in person.",
+      },
+      {
+        title: "Product Details",
+        description:
+          "Meticulously crafted from premium crystal, this square decanter combines sophistication and practicality. With its sleek, timeless design and substantial weight, it’s an elegant addition to any drinks cabinet—ideal for serving whisky, brandy, or your favourite spirits.",
+      },
+      {
+        title: "Care Instructions",
+        description:
+          "To ensure your Katie Crystal Square Decanter retains its clarity and brilliance, wash it gently by hand with warm soapy water and dry thoroughly with a soft cloth. Avoid dishwashers or abrasive materials that may dull the surface or compromise its beauty.",
+      },
+      {
+        title: "Delivery & Returns",
+        description:
+          "We offer reliable delivery straight to your doorstep, securely packaged to arrive in perfect condition. Should you need to make a return, our straightforward process ensures a hassle-free experience. Feel free to reach out to our customer care team for any assistance.",
+      },
+    ],
   };
 
   useEffect(() => {
@@ -221,7 +220,7 @@ const ProductLayout: React.FC<ProductLayoutProps> = ({ params }) => {
           </div>
 
           <div className="mt-4">
-            <Accordion contents={accordionContents} />
+            <Accordion contents={product.details} />
           </div>
         </div>
       </div>
