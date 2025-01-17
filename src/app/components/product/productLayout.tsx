@@ -10,6 +10,8 @@ import Accordion from "../accordion/accordion";
 import FavoriteButton from "../buttons/favoriteButton";
 import quantityReducer from "@/app/reducers/quantityReducer";
 import AddToCartButton from "../buttons/addToCartButton";
+import { useSelector } from "react-redux";
+import { RootState } from "@/app/stores";
 
 type ProductLayoutProps = {
   params: { productId: string };
@@ -48,6 +50,7 @@ const ProductLayout: React.FC<ProductLayoutProps> = ({ params }) => {
   const [totalPrice, setTotalPrice] = useState(0);
   const [isZooming, setIsZooming] = useState(false);
   const [productId, setProductId] = useState("");
+  const basketItems = useSelector((state: RootState) => state.basketItems);
 
   const product = {
     id: "product01",
@@ -84,7 +87,13 @@ const ProductLayout: React.FC<ProductLayoutProps> = ({ params }) => {
   useEffect(() => {
     // Directly set the productId from params
     setProductId(params.productId);
-  }, [params.productId]);
+
+    // Find the product in basketItems and update the quantity
+    const basketItem = basketItems.find((item) => item.id === product.id);
+    if (basketItem) {
+      dispatch({ type: "SET_QUANTITY", payload: basketItem.quantity });
+    }
+  }, [params.productId, basketItems, product.id]);
 
   console.log("PRODUCT ID: " + productId);
 

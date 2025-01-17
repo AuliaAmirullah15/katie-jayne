@@ -12,6 +12,7 @@ const loadFromLocalStorage = (): string[] => {
 
 const saveToLocalStorage = (favorites: string[]) => {
   try {
+    // TODO: NEED TO RETAIN THE DATA FROM LOCALSTORAGE WHILE ALSO ADDING THE CURRENT STATE (SEE AddToBasket)
     localStorage.setItem("favorites", JSON.stringify(favorites));
   } catch (e) {
     console.error("Failed to save favorites to localStorage:", e);
