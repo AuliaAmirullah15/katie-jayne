@@ -3,7 +3,6 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 const loadFromLocalStorage = (): string[] => {
   try {
     const storedFavorites = localStorage.getItem("favorites");
-    console.log("DATA: ", storedFavorites);
     return storedFavorites ? JSON.parse(storedFavorites) : [];
   } catch (e) {
     console.error("Failed to load favorites from localStorage:", e);
