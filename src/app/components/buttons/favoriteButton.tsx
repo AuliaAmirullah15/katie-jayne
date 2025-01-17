@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "@/stores";
-import { addFavorite, removeFavorite } from "@/stores/favoritesSlice";
+import { RootState } from "@/app/stores";
+import { addFavorite, removeFavorite } from "@/app/stores/favoritesSlice";
 import PrimaryButton, { ButtonType } from "./primaryButton";
 
 // Font Awesome imports

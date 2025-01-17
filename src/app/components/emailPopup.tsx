@@ -4,7 +4,7 @@ import Image from "next/image";
 import heroMobileUrl from "@/assets/images/jpg/heroMobile.jpg";
 import PrimaryButton, { ButtonType } from "./buttons/primaryButton";
 import EmailInput from "./inputs/emailInput";
-import { useMailchimp } from "@/hooks/useMailChimp";
+import { useMailchimp } from "@/app/hooks/useMailChimp";
 import Spinner from "./spinner/spinner";
 import SuccessSubscription from "./successSubscription";
 

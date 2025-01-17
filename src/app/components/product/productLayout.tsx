@@ -4,12 +4,12 @@ import product1 from "@/assets/images/jpg/product1.jpg";
 import product2 from "@/assets/images/jpg/product2.jpg";
 import product3 from "@/assets/images/jpg/product3.jpg";
 import product4 from "@/assets/images/jpg/product4.jpg";
-import PrimaryButton, { ButtonType } from "../buttons/primaryButton";
 import QuantitySelector from "../inputs/quantitySelector";
-import { formatCurrency } from "@/utils/currencyFormatter";
+import { formatCurrency } from "@/app/utils/currencyFormatter";
 import Accordion from "../accordion/accordion";
 import FavoriteButton from "../buttons/favoriteButton";
 import quantityReducer from "@/app/reducers/quantityReducer";
+import AddToCartButton from "../buttons/addToCartButton";
 
 type ProductLayoutProps = {
   params: { productId: string };
@@ -203,13 +203,18 @@ const ProductLayout: React.FC<ProductLayoutProps> = ({ params }) => {
             {/* Add to Cart Button */}
             <div className="flex flex-row-reverse md:flex-row space-x-reverse md:space-x-2 space-x-2 w-full md:w-auto">
               <FavoriteButton productId={product.id} />
-              <PrimaryButton
-                type="submit"
-                className="w-full md:w-auto md:mt-0 mx-0 text-md flex-auto"
-                buttonType={ButtonType.Secondary}
-              >
-                Add To Cart {formatCurrency(totalPrice, product.currency)}
-              </PrimaryButton>
+              <AddToCartButton
+                product={{
+                  id: product.id,
+                  name: product.name,
+                  description: product.description,
+                  price: product.price,
+                  currency: product.currency,
+                  thumbnails: product.thumbnails,
+                  quantity: quantity,
+                }}
+                totalPrice={totalPrice}
+              />
             </div>
           </div>
 

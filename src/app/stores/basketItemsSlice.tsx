@@ -1,14 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import BasketItem from "../types/basketItem";
 
-interface BasketItem {
-  id: string;
-  name: string;
-  description: string;
-  price: number;
-  currency: string;
-  thumbnails: string[];
-  quantity: number;
-}
 const loadFromLocalStorage = (): BasketItem[] => {
   try {
     const storedBasketItem = localStorage.getItem("basketItem");

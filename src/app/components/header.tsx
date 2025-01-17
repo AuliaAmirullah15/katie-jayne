@@ -8,7 +8,7 @@ import magnifyingGlass from "@/assets/images/svg/magnifying_glass.svg";
 import heart from "@/assets/images/svg/heart.svg";
 import bag from "@/assets/images/svg/bag.svg";
 import { useSelector } from "react-redux";
-import { RootState } from "@/stores";
+import { RootState } from "@/app/stores";
 
 const MENU_ITEMS = ["Collections", "New Arrivals", "Sales"];
 
