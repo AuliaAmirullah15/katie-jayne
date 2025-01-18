@@ -1,9 +1,10 @@
 import React from "react";
 import PrimaryButton, { ButtonType } from "../buttons/primaryButton";
+import { Action } from "@/app/reducers/quantityReducer";
 
 interface QuantitySelectorProps {
   quantity: number;
-  setQuantity: React.Dispatch<React.SetStateAction<number>>;
+  dispatch: React.Dispatch<Action>;
   onIncrement?: () => void;
   onDecrement?: () => void;
   className?: string;
@@ -11,19 +12,19 @@ interface QuantitySelectorProps {
 
 const QuantitySelector: React.FC<QuantitySelectorProps> = ({
   quantity,
-  setQuantity,
+  dispatch,
   onIncrement,
   onDecrement,
   className,
 }) => {
   const defaultIncrement = () => {
     if (onIncrement) onIncrement();
-    else setQuantity((prev) => prev + 1);
+    else dispatch({ type: "INCREMENT" });
   };
 
   const defaultDecrement = () => {
     if (onDecrement) onDecrement();
-    else setQuantity((prev) => (prev > 1 ? prev - 1 : 1));
+    else dispatch({ type: "DECREMENT" });
   };
 
   return (

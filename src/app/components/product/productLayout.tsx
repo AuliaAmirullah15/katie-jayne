@@ -1,12 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useReducer, useState } from "react";
 import Image, { StaticImageData } from "next/image";
 import product1 from "@/assets/images/jpg/product1.jpg";
 import product2 from "@/assets/images/jpg/product2.jpg";
 import product3 from "@/assets/images/jpg/product3.jpg";
 import product4 from "@/assets/images/jpg/product4.jpg";
-import PrimaryButton, { ButtonType } from "../buttons/primaryButton";
-import QuantitySelector from "../inputs/quantityControl";
-import { formatCurrency } from "@/utils/currencyFormatter";
+import QuantitySelector from "../inputs/quantitySelector";
+import { formatCurrency } from "@/app/utils/currencyFormatter";
+import Accordion from "../accordion/accordion";
+import FavoriteButton from "../buttons/favoriteButton";
+import quantityReducer from "@/app/reducers/quantityReducer";
+import AddToCartButton from "../buttons/addToCartButton";
+import { useSelector } from "react-redux";
+import { RootState } from "@/app/stores";
 
 type ProductLayoutProps = {
   params: { productId: string };
@@ -41,10 +46,11 @@ const Thumbnails = ({
 
 const ProductLayout: React.FC<ProductLayoutProps> = ({ params }) => {
   const [activeImage, setActiveImage] = useState(product1);
-  const [quantity, setQuantity] = useState(1);
+  const [quantity, dispatch] = useReducer(quantityReducer, 1);
   const [totalPrice, setTotalPrice] = useState(0);
   const [isZooming, setIsZooming] = useState(false);
   const [productId, setProductId] = useState("");
+  const basketItems = useSelector((state: RootState) => state.basketItems);
 
   const product = {
     id: "product01",
@@ -54,12 +60,40 @@ const ProductLayout: React.FC<ProductLayoutProps> = ({ params }) => {
     price: 5,
     currency: "GBP" as const,
     thumbnails: [product1, product2, product3, product4],
+    details: [
+      {
+        title: "Check In-Store Availability",
+        description:
+          "Looking to see the Katie Jayne Katie Crystal Square Decanter up close before you decide? Use our in-store availability checker to find it at a nearby location. It's always a delight to appreciate its fine craftsmanship in person.",
+      },
+      {
+        title: "Product Details",
+        description:
+          "Meticulously crafted from premium crystal, this square decanter combines sophistication and practicality. With its sleek, timeless design and substantial weight, it’s an elegant addition to any drinks cabinet—ideal for serving whisky, brandy, or your favourite spirits.",
+      },
+      {
+        title: "Care Instructions",
+        description:
+          "To ensure your Katie Crystal Square Decanter retains its clarity and brilliance, wash it gently by hand with warm soapy water and dry thoroughly with a soft cloth. Avoid dishwashers or abrasive materials that may dull the surface or compromise its beauty.",
+      },
+      {
+        title: "Delivery & Returns",
+        description:
+          "We offer reliable delivery straight to your doorstep, securely packaged to arrive in perfect condition. Should you need to make a return, our straightforward process ensures a hassle-free experience. Feel free to reach out to our customer care team for any assistance.",
+      },
+    ],
   };
 
   useEffect(() => {
     // Directly set the productId from params
     setProductId(params.productId);
-  }, [params.productId]);
+
+    // Find the product in basketItems and update the quantity
+    const basketItem = basketItems.find((item) => item.id === product.id);
+    if (basketItem) {
+      dispatch({ type: "SET_QUANTITY", payload: basketItem.quantity });
+    }
+  }, [params.productId, basketItems, product.id]);
 
   console.log("PRODUCT ID: " + productId);
 
@@ -171,18 +205,30 @@ const ProductLayout: React.FC<ProductLayoutProps> = ({ params }) => {
             {/* Quantity Selector */}
             <QuantitySelector
               quantity={quantity}
-              setQuantity={setQuantity}
+              dispatch={dispatch}
               className="w-full md:w-auto justify-center"
             />
 
             {/* Add to Cart Button */}
-            <PrimaryButton
-              type="submit"
-              className="w-full md:w-auto mt-2 md:mt-0 mx-0 text-md"
-              buttonType={ButtonType.Secondary}
-            >
-              Add To Cart {formatCurrency(totalPrice, product.currency)}
-            </PrimaryButton>
+            <div className="flex flex-row-reverse md:flex-row space-x-reverse md:space-x-2 space-x-2 w-full md:w-auto">
+              <FavoriteButton productId={product.id} />
+              <AddToCartButton
+                product={{
+                  id: product.id,
+                  name: product.name,
+                  description: product.description,
+                  price: product.price,
+                  currency: product.currency,
+                  thumbnails: product.thumbnails,
+                  quantity: quantity,
+                }}
+                totalPrice={totalPrice}
+              />
+            </div>
+          </div>
+
+          <div className="mt-4">
+            <Accordion contents={product.details} />
           </div>
         </div>
       </div>

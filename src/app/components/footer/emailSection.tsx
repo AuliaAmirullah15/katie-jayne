@@ -1,7 +1,7 @@
 import { useState } from "react";
 import EmailInput from "../inputs/emailInput";
 import SuccessSubscription from "../successSubscription";
-import { useMailchimp } from "@/hooks/useMailChimp";
+import { useMailchimp } from "@/app/hooks/useMailChimp";
 import PrimaryButton, { ButtonType } from "../buttons/primaryButton";
 import Spinner from "../spinner/spinner";
 
