@@ -6,6 +6,7 @@ import Header from "@/app/components/header";
 import React, { useState, useEffect } from "react";
 import ProductLayout from "@/app/components/product/productLayout";
 import MoreLikeThis from "@/app/components/product/moreLikeThis";
+import RecentlyViewed from "@/app/components/product/recentlyViewed";
 
 type ProductPageProps = {
   params: { productId: string };
@@ -26,6 +27,7 @@ const ProductPage: React.FC<ProductPageProps> = ({ params }) => {
 
       <ProductLayout params={{ productId }} />
       <MoreLikeThis />
+      <RecentlyViewed />
 
       <FooterBanner />
       <Footer />
