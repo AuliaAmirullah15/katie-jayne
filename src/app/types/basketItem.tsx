@@ -1,12 +1,5 @@
-import { Currency } from "@/app/types/currency";
-import { StaticImageData } from "next/image";
+import { Product } from "@/app/types/product";
 
-export default interface BasketItem {
-  id: string;
-  name: string;
-  description: string;
-  price: number;
-  currency: Currency;
-  thumbnails: StaticImageData[];
+export default interface BasketItem extends Product {
   quantity: number;
 }

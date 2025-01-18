@@ -6,24 +6,24 @@ import PrimaryButton, { ButtonType } from "./primaryButton";
 
 // Font Awesome imports
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHeart as SolidHeart } from "@fortawesome/free-solid-svg-icons"; // Filled heart
-import { faHeart as RegularHeart } from "@fortawesome/free-regular-svg-icons"; // Outlined heart
+import { faHeart as SolidHeart } from "@fortawesome/free-solid-svg-icons";
+import { faHeart as RegularHeart } from "@fortawesome/free-regular-svg-icons";
 
 type FavoriteButtonProps = {
-  productId: string;
+  productCode: string;
 };
 
-const FavoriteButton = ({ productId }: FavoriteButtonProps) => {
+const FavoriteButton = ({ productCode }: FavoriteButtonProps) => {
   const dispatch = useDispatch();
   const favorites = useSelector((state: RootState) => state.favorites);
 
-  const isFavorited = favorites.includes(productId);
+  const isFavorited = favorites.includes(productCode);
 
   const toggleFavorite = () => {
     if (isFavorited) {
-      dispatch(removeFavorite(productId));
+      dispatch(removeFavorite(productCode));
     } else {
-      dispatch(addFavorite(productId));
+      dispatch(addFavorite(productCode));
     }
   };
 

@@ -1,15 +1,11 @@
+import { ProductDetails } from "@/app/types/product";
 import React, { JSX, useState } from "react";
 import { FaChevronDown } from "react-icons/fa";
-
-interface contentsProps {
-  title: string;
-  description: string;
-}
 
 export default function Accordion({
   contents,
 }: {
-  contents: Array<contentsProps>;
+  contents: Array<ProductDetails>;
 }): JSX.Element {
   const [openSections, setOpenSections] = useState<boolean[]>([
     false,
@@ -26,7 +22,7 @@ export default function Accordion({
 
   return (
     <>
-      {contents.map((content: contentsProps, index: number) => (
+      {contents.map((content: ProductDetails, index: number) => (
         <div key={index} className="border-t border-b py-4">
           <div
             onClick={() => toggleSection(index)}
