@@ -36,6 +36,7 @@ export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const toggleMenu = () => setMenuOpen((prev) => !prev);
   const favorites = useSelector((state: RootState) => state.favorites);
+  const basketItems = useSelector((state: RootState) => state.basketItems);
   const router = useRouter();
 
   useEffect(() => {
@@ -52,7 +53,7 @@ export default function Header() {
   const ICONS: IconProps[] = [
     { src: magnifyingGlass, alt: "Search" },
     { src: heart, alt: "Favorites", badge: favorites.length.toString() },
-    { src: bag, alt: "Checkout", badge: "2" },
+    { src: bag, alt: "Checkout", badge: basketItems.length.toString() },
   ];
 
   const handleLogoClick = () => {
