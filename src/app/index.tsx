@@ -1,11 +1,11 @@
-import Banner from "@/app/components/banner";
-import EmailPopup from "@/app/components/emailPopup";
-import Footer from "@/app/components/footer";
-import FooterBanner from "@/app/components/footerBanner";
-import Header from "@/app/components/header";
-import Hero from "@/app/components/hero";
-import ShopBanner from "@/app/components/shopBanner";
-import Trending from "@/app/components/trending";
+import Banner from "@/app/components/header/banner";
+import EmailPopup from "@/app/components/email/emailPopup";
+import Footer from "@/app/components/footer/footer";
+import FooterBanner from "@/app/components/footer/footerBanner";
+import Header from "@/app/components/header/header";
+import Hero from "@/app/components/index/hero";
+import ShopBanner from "@/app/components/index/shopBanner";
+import Trending from "@/app/components/index/trending";
 
 const IndexPage: React.FC = () => {
   return (

@@ -1,8 +1,8 @@
 "use client";
 import Image from "next/image";
 import logo2 from "@/assets/images/svg/logo2.svg";
-import LinkSection from "./footer/linkSection";
-import EmailSection from "./footer/emailSection";
+import LinkSection from "./linkSection";
+import EmailSection from "./emailSection";
 import { linkItems } from "@/data/footerLinks";
 
 const FooterContent = () => {

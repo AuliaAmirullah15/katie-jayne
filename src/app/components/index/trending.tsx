@@ -1,5 +1,5 @@
 "use client";
-import ProductSwiper from "./product/productSwiper";
+import ProductSwiper from "../product/productSwiper";
 import { products } from "@/data/products";
 
 const Trending = () => {

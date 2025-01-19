@@ -1,8 +1,8 @@
 "use client";
-import Banner from "@/app/components/banner";
-import Footer from "@/app/components/footer";
-import FooterBanner from "@/app/components/footerBanner";
-import Header from "@/app/components/header";
+import Banner from "@/app/components/header/banner";
+import Footer from "@/app/components/footer/footer";
+import FooterBanner from "@/app/components/footer/footerBanner";
+import Header from "@/app/components/header/header";
 import React from "react";
 import ProductLayout from "@/app/components/product/productLayout";
 import MoreLikeThis from "@/app/components/product/moreLikeThis";

@@ -1,7 +1,7 @@
 "use client";
 import banner1 from "@/assets/images/jpg/banner1.jpg";
 import banner2 from "@/assets/images/jpg/banner2.jpg";
-import PrimaryButton, { ButtonType } from "./buttons/primaryButton";
+import PrimaryButton, { ButtonType } from "../buttons/primaryButton";
 import { useState, useEffect } from "react";
 
 export default function ShopBanner() {

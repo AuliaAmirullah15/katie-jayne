@@ -4,7 +4,6 @@ import BasketItem from "../types/basketItem";
 const loadFromLocalStorage = (): BasketItem[] => {
   try {
     const storedBasketItems = localStorage.getItem("basketItem");
-    console.log("DATA STORAGE: " + storedBasketItems);
     return storedBasketItems ? JSON.parse(storedBasketItems) : [];
   } catch (e) {
     console.error("Failed to load basket items from local storage: ", e);

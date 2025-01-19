@@ -41,7 +41,7 @@ const Thumbnails = ({
 
 const ProductLayout: React.FC<ProductPageProps> = ({ params }) => {
   const [productCode, setProductCode] = useState("");
-  const [activeImage, setActiveImage] = useState(defaultProduct.image);
+  const [activeImage, setActiveImage] = useState(defaultProduct.thumbnails[0]);
   const [quantity, dispatch] = useReducer(quantityReducer, 1);
   const [totalPrice, setTotalPrice] = useState(0);
   const [product, setProduct] = useState<Product>(defaultProduct);
@@ -60,6 +60,10 @@ const ProductLayout: React.FC<ProductPageProps> = ({ params }) => {
 
         const product = products.find((product) => product.code === param.code);
         setProduct(product as Product);
+
+        setActiveImage(
+          product?.thumbnails?.[0] ?? defaultProduct.thumbnails[0]
+        );
       }
     });
 
