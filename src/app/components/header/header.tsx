@@ -9,6 +9,7 @@ import heart from "@/assets/images/svg/heart.svg";
 import bag from "@/assets/images/svg/bag.svg";
 import { useSelector } from "react-redux";
 import { RootState } from "@/app/stores";
+import Overlay from "../layouts/overlay";
 
 const MENU_ITEMS = ["Collections", "New Arrivals", "Sales"];
 
@@ -100,21 +101,8 @@ export default function Header() {
       </div>
 
       {/* Mobile Menu Navbar */}
-      <div
-        className={`fixed top-0 left-0 w-full h-full bg-white z-50 flex flex-col items-center justify-center transition-all duration-500 ease-in-out ${
-          menuOpen ? "transform translate-x-0" : "transform -translate-x-full"
-        }`}
-      >
+      <Overlay isVisible={menuOpen} onClose={() => setMenuOpen(false)}>
         <nav className="space-y-6 text-gray-800 text-xl">
-          {/* Close Button */}
-          <div
-            className="absolute top-4 right-6 text-2xl cursor-pointer"
-            onClick={() => setMenuOpen(false)}
-          >
-            &times;
-          </div>
-
-          {/* Menu Items */}
           <ul className="flex flex-col items-center space-y-6">
             {MENU_ITEMS.map((item) => (
               <li key={item} className="cursor-pointer hover:text-main_brown">
@@ -123,7 +111,7 @@ export default function Header() {
             ))}
           </ul>
         </nav>
-      </div>
+      </Overlay>
     </header>
   );
 }

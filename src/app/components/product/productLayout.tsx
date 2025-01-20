@@ -11,6 +11,7 @@ import { RootState } from "@/app/stores";
 import { defaultProduct, products } from "@/data/products";
 import { Product } from "@/app/types/product";
 import { ProductPageProps } from "@/app/types/componentProps";
+import Overlay from "../layouts/overlay";
 
 const Thumbnails = ({
   images,
@@ -48,6 +49,7 @@ const ProductLayout: React.FC<ProductPageProps> = ({ params }) => {
 
   const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
   const [isZooming, setIsZooming] = useState(false);
+  const [isOverlayVisible, setOverlayVisible] = useState(false);
 
   const basketItems = useSelector((state: RootState) => state.basketItems);
 
@@ -176,6 +178,7 @@ const ProductLayout: React.FC<ProductPageProps> = ({ params }) => {
                   quantity: quantity,
                 }}
                 totalPrice={totalPrice}
+                onAddToCart={() => setOverlayVisible(true)}
               />
             </div>
           </div>
@@ -184,6 +187,16 @@ const ProductLayout: React.FC<ProductPageProps> = ({ params }) => {
             <Accordion contents={product.details} />
           </div>
         </div>
+      </div>
+
+      <div>
+        <button onClick={() => setOverlayVisible(true)}>Open Overlay</button>
+        <Overlay
+          isVisible={isOverlayVisible}
+          onClose={() => setOverlayVisible(false)}
+        >
+          <p>CONTENT...</p>
+        </Overlay>
       </div>
     </div>
   );

@@ -8,12 +8,17 @@ import { addToBasket } from "@/app/stores/basketItemsSlice";
 export default function AddToCartButton({
   product,
   totalPrice,
+  onAddToCart,
 }: {
   product: BasketItem;
   totalPrice: number;
+  onAddToCart: () => void;
 }): JSX.Element {
   const dispatch = useDispatch();
-  const addToCart = () => dispatch(addToBasket(product));
+  const addToCart = () => {
+    dispatch(addToBasket(product));
+    onAddToCart();
+  };
 
   return (
     <PrimaryButton
