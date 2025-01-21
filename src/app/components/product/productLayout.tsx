@@ -195,7 +195,8 @@ const ProductLayout: React.FC<ProductPageProps> = ({ params }) => {
           isVisible={isOverlayVisible}
           onClose={() => setOverlayVisible(false)}
         >
-          <p>CONTENT...</p>
+          <h2 className="text-xl m-6">Shopping Bag</h2>
+          <hr className="w-full border-t border-gray-300"></hr>
         </Overlay>
       </div>
     </div>

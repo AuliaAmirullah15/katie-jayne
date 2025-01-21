@@ -101,7 +101,11 @@ export default function Header() {
       </div>
 
       {/* Mobile Menu Navbar */}
-      <Overlay isVisible={menuOpen} onClose={() => setMenuOpen(false)}>
+      <Overlay
+        isVisible={menuOpen}
+        onClose={() => setMenuOpen(false)}
+        className="items-center justify-center"
+      >
         <nav className="space-y-6 text-gray-800 text-xl">
           <ul className="flex flex-col items-center space-y-6">
             {MENU_ITEMS.map((item) => (
