@@ -22,8 +22,10 @@ const ShoppingBag: React.FC<ShoppingBagProps> = ({
 
   return (
     <div
-      className={`fixed inset-0 z-50 bg-black bg-opacity-50 transition-opacity duration-500 ${
-        isOverlayVisible ? "opacity-100 visible" : "opacity-0 invisible"
+      className={`fixed inset-0 z-50 bg-black bg-opacity-50 transition-opacity duration-700 ${
+        isOverlayVisible
+          ? "opacity-100 pointer-events-auto"
+          : "opacity-0 pointer-events-none"
       }`}
     >
       <div
