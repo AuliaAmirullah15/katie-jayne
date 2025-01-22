@@ -11,7 +11,9 @@ import { RootState } from "@/app/stores";
 import { defaultProduct, products } from "@/data/products";
 import { Product } from "@/app/types/product";
 import { ProductPageProps } from "@/app/types/componentProps";
-import Overlay from "../layouts/overlay";
+import { useDispatch } from "react-redux";
+import { removeFromBasket } from "@/app/stores/basketItemsSlice";
+import OverlayCloseButton from "../buttons/overlayCloseButton";
 
 const Thumbnails = ({
   images,
@@ -51,6 +53,8 @@ const ProductLayout: React.FC<ProductPageProps> = ({ params }) => {
   const [isZooming, setIsZooming] = useState(false);
   const [isOverlayVisible, setOverlayVisible] = useState(false);
 
+  const basketDispatch = useDispatch();
+
   const basketItems = useSelector((state: RootState) => state.basketItems);
 
   useEffect(() => {
@@ -71,7 +75,6 @@ const ProductLayout: React.FC<ProductPageProps> = ({ params }) => {
 
     // LOCALSTORAGE QUANTITY SETTER
     const basketItem = basketItems.find((item) => item.code === productCode);
-    // console.log("BASKETITEM: ", basketItem, productCode);
     if (basketItem) {
       dispatch({ type: "SET_QUANTITY", payload: basketItem.quantity });
     }
@@ -189,31 +192,54 @@ const ProductLayout: React.FC<ProductPageProps> = ({ params }) => {
         </div>
       </div>
 
+      {/* Basket Item List Added Popup */}
       <div>
-        <button onClick={() => setOverlayVisible(true)}>Open Overlay</button>
-        <Overlay
-          isVisible={isOverlayVisible}
-          onClose={() => setOverlayVisible(false)}
+        <div
+          className={`fixed top-0 h-full bg-white z-50 flex flex-col transition-transform duration-500 ease-in-out ${
+            isOverlayVisible
+              ? "transform translate-x-0"
+              : "transform translate-x-full"
+          } 
+    w-full md:w-[400px] right-0`}
         >
+          <OverlayCloseButton onClick={() => setOverlayVisible(false)} />
           <h2 className="text-xl m-6">Shopping Bag</h2>
           <hr className="w-full border-t border-gray-300"></hr>
 
-          <div className="grid grid-cols-12 gap-6 m-6">
-            <div className="col-span-4 flex flex-col relative">
-              <Image
-                src={activeImage}
-                alt="Basket Image"
-                className="object-cover w-full max-h-[200px] h-full"
-                layout="fill"
-              />
+          {basketItems.map((basketItem, index) => (
+            <div
+              className="grid grid-cols-12 gap-6 m-6 pb-14 border-b-2 border-gray-300"
+              key={index}
+            >
+              <div className="col-span-4 flex flex-col relative">
+                <Image
+                  src={basketItem.image}
+                  alt={basketItem.name}
+                  className="object-cover w-full max-h-[200px] h-full"
+                  layout="fill"
+                />
+              </div>
+              <div className="col-span-7 flex flex-col">
+                <p className="text-xl mb-2">{basketItem.name}</p>
+                <p className="text-gray-700 text-lg mb-2">
+                  {formatCurrency(basketItem.price, basketItem.currency)}
+                </p>
+                <QuantitySelector
+                  quantity={basketItem.quantity}
+                  dispatch={dispatch}
+                />
+              </div>
+              <div className="col-span-1 flex flex-col">
+                <div
+                  className="text-2xl"
+                  onClick={() => basketDispatch(removeFromBasket(basketItem))}
+                >
+                  &times;
+                </div>
+              </div>
             </div>
-            <div className="col-span-8 flex flex-col">
-              <p className="text-lg">Alpaca Wool Crewneck Jumper</p>
-              <p className="text-gray-700">Beige</p>
-              <p className="text-gray-700">$248</p>
-            </div>
-          </div>
-        </Overlay>
+          ))}
+        </div>
       </div>
     </div>
   );
