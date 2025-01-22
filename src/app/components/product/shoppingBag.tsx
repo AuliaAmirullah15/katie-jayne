@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Image from "next/image";
 import QuantitySelector from "../inputs/quantitySelector";
 import OverlayCloseButton from "../buttons/overlayCloseButton";
@@ -6,6 +6,7 @@ import { formatCurrency } from "@/app/utils/currencyFormatter";
 import { useDispatch } from "react-redux";
 import { removeFromBasket } from "@/app/stores/basketItemsSlice";
 import BasketItem from "@/app/types/basketItem";
+import PrimaryButton, { ButtonType } from "../buttons/primaryButton";
 
 interface ShoppingBagProps {
   isOverlayVisible: boolean;
@@ -19,6 +20,17 @@ const ShoppingBag: React.FC<ShoppingBagProps> = ({
   onClose,
 }) => {
   const basketDispatch = useDispatch();
+
+  useEffect(() => {
+    if (isOverlayVisible) {
+      document.body.classList.add("no-scroll");
+    } else {
+      document.body.classList.remove("no-scroll");
+    }
+
+    // Cleanup on unmount
+    return () => document.body.classList.remove("no-scroll");
+  }, [isOverlayVisible]);
 
   return (
     <div
@@ -39,10 +51,13 @@ const ShoppingBag: React.FC<ShoppingBagProps> = ({
         <OverlayCloseButton onClick={onClose} />
         <h2 className="text-xl m-6">Shopping Bag</h2>
         <hr className="w-full border-t border-gray-300"></hr>
-
         {basketItems.map((basketItem, index) => (
           <div
-            className="grid grid-cols-12 gap-6 m-6 pb-14 border-b-2 border-gray-300"
+            className={`grid grid-cols-12 gap-6 m-6 pb-14 ${
+              index !== basketItems.length - 1
+                ? "border-b-2 border-gray-300"
+                : "border-0"
+            }`}
             key={index}
           >
             <div className="col-span-4 flex flex-col relative">
@@ -78,6 +93,15 @@ const ShoppingBag: React.FC<ShoppingBagProps> = ({
             </div>
           </div>
         ))}
+
+        <div className="absolute bottom-0 left-0 w-full p-4 bg-white border-t border-gray-300">
+          <p className="text-center text-gray-600 mb-2">
+            Shipping & taxes are calculated at checkout
+          </p>
+          <PrimaryButton buttonType={ButtonType.Secondary} className="w-full">
+            Go To Checkout
+          </PrimaryButton>
+        </div>
       </div>
     </div>
   );
