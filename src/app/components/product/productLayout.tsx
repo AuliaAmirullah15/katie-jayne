@@ -197,6 +197,22 @@ const ProductLayout: React.FC<ProductPageProps> = ({ params }) => {
         >
           <h2 className="text-xl m-6">Shopping Bag</h2>
           <hr className="w-full border-t border-gray-300"></hr>
+
+          <div className="grid grid-cols-12 gap-6 m-6">
+            <div className="col-span-4 flex flex-col relative">
+              <Image
+                src={activeImage}
+                alt="Basket Image"
+                className="object-cover w-full max-h-[200px] h-full"
+                layout="fill"
+              />
+            </div>
+            <div className="col-span-8 flex flex-col">
+              <p className="text-lg">Alpaca Wool Crewneck Jumper</p>
+              <p className="text-gray-700">Beige</p>
+              <p className="text-gray-700">$248</p>
+            </div>
+          </div>
         </Overlay>
       </div>
     </div>
