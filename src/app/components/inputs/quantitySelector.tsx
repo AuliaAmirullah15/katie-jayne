@@ -4,7 +4,7 @@ import { Action } from "@/app/reducers/quantityReducer";
 
 interface QuantitySelectorProps {
   quantity: number;
-  dispatch: React.Dispatch<Action>;
+  dispatch?: React.Dispatch<Action>;
   onIncrement?: () => void;
   onDecrement?: () => void;
   className?: string;
@@ -19,12 +19,12 @@ const QuantitySelector: React.FC<QuantitySelectorProps> = ({
 }) => {
   const defaultIncrement = () => {
     if (onIncrement) onIncrement();
-    else dispatch({ type: "INCREMENT" });
+    else if (dispatch) dispatch({ type: "INCREMENT" });
   };
 
   const defaultDecrement = () => {
     if (onDecrement) onDecrement();
-    else dispatch({ type: "DECREMENT" });
+    else if (dispatch) dispatch({ type: "DECREMENT" });
   };
 
   return (

@@ -4,9 +4,10 @@ import QuantitySelector from "../inputs/quantitySelector";
 import OverlayCloseButton from "../buttons/overlayCloseButton";
 import { formatCurrency } from "@/app/utils/currencyFormatter";
 import { useDispatch } from "react-redux";
-import { removeFromBasket } from "@/app/stores/basketItemsSlice";
+import { addToBasket, removeFromBasket } from "@/app/stores/basketItemsSlice";
 import BasketItem from "@/app/types/basketItem";
 import PrimaryButton, { ButtonType } from "../buttons/primaryButton";
+import quantityReducer from "@/app/reducers/quantityReducer";
 
 interface ShoppingBagProps {
   isOverlayVisible: boolean;
@@ -31,6 +32,17 @@ const ShoppingBag: React.FC<ShoppingBagProps> = ({
     // Cleanup on unmount
     return () => document.body.classList.remove("no-scroll");
   }, [isOverlayVisible]);
+
+  const updateBasketItemQuantity = (
+    basketItem: BasketItem,
+    type: "INCREMENT" | "DECREMENT"
+  ) => {
+    const newBasketItem = {
+      ...basketItem,
+      quantity: quantityReducer(basketItem.quantity, { type: type }),
+    };
+    basketDispatch(addToBasket(newBasketItem));
+  };
 
   return (
     <div
@@ -75,11 +87,11 @@ const ShoppingBag: React.FC<ShoppingBagProps> = ({
               </p>
               <QuantitySelector
                 quantity={basketItem.quantity}
-                dispatch={(action) =>
-                  basketDispatch({
-                    ...action,
-                    basketItem,
-                  })
+                onIncrement={() =>
+                  updateBasketItemQuantity(basketItem, "INCREMENT")
+                }
+                onDecrement={() =>
+                  updateBasketItemQuantity(basketItem, "DECREMENT")
                 }
               />
             </div>
