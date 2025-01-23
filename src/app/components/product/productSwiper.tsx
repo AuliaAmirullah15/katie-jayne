@@ -1,4 +1,5 @@
-import Product from "@/app/types/product";
+import { Product } from "@/app/types/product";
+import { useRouter } from "next/navigation";
 import "swiper/css";
 import { Swiper, SwiperSlide } from "swiper/react";
 
@@ -7,21 +8,26 @@ const BasicSwiper = ({ products }: { products: Array<Product> }) => {
     <Swiper
       spaceBetween={20}
       slidesPerView="auto"
-      onSlideChange={() => console.log("slide change")}
-      onSwiper={(swiper) => console.log(swiper)}
+      // onSlideChange={() => console.log("slide change")}
+      // onSwiper={(swiper) => console.log(swiper)}
     >
       {products.map((product) => (
         <SwiperSlide key={product.id}>
-          <TrendingItem product={product} />
+          <ProductSwiperContentLayout product={product} />
         </SwiperSlide>
       ))}
     </Swiper>
   );
 };
 
-const TrendingItem = ({ product }: { product: Product }) => {
+const ProductSwiperContentLayout = ({ product }: { product: Product }) => {
+  const router = useRouter();
+
   return (
-    <div className="relative lg:w-1/5 flex flex-col h-96 sm:h-50 group cursor-pointer">
+    <div
+      className="relative lg:w-1/5 flex flex-col h-96 sm:h-50 group cursor-pointer"
+      onClick={() => router.push(`/product/${product.code}`)}
+    >
       <div
         className="h-full relative bg-cover bg-center"
         style={{ backgroundImage: `url(${product.image.src})` }}
@@ -52,7 +58,7 @@ export default function ProductSwiper({ products }: { products: Product[] }) {
       </div>
       <div className="w-full hidden lg:flex space-x-4 py-8">
         {products.map((product) => (
-          <TrendingItem key={product.id} product={product} />
+          <ProductSwiperContentLayout key={product.id} product={product} />
         ))}
       </div>
     </>

@@ -1,9 +1,5 @@
 import React, { useEffect, useReducer, useState } from "react";
 import Image, { StaticImageData } from "next/image";
-import product1 from "@/assets/images/jpg/product1.jpg";
-import product2 from "@/assets/images/jpg/product2.jpg";
-import product3 from "@/assets/images/jpg/product3.jpg";
-import product4 from "@/assets/images/jpg/product4.jpg";
 import QuantitySelector from "../inputs/quantitySelector";
 import { formatCurrency } from "@/app/utils/currencyFormatter";
 import Accordion from "../accordion/accordion";
@@ -12,10 +8,10 @@ import quantityReducer from "@/app/reducers/quantityReducer";
 import AddToCartButton from "../buttons/addToCartButton";
 import { useSelector } from "react-redux";
 import { RootState } from "@/app/stores";
-
-type ProductLayoutProps = {
-  params: { productId: string };
-};
+import { defaultProduct, products } from "@/data/products";
+import { Product } from "@/app/types/product";
+import { ProductPageProps } from "@/app/types/componentProps";
+import ShoppingBag from "./shoppingBag";
 
 const Thumbnails = ({
   images,
@@ -44,85 +40,48 @@ const Thumbnails = ({
   );
 };
 
-const ProductLayout: React.FC<ProductLayoutProps> = ({ params }) => {
-  const [activeImage, setActiveImage] = useState(product1);
+const ProductLayout: React.FC<ProductPageProps> = ({ params }) => {
+  const [productCode, setProductCode] = useState("");
+  const [activeImage, setActiveImage] = useState(defaultProduct.thumbnails[0]);
   const [quantity, dispatch] = useReducer(quantityReducer, 1);
   const [totalPrice, setTotalPrice] = useState(0);
+  const [product, setProduct] = useState<Product>(defaultProduct);
+
+  const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
   const [isZooming, setIsZooming] = useState(false);
-  const [productId, setProductId] = useState("");
+  const [isOverlayVisible, setOverlayVisible] = useState(false);
+
   const basketItems = useSelector((state: RootState) => state.basketItems);
 
-  const product = {
-    id: "product01",
-    name: "Katie Crystal Square Decanter",
-    description:
-      "Add a touch of class to your drinks cabinet with the Katie Crystal Square Decanter—a charming blend of understated style and practicality that feels right at home in any setting. Made from beautifully clear, high-quality crystal, this decanter is as sturdy as it is elegant, perfect for showing off your favourite tipple, whether it’s whisky, gin, or a splash of sherry.",
-    price: 5,
-    currency: "GBP" as const,
-    thumbnails: [product1, product2, product3, product4],
-    details: [
-      {
-        title: "Check In-Store Availability",
-        description:
-          "Looking to see the Katie Jayne Katie Crystal Square Decanter up close before you decide? Use our in-store availability checker to find it at a nearby location. It's always a delight to appreciate its fine craftsmanship in person.",
-      },
-      {
-        title: "Product Details",
-        description:
-          "Meticulously crafted from premium crystal, this square decanter combines sophistication and practicality. With its sleek, timeless design and substantial weight, it’s an elegant addition to any drinks cabinet—ideal for serving whisky, brandy, or your favourite spirits.",
-      },
-      {
-        title: "Care Instructions",
-        description:
-          "To ensure your Katie Crystal Square Decanter retains its clarity and brilliance, wash it gently by hand with warm soapy water and dry thoroughly with a soft cloth. Avoid dishwashers or abrasive materials that may dull the surface or compromise its beauty.",
-      },
-      {
-        title: "Delivery & Returns",
-        description:
-          "We offer reliable delivery straight to your doorstep, securely packaged to arrive in perfect condition. Should you need to make a return, our straightforward process ensures a hassle-free experience. Feel free to reach out to our customer care team for any assistance.",
-      },
-    ],
-  };
-
   useEffect(() => {
-    // Directly set the productId from params
-    setProductId(params.productId);
+    // DATA GETTER AND SETTER
+    params.then((param) => {
+      if (param) {
+        // WAIT THE PARAMS FROM THE URL, THEN RESET THE PRODUCT
+        setProductCode(param.code);
 
-    // Find the product in basketItems and update the quantity
-    const basketItem = basketItems.find((item) => item.id === product.id);
+        const product = products.find((product) => product.code === param.code);
+        setProduct(product as Product);
+
+        setActiveImage(
+          product?.thumbnails?.[0] ?? defaultProduct.thumbnails[0]
+        );
+      }
+    });
+
+    // LOCALSTORAGE QUANTITY SETTER
+    const basketItem = basketItems.find((item) => item.code === productCode);
     if (basketItem) {
       dispatch({ type: "SET_QUANTITY", payload: basketItem.quantity });
     }
-  }, [params.productId, basketItems, product.id]);
-
-  console.log("PRODUCT ID: " + productId);
-
-  // IF LATER WE USE API ENDPOINT
-  // const [productData, setProductData] = useState<any>(null);
-  // const [activeImage, setActiveImage] = useState<string>("");
-
-  // useEffect(() => {
-  //   // Simulated fetch based on productId
-  //   const fetchProductData = async () => {
-  //     const data = await fetch(`/api/products/${productId}`).then((res) =>
-  //       res.json()
-  //     );
-  //     setProductData(data);
-  //     setActiveImage(data.images[0]); // Set the first image as the default
-  //   };
-
-  //   fetchProductData();
-  // }, [productId]);
-
-  // if (!productData) {
-  //   return <p>Loading...</p>;
-  // }
+  }, [params, basketItems, productCode]);
 
   useEffect(() => {
-    setTotalPrice(quantity * product.price);
-  }, [quantity, product.price]);
-
-  const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
+    // TOTAL PRICE WATCHER AND SETTER
+    if (product) {
+      setTotalPrice(quantity * product.price);
+    }
+  }, [quantity, product]);
 
   // Handle mouse move to change image position during zoom
   const handleMouseMove = (event: React.MouseEvent) => {
@@ -211,18 +170,14 @@ const ProductLayout: React.FC<ProductLayoutProps> = ({ params }) => {
 
             {/* Add to Cart Button */}
             <div className="flex flex-row-reverse md:flex-row space-x-reverse md:space-x-2 space-x-2 w-full md:w-auto">
-              <FavoriteButton productId={product.id} />
+              <FavoriteButton productCode={product.code} />
               <AddToCartButton
                 product={{
-                  id: product.id,
-                  name: product.name,
-                  description: product.description,
-                  price: product.price,
-                  currency: product.currency,
-                  thumbnails: product.thumbnails,
+                  ...product,
                   quantity: quantity,
                 }}
                 totalPrice={totalPrice}
+                onAddToCart={() => setOverlayVisible(true)}
               />
             </div>
           </div>
@@ -232,6 +187,13 @@ const ProductLayout: React.FC<ProductLayoutProps> = ({ params }) => {
           </div>
         </div>
       </div>
+
+      {/* Shopping Bag */}
+      <ShoppingBag
+        isOverlayVisible={isOverlayVisible}
+        basketItems={basketItems}
+        onClose={() => setOverlayVisible(false)}
+      />
     </div>
   );
 };

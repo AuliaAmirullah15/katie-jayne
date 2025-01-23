@@ -2,7 +2,7 @@
 import Image from "next/image";
 import heroUrl from "@/assets/images/jpg/hero.jpg";
 import heroMobileUrl from "@/assets/images/jpg/heroMobile.jpg";
-import PrimaryButton, { ButtonType } from "./buttons/primaryButton";
+import PrimaryButton, { ButtonType } from "../buttons/primaryButton";
 import { useEffect, useState } from "react";
 
 export default function Hero() {
