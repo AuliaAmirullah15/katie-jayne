@@ -8,6 +8,7 @@ import { addToBasket, removeFromBasket } from "@/app/stores/basketItemsSlice";
 import BasketItem from "@/app/types/basketItem";
 import PrimaryButton, { ButtonType } from "../buttons/primaryButton";
 import quantityReducer from "@/app/reducers/quantityReducer";
+import { useRouter } from "next/navigation";
 
 interface ShoppingBagProps {
   isOverlayVisible: boolean;
@@ -20,6 +21,7 @@ const ShoppingBag: React.FC<ShoppingBagProps> = ({
   basketItems,
   onClose,
 }) => {
+  const router = useRouter();
   const basketDispatch = useDispatch();
 
   useEffect(() => {
@@ -113,7 +115,11 @@ const ShoppingBag: React.FC<ShoppingBagProps> = ({
           <p className="text-center text-gray-600 mb-2">
             Shipping & taxes are calculated at checkout
           </p>
-          <PrimaryButton buttonType={ButtonType.Secondary} className="w-full">
+          <PrimaryButton
+            buttonType={ButtonType.Secondary}
+            className="w-full"
+            onClick={() => router.push(`/checkout`)}
+          >
             Go To Checkout
           </PrimaryButton>
         </div>
