@@ -9,6 +9,8 @@ import { addToBasket, removeFromBasket } from "@/app/stores/basketItemsSlice";
 import quantityReducer from "@/app/reducers/quantityReducer";
 import { useDispatch } from "react-redux";
 import { motion, AnimatePresence } from "framer-motion";
+import PrimaryButton, { ButtonType } from "../buttons/primaryButton";
+import { FaChevronDown } from "react-icons/fa";
 
 const ShoppingListItems: React.FC<{
   basketItem: BasketItem;
@@ -73,22 +75,78 @@ const ShoppingListItems: React.FC<{
 };
 
 function Checkout() {
+  const [isPromoCodeOpen, setIsPromoCodeOpen] = useState(false);
+
+  const togglePromoCode = () => {
+    setIsPromoCodeOpen((prevState) => !prevState);
+  };
+
   return (
     <>
-      <h3 className="text-xl font-semibold mb-4">Order Summary</h3>
-      <div className="space-y-2">
-        <div className="flex justify-between">
-          <span>Subtotal</span>
-          <span>$100.00</span>
+      <div className="w-full border-gray-300 border-2 p-4 space-y-3">
+        <div
+          className="flex justify-between items-center cursor-pointer"
+          onClick={togglePromoCode}
+        >
+          <h3 className="text-md md:text-lg">Got a Promo Code?</h3>
+          <span>
+            <FaChevronDown
+              className={`w-6 h-6 text-gray-500 transform transition-transform duration-300 ${
+                isPromoCodeOpen ? "rotate-180" : "rotate-0"
+              }`}
+            />
+          </span>
         </div>
-        <div className="flex justify-between">
-          <span>Bag Total</span>
-          <span>$100.00</span>
+
+        {isPromoCodeOpen && (
+          <div className="mt-4 space-y-3">
+            <div className="flex items-center space-x-2">
+              <input
+                type="text"
+                placeholder="Enter promo code"
+                className="flex-grow h-10 px-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-500"
+              />
+            </div>
+            <PrimaryButton
+              type="submit"
+              className="w-full"
+              buttonType={ButtonType.Secondary}
+            >
+              Apply
+            </PrimaryButton>
+          </div>
+        )}
+      </div>
+
+      <div>
+        <div className="w-full border-gray-300 border-2 p-4">
+          <h3 className="text-lg mb-4 font-semibold">Order Summary</h3>
+          <div className="flex justify-between text-md mb-2">
+            <span>Subtotal</span>
+            <span>$100.00</span>
+          </div>
+          <div className="flex justify-between text-md mb-2">
+            <span>Estimated Shipping</span>
+            <span>Free</span>
+          </div>
+          <div className="flex justify-between text-md">
+            <span>Bag Total</span>
+            <span>$100.00</span>
+          </div>
+          <div className="text-xs text-gray-500 mb-4">(20% VAT included)</div>
+          <div className="text-xs text-gray-700">
+            Shipping & taxes are calculated at checkout.
+          </div>
         </div>
       </div>
-      <button className="w-full bg-yellow-500 text-black py-2 mt-4 rounded hover:bg-yellow-600 transition">
-        Go to Checkout
-      </button>
+
+      <PrimaryButton
+        type="submit"
+        className="w-full"
+        buttonType={ButtonType.Secondary}
+      >
+        Secure Checkout
+      </PrimaryButton>
     </>
   );
 }
@@ -131,7 +189,7 @@ export default function Cart() {
           </AnimatePresence>
         </div>
 
-        <div className="w-1/3 bg-gray-800 text-white p-6 rounded shadow-md">
+        <div className="w-1/3 flex flex-col space-y-4">
           <Checkout />
         </div>
       </div>
