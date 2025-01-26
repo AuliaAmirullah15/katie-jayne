@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import BasketItem from "../types/basketItem";
+import { RootState } from ".";
 
 const loadFromLocalStorage = (): BasketItem[] => {
   try {
@@ -95,6 +96,13 @@ const basketItemsSlice = createSlice({
     },
   },
 });
+
+export const selectBasketSubtotal = (state: RootState) => {
+  return state.basketItems.reduce(
+    (subtotal, item) => subtotal + item.price * item.quantity,
+    0
+  );
+};
 
 export const { addToBasket, removeFromBasket } = basketItemsSlice.actions;
 export default basketItemsSlice.reducer;

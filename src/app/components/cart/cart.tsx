@@ -11,6 +11,7 @@ import { useDispatch } from "react-redux";
 import { motion, AnimatePresence } from "framer-motion";
 import PrimaryButton, { ButtonType } from "../buttons/primaryButton";
 import { FaChevronDown } from "react-icons/fa";
+import { selectBasketSubtotal } from "@/app/stores/basketItemsSlice";
 
 const ShoppingListItems: React.FC<{
   basketItem: BasketItem;
@@ -31,7 +32,7 @@ const ShoppingListItems: React.FC<{
       initial={{ opacity: 0, y: -10 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, scale: 0.9, transition: { duration: 0.3 } }}
-      layout // For animating layout changes
+      layout
       className="flex flex-col p-4 border-gray-300 border-2 space-y-2"
     >
       <div className="flex flex-row">
@@ -74,8 +75,11 @@ const ShoppingListItems: React.FC<{
   );
 };
 
-function Checkout() {
-  const [isPromoCodeOpen, setIsPromoCodeOpen] = useState(false);
+const Checkout: React.FC<{
+  basketItem: BasketItem;
+}> = ({ basketItem }) => {
+  const [isPromoCodeOpen, setIsPromoCodeOpen] = useState(true);
+  const subtotal = useSelector(selectBasketSubtotal);
 
   const togglePromoCode = () => {
     setIsPromoCodeOpen((prevState) => !prevState);
@@ -123,7 +127,7 @@ function Checkout() {
           <h3 className="text-lg mb-4 font-semibold">Order Summary</h3>
           <div className="flex justify-between text-md mb-2">
             <span>Subtotal</span>
-            <span>$100.00</span>
+            <span>{formatCurrency(subtotal, basketItem.currency)}</span>
           </div>
           <div className="flex justify-between text-md mb-2">
             <span>Estimated Shipping</span>
@@ -131,7 +135,7 @@ function Checkout() {
           </div>
           <div className="flex justify-between text-md">
             <span>Bag Total</span>
-            <span>$100.00</span>
+            <span>{formatCurrency(subtotal, basketItem.currency)}</span>
           </div>
           <div className="text-xs text-gray-500 mb-4">(20% VAT included)</div>
           <div className="text-xs text-gray-700">
@@ -149,7 +153,7 @@ function Checkout() {
       </PrimaryButton>
     </>
   );
-}
+};
 
 export default function Cart() {
   const basketDispatch = useDispatch();
@@ -173,10 +177,10 @@ export default function Cart() {
   return (
     <div className="my-6 mx-6 md:mx-14 flex flex-col">
       <h2 className="text-center text-2xl mb-4">Shopping Bag</h2>
-      <div className="flex flex-row space-x-4">
-        <div className="grow w-2/3">
+      <div className="flex flex-col md:flex-row md:space-x-4 space-y-16 md:space-y-0">
+        <div className="grow w-full md:w-2/3">
           <AnimatePresence>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
               {basketItems.map((basketItem) => (
                 <ShoppingListItems
                   key={basketItem.id}
@@ -189,8 +193,18 @@ export default function Cart() {
           </AnimatePresence>
         </div>
 
-        <div className="w-1/3 flex flex-col space-y-4">
-          <Checkout />
+        <div className="w-full md:w-1/3">
+          <AnimatePresence>
+            <motion.div
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.9, transition: { duration: 0.3 } }}
+              layout
+              className="md:sticky md:top-[110px] flex flex-col space-y-4"
+            >
+              <Checkout basketItem={basketItems[0]} />
+            </motion.div>
+          </AnimatePresence>
         </div>
       </div>
     </div>
