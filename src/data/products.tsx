@@ -10,6 +10,7 @@ export const products: Product[] = [
     id: 1,
     code: "KJ001",
     name: "Katie Crystal Cocktail Glasses",
+    subname: "Crsytal Glasses",
     description:
       "Add a touch of class to your drinks cabinet with the Katie Crystal Square Decanter—a charming blend of understated style and practicality that feels right at home in any setting. Made from beautifully clear, high-quality crystal, this decanter is as sturdy as it is elegant, perfect for showing off your favourite tipple, whether it’s whisky, gin, or a splash of sherry.",
     price: 95,
@@ -43,6 +44,7 @@ export const products: Product[] = [
     id: 2,
     code: "KJ002",
     name: "Katie Crystal Square Decanter",
+    subname: "Crsytal Decanter",
     description:
       "The Katie Crystal Square Decanter is a timeless piece of craftsmanship that elevates your home bar. Featuring a robust and stylish design, it is perfect for showcasing and storing your favorite spirits with a touch of elegance.",
     price: 180,
@@ -76,6 +78,7 @@ export const products: Product[] = [
     id: 3,
     code: "KJ003",
     name: "Katie Essentials Glass Tumblers",
+    subname: "Glass Tumblers",
     description:
       "The Katie Essentials Glass Tumblers are versatile and stylish, perfect for serving anything from water to cocktails. Their minimalist design ensures they blend seamlessly with any table setting.",
     price: 50,
@@ -109,6 +112,7 @@ export const products: Product[] = [
     id: 4,
     code: "KJ004",
     name: "Katie Crystal Old Fashioned Tumblers",
+    subname: "Crsytal Tumblers",
     description:
       "Elevate your whiskey or cocktails with the Katie Crystal Old Fashioned Tumblers. Their intricate design and sturdy feel make every sip an experience to remember.",
     price: 98,
@@ -142,6 +146,7 @@ export const products: Product[] = [
     id: 5,
     code: "KJ005",
     name: "Katie Crystal Round Decanter",
+    subname: "Crsytal Decanter",
     description:
       "The Katie Crystal Round Decanter offers a classic shape with modern elegance, making it the perfect centerpiece for your drinks collection.",
     price: 140,
