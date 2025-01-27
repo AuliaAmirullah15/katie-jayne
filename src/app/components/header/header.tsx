@@ -17,6 +17,7 @@ interface IconProps {
   src: string;
   alt: string;
   badge?: string;
+  link?: string;
 }
 
 const MenuItem = ({ children }: { children: React.ReactNode }) => (
@@ -26,12 +27,19 @@ const MenuItem = ({ children }: { children: React.ReactNode }) => (
   </li>
 );
 
-const ActionIcon = ({ src, alt, badge }: IconProps) => (
-  <div className="flex items-center space-x-1">
-    <Image src={src} alt={alt} />
-    {badge && <span className="text-sm md:text-md">{badge}</span>}
-  </div>
-);
+const ActionIcon = ({ src, alt, badge, link }: IconProps) => {
+  const router = useRouter();
+
+  return (
+    <div
+      className="flex items-center space-x-1"
+      onClick={() => router.push(link ?? window.location.pathname)}
+    >
+      <Image src={src} alt={alt} />
+      {badge && <span className="text-sm md:text-md">{badge}</span>}
+    </div>
+  );
+};
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -54,7 +62,12 @@ export default function Header() {
   const ICONS: IconProps[] = [
     { src: magnifyingGlass, alt: "Search" },
     { src: heart, alt: "Favorites", badge: favorites.length.toString() },
-    { src: bag, alt: "Checkout", badge: basketItems.length.toString() },
+    {
+      src: bag,
+      alt: "Checkout",
+      badge: basketItems.length.toString(),
+      link: "/checkout",
+    },
   ];
 
   const handleLogoClick = () => {
@@ -87,8 +100,14 @@ export default function Header() {
 
         {/* Actions */}
         <div className="flex space-x-6 p-4 text-gray-800 items-center">
-          {ICONS.map(({ src, alt, badge }) => (
-            <ActionIcon key={alt} src={src} alt={alt} badge={badge} />
+          {ICONS.map(({ src, alt, badge, link }) => (
+            <ActionIcon
+              key={alt}
+              src={src}
+              alt={alt}
+              badge={badge}
+              link={link ?? window.location.pathname}
+            />
           ))}
 
           {/* Mobile Menu Toggle */}

@@ -12,6 +12,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import PrimaryButton, { ButtonType } from "../buttons/primaryButton";
 import { FaChevronDown } from "react-icons/fa";
 import { selectBasketSubtotal } from "@/app/stores/basketItemsSlice";
+import EmptyCartSVG from "@/app/components/cart/EmptyCartSVG";
 
 const ShoppingListItems: React.FC<{
   basketItem: BasketItem;
@@ -177,36 +178,68 @@ export default function Cart() {
   return (
     <div className="my-6 mx-6 md:mx-14 flex flex-col">
       <h2 className="text-center text-2xl mb-4">Shopping Bag</h2>
-      <div className="flex flex-col md:flex-row md:space-x-4 space-y-16 md:space-y-0">
-        <div className="grow w-full md:w-2/3">
-          <AnimatePresence>
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-              {basketItems.map((basketItem) => (
-                <ShoppingListItems
-                  key={basketItem.id}
-                  basketItem={basketItem}
-                  updateBasketItemQuantity={updateBasketItemQuantity}
-                  removeBasketItem={removeBasketItem}
-                />
-              ))}
-            </div>
-          </AnimatePresence>
-        </div>
 
-        <div className="w-full md:w-1/3">
-          <AnimatePresence>
-            <motion.div
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.9, transition: { duration: 0.3 } }}
-              layout
-              className="md:sticky md:top-[110px] flex flex-col space-y-4"
-            >
-              <Checkout basketItem={basketItems[0]} />
-            </motion.div>
-          </AnimatePresence>
+      {/* Conditional rendering based on basketItems */}
+      {basketItems.length === 0 ? (
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="flex flex-col items-center space-y-6 mt-4"
+        >
+          <EmptyCartSVG className="w-40 h-40 text-main_brown" />
+
+          <p className="text-lg text-gray-700 text-center">
+            Your shopping bag is currently empty. Start exploring our collection
+            and add your favorite items to the cart!
+          </p>
+
+          <PrimaryButton
+            type="button"
+            buttonType={ButtonType.Secondary}
+            className="px-6 py-2"
+            onClick={() => {
+              window.location.href = "/";
+            }}
+          >
+            Start Shopping
+          </PrimaryButton>
+        </motion.div>
+      ) : (
+        <div className="flex flex-col md:flex-row md:space-x-4 space-y-16 md:space-y-0">
+          <div className="grow w-full md:w-2/3">
+            <AnimatePresence>
+              <div
+                className={`grid gap-4 grid-cols-1 ${
+                  basketItems.length === 1 ? "lg:grid-cols-1" : "lg:grid-cols-2"
+                }`}
+              >
+                {basketItems.map((basketItem) => (
+                  <ShoppingListItems
+                    key={basketItem.id}
+                    basketItem={basketItem}
+                    updateBasketItemQuantity={updateBasketItemQuantity}
+                    removeBasketItem={removeBasketItem}
+                  />
+                ))}
+              </div>
+            </AnimatePresence>
+          </div>
+
+          <div className="w-full md:w-1/3">
+            <AnimatePresence>
+              <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.9, transition: { duration: 0.3 } }}
+                layout
+                className="md:sticky md:top-[110px] flex flex-col space-y-4"
+              >
+                <Checkout basketItem={basketItems[0]} />
+              </motion.div>
+            </AnimatePresence>
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }
