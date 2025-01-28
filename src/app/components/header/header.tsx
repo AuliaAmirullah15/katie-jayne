@@ -30,10 +30,16 @@ const MenuItem = ({ children }: { children: React.ReactNode }) => (
 const ActionIcon = ({ src, alt, badge, link }: IconProps) => {
   const router = useRouter();
 
+  const handleClick = () => {
+    if (link) {
+      router.push(link);
+    }
+  };
+
   return (
     <div
-      className="flex items-center space-x-1"
-      onClick={() => router.push(link ?? window.location.pathname)}
+      className="flex items-center space-x-1 cursor-pointer"
+      onClick={handleClick}
     >
       <Image src={src} alt={alt} />
       {badge && <span className="text-sm md:text-md">{badge}</span>}
@@ -106,7 +112,7 @@ export default function Header() {
               src={src}
               alt={alt}
               badge={badge}
-              link={link ?? window.location.pathname}
+              link={link}
             />
           ))}
 

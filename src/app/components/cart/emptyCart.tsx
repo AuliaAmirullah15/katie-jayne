@@ -1,8 +1,11 @@
 import { motion } from "framer-motion";
 import EmptyCartSVG from "./EmptyCartSVG";
 import PrimaryButton, { ButtonType } from "../buttons/primaryButton";
+import { useRouter } from "next/navigation";
 
 export default function EmptyCart() {
+  const router = useRouter();
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 10 }}
@@ -20,9 +23,7 @@ export default function EmptyCart() {
         type="button"
         buttonType={ButtonType.Secondary}
         className="px-6 py-2"
-        onClick={() => {
-          window.location.href = "/";
-        }}
+        onClick={() => router.push("/")}
       >
         Start Shopping
       </PrimaryButton>
