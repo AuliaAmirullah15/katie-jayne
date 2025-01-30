@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import BasketItem from "../types/basketItem";
+import { RootState } from ".";
 
 const loadFromLocalStorage = (): BasketItem[] => {
   try {
@@ -11,7 +12,7 @@ const loadFromLocalStorage = (): BasketItem[] => {
   }
 };
 
-const saveToLocalStorage = (basketItem: BasketItem[]) => {
+const saveToLocalStorage = (basketItems: BasketItem[]) => {
   try {
     // Make Sure we reatin the existing data from the local storage while ading the new basket item from the state (current session)
     const storedBasketItem = localStorage.getItem("basketItem");
@@ -24,7 +25,7 @@ const saveToLocalStorage = (basketItem: BasketItem[]) => {
       // Create a map for existing items for easier lookup
       const basketMap = new Map(parsedBasket.map((item) => [item.id, item]));
 
-      basketItem.forEach((item) => {
+      basketItems.forEach((item) => {
         if (basketMap.has(item.id)) {
           // Update the existing item
           basketMap.set(item.id, { ...basketMap.get(item.id), ...item });
@@ -38,13 +39,31 @@ const saveToLocalStorage = (basketItem: BasketItem[]) => {
       updatedBasket = Array.from(basketMap.values());
     } else {
       // If nothing exists in localStorage, set the provided items directly
-      updatedBasket = basketItem;
+      updatedBasket = basketItems;
     }
 
     // Save updated basket back to localStorage
     localStorage.setItem("basketItem", JSON.stringify(updatedBasket));
   } catch (e) {
     console.error("Failed to save basket items to localStorage: ", e);
+  }
+};
+
+const removeItemFromLocalStorage = (itemId: number) => {
+  try {
+    // Load the current basket from localStorage
+    const storedBasketItem = localStorage.getItem("basketItem");
+    const parsedBasket: BasketItem[] = storedBasketItem
+      ? JSON.parse(storedBasketItem)
+      : [];
+
+    // Filter out the item with the given id
+    const updatedBasket = parsedBasket.filter((item) => item.id !== itemId);
+
+    // Save the updated basket back to localStorage
+    localStorage.setItem("basketItem", JSON.stringify(updatedBasket));
+  } catch (e) {
+    console.error("Failed to remove item from localStorage: ", e);
   }
 };
 
@@ -66,14 +85,24 @@ const basketItemsSlice = createSlice({
       saveToLocalStorage(state);
     },
     removeFromBasket: (state, action: PayloadAction<BasketItem>) => {
-      const updatedBasketItems = state.filter(
-        (basketItem) => basketItem.id !== action.payload.id
+      const index = state.findIndex(
+        (basketItem) => basketItem.id === action.payload.id
       );
-      saveToLocalStorage(updatedBasketItems);
-      return updatedBasketItems;
+
+      if (index > -1) {
+        state.splice(index, 1);
+        removeItemFromLocalStorage(action.payload.id);
+      }
     },
   },
 });
+
+export const selectBasketSubtotal = (state: RootState) => {
+  return state.basketItems.reduce(
+    (subtotal, item) => subtotal + item.price * item.quantity,
+    0
+  );
+};
 
 export const { addToBasket, removeFromBasket } = basketItemsSlice.actions;
 export default basketItemsSlice.reducer;

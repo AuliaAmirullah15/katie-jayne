@@ -20,10 +20,12 @@ export default function PrimaryButton({
 }) {
   const [style] = useState(() => {
     if (buttonType === ButtonType.Primary)
-      return "bg-black text-white md:bg-white md:text-black";
+      return "bg-black text-white md:bg-white md:text-black hover:border-2 hover:border-main_brown";
     else if (buttonType === ButtonType.Secondary) return "bg-black text-white";
-    else if (buttonType === ButtonType.Ternary) return "bg-white text-black";
-    else return "bg-white text-black border-2 border-black";
+    else if (buttonType === ButtonType.Ternary)
+      return "bg-white text-black hover:border-2 hover:border-main_brown";
+    else
+      return "bg-white text-black border-2 border-black hover:border-2 hover:border-main_brown";
   });
 
   const [disabledStyle] = useState(() => {
@@ -37,8 +39,7 @@ export default function PrimaryButton({
       className={`px-6 py-3 rounded-full transition ${className} ${
         props.disabled
           ? disabledStyle
-          : style +
-            " hover:bg-main_brown hover:border-2 hover:border-main_brown hover:text-white"
+          : style + " hover:bg-main_brown hover:text-white"
       }`}
       {...props}
     >
