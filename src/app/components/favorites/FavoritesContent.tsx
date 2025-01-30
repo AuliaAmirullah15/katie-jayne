@@ -5,11 +5,14 @@ import PrimaryButton, { ButtonType } from "../buttons/primaryButton";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { useRouter } from "next/navigation";
+import { useDispatch } from "react-redux";
+import { removeFavorite } from "@/app/stores/favoritesSlice";
 
 const FavoritesContent: React.FC<{ favorites: Product[] }> = ({
   favorites,
 }) => {
   const router = useRouter();
+  const dispatch = useDispatch();
 
   return (
     <div className="grid gap-8 grid-cols-4">
@@ -43,7 +46,7 @@ const FavoritesContent: React.FC<{ favorites: Product[] }> = ({
               type="submit"
               className="w-full md:w-auto md:mt-0 mx-0 text-md flex-auto"
               buttonType={ButtonType.Outlined}
-              //   onClick={removeFromFavorites}
+              onClick={() => dispatch(removeFavorite(favorite))}
             >
               <FontAwesomeIcon icon={faTimes} className="w-4 h-4 mr-1" /> Remove
             </PrimaryButton>
