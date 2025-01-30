@@ -67,7 +67,12 @@ export default function Header() {
 
   const ICONS: IconProps[] = [
     { src: magnifyingGlass, alt: "Search" },
-    { src: heart, alt: "Favorites", badge: favorites.length.toString() },
+    {
+      src: heart,
+      alt: "Favorites",
+      badge: favorites.length.toString(),
+      link: "/favorites",
+    },
     {
       src: bag,
       alt: "Checkout",
