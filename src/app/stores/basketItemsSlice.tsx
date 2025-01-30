@@ -14,7 +14,7 @@ const loadFromLocalStorage = (): BasketItem[] => {
 
 const saveToLocalStorage = (basketItems: BasketItem[]) => {
   try {
-    // Make Sure we reatin the existing data from the local storage while ading the new basket item from the state (current session)
+    // Make Sure we retain the existing data from the local storage while ading the new basket item from the state (current session)
     const storedBasketItem = localStorage.getItem("basketItem");
     const parsedBasket: BasketItem[] = storedBasketItem
       ? JSON.parse(storedBasketItem)

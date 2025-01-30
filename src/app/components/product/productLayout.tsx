@@ -170,7 +170,7 @@ const ProductLayout: React.FC<ProductPageProps> = ({ params }) => {
 
             {/* Add to Cart Button */}
             <div className="flex flex-row-reverse md:flex-row space-x-reverse md:space-x-2 space-x-2 w-full md:w-auto">
-              <FavoriteButton productCode={product.code} />
+              <FavoriteButton product={product} />
               <AddToCartButton
                 product={{
                   ...product,

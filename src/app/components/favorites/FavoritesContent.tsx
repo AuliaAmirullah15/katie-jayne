@@ -1,10 +1,19 @@
-const FavoritesContent: React.FC<{ favorites: string[] }> = ({ favorites }) => {
+// FavoritesContent.tsx
+import { Product } from "@/app/types/product";
+import { AnimatePresence } from "framer-motion";
+import FavoriteItem from "./favoriteItem";
+
+const FavoritesContent: React.FC<{ favorites: Product[] }> = ({
+  favorites,
+}) => {
   return (
-    <div>
-      {favorites.map((favorite, index) => (
-        <p key={index}>Favorite: {favorite}</p>
-      ))}
-    </div>
+    <AnimatePresence>
+      <div className="grid gap-8 grid-cols-4">
+        {favorites.map((favorite) => (
+          <FavoriteItem key={favorite.id} favorite={favorite} />
+        ))}
+      </div>
+    </AnimatePresence>
   );
 };
 
