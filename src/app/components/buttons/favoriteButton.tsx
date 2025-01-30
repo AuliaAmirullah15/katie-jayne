@@ -8,22 +8,23 @@ import PrimaryButton, { ButtonType } from "./primaryButton";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart as SolidHeart } from "@fortawesome/free-solid-svg-icons";
 import { faHeart as RegularHeart } from "@fortawesome/free-regular-svg-icons";
+import { Product } from "@/app/types/product";
 
 type FavoriteButtonProps = {
-  productCode: string;
+  product: Product;
 };
 
-const FavoriteButton = ({ productCode }: FavoriteButtonProps) => {
+const FavoriteButton = ({ product }: FavoriteButtonProps) => {
   const dispatch = useDispatch();
   const favorites = useSelector((state: RootState) => state.favorites);
 
-  const isFavorited = favorites.includes(productCode);
+  const isFavorited = favorites.some((fav) => fav.code === product.code);
 
   const toggleFavorite = () => {
     if (isFavorited) {
-      dispatch(removeFavorite(productCode));
+      dispatch(removeFavorite(product));
     } else {
-      dispatch(addFavorite(productCode));
+      dispatch(addFavorite(product));
     }
   };
 
