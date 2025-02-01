@@ -10,8 +10,7 @@ import bag from "@/assets/images/svg/bag.svg";
 import { useSelector } from "react-redux";
 import { RootState } from "@/app/stores";
 import Overlay from "../layouts/overlay";
-
-const MENU_ITEMS = ["Collections", "New Arrivals", "Sales"];
+import { menuItems, Menu } from "@/data/headerLinks";
 
 interface IconProps {
   src: string;
@@ -20,10 +19,17 @@ interface IconProps {
   link?: string;
 }
 
-const MenuItem = ({ children }: { children: React.ReactNode }) => (
+const MenuItem = ({ menu }: { menu: Menu }) => (
   <li className="group relative hover:text-main_brown cursor-pointer">
-    {children}
+    <span>{menu.label}</span>
     <span className="absolute left-0 bottom-[-6px] w-0 h-[2px] bg-main_brown rounded-full transition-all duration-500 ease-in-out group-hover:w-full"></span>
+
+    {/* Full-Screen Dropdown Menu */}
+    {menu.children && (
+      <div className="fixed top-[84px] left-0 w-screen h-[calc(100vh-84px)] bg-white shadow-lg z-50 flex items-center justify-center opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-opacity duration-300">
+        Testing
+      </div>
+    )}
   </li>
 );
 
@@ -102,8 +108,8 @@ export default function Header() {
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex">
             <ul className="flex space-x-8 text-gray-800 text-sm">
-              {MENU_ITEMS.map((item) => (
-                <MenuItem key={item}>{item}</MenuItem>
+              {menuItems.map((menu, key) => (
+                <MenuItem key={key} menu={menu} />
               ))}
             </ul>
           </nav>
@@ -138,9 +144,9 @@ export default function Header() {
       >
         <nav className="space-y-6 text-gray-800 text-xl">
           <ul className="flex flex-col items-center space-y-6">
-            {MENU_ITEMS.map((item) => (
-              <li key={item} className="cursor-pointer hover:text-main_brown">
-                {item}
+            {menuItems.map((menu, key) => (
+              <li key={key} className="cursor-pointer hover:text-main_brown">
+                {menu.label}
               </li>
             ))}
           </ul>

@@ -1,4 +1,3 @@
-// FavoritesContent.tsx
 import { Product } from "@/app/types/product";
 import { AnimatePresence } from "framer-motion";
 import FavoriteItem from "./favoriteItem";
