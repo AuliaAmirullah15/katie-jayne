@@ -28,7 +28,6 @@ const MenuItem = ({ menu }: { menu: Menu }) => (
     {/* Full-Screen Dropdown Menu */}
     {menu.children && (
       <div className="fixed top-[84px] left-0 w-screen h-[calc(100vh-350px)] bg-white shadow-lg z-40 pl-2 flex opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-opacity duration-300">
-        {/* Using CSS Columns to allow items to flow into multiple columns when needed */}
         <div className="ml-60 mt-12 columns-1 sm:columns-2 md:columns-3 gap-12">
           {menu.children.map((item, index) => (
             <div key={index} className="flex flex-col mb-6 break-inside-avoid">
@@ -37,7 +36,10 @@ const MenuItem = ({ menu }: { menu: Menu }) => (
               </h2>
               {item.children &&
                 item.children.map((child, childIndex) => (
-                  <p key={childIndex} className="text-gray-600 mb-2">
+                  <p
+                    key={childIndex}
+                    className="text-gray-600 mb-2 hover:text-main_brown transition-all duration-300"
+                  >
                     {child}
                   </p>
                 ))}
