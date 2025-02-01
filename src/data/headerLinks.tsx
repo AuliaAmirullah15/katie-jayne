@@ -13,26 +13,22 @@ export const menuItems: Menu[] = [
     label: "Collections",
     children: [
       {
-        label: "Magic Collection",
+        label: "Magic 4K",
         children: [
           "Decanters",
           "Glasses",
           "Squares",
-          "Alpacas",
           "Wine Glasses",
-          "Goblets",
           "Champagne Flutes",
-          "Tumblers",
           "Carafes",
-          "Shot Glasses",
-          "Crystal Goblets",
-          "Handmade Mugs",
-          "Vintage Glassware",
-          "Modern Decanters",
         ],
       },
       {
-        label: "Luxury Collection",
+        label: "Disney",
+        children: ["Alpacas", "Goblets", "Tumblers"],
+      },
+      {
+        label: "Luxury & Posh",
         children: [
           "Gold-Plated",
           "Crystal",
@@ -45,16 +41,18 @@ export const menuItems: Menu[] = [
         ],
       },
       {
-        label: "Casual Collection",
+        label: "Casual",
         children: [
           "Everyday Glasses",
-          "Plastic Tumblers",
           "Beer Mugs",
           "Coffee Mugs",
           "Reusable Cups",
-          "Mason Jars",
           "Stainless Steel Cups",
         ],
+      },
+      {
+        label: "Special Edition",
+        children: ["Plastic Tumblers", "Mason Jars"],
       },
     ],
   },

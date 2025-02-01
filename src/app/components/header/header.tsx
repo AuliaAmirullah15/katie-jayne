@@ -27,8 +27,22 @@ const MenuItem = ({ menu }: { menu: Menu }) => (
     </div>
     {/* Full-Screen Dropdown Menu */}
     {menu.children && (
-      <div className="fixed top-[84px] left-0 w-screen h-[calc(100vh-300px)] bg-white shadow-lg z-40 flex items-center justify-center opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-opacity duration-300">
-        Testing
+      <div className="fixed top-[84px] left-0 w-screen h-[calc(100vh-300px)] bg-white shadow-lg z-40 pl-2 flex opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-opacity duration-300">
+        <div className="ml-60 mt-12 flex flex-row space-x-12">
+          {menu.children.map((item, index) => (
+            <div key={index} className="flex flex-col">
+              <h2 className="text-black text-lg mb-4 font-semibold">
+                {item.label}
+              </h2>
+              {item.children &&
+                item.children.map((child, childIndex) => (
+                  <p key={childIndex} className="text-gray-600 mb-2">
+                    {child}
+                  </p>
+                ))}
+            </div>
+          ))}
+        </div>
       </div>
     )}
   </li>
