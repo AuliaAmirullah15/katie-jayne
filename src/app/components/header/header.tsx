@@ -20,13 +20,14 @@ interface IconProps {
 }
 
 const MenuItem = ({ menu }: { menu: Menu }) => (
-  <li className="group relative hover:text-main_brown cursor-pointer">
-    <span>{menu.label}</span>
-    <span className="absolute left-0 bottom-[-6px] w-0 h-[2px] bg-main_brown rounded-full transition-all duration-500 ease-in-out group-hover:w-full"></span>
-
+  <li className="group relative cursor-pointer px-6">
+    <div className="group relative hover:text-main_brown">
+      <span className="relative z-50">{menu.label}</span>
+      <span className="absolute left-0 bottom-[-6px] w-0 h-[2px] bg-main_brown rounded-full transition-all duration-500 ease-in-out group-hover:w-full z-50"></span>
+    </div>
     {/* Full-Screen Dropdown Menu */}
     {menu.children && (
-      <div className="fixed top-[84px] left-0 w-screen h-[calc(100vh-84px)] bg-white shadow-lg z-50 flex items-center justify-center opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-opacity duration-300">
+      <div className="fixed top-[84px] left-0 w-screen h-[calc(100vh-300px)] bg-white shadow-lg z-40 flex items-center justify-center opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-opacity duration-300">
         Testing
       </div>
     )}
@@ -107,7 +108,7 @@ export default function Header() {
 
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex">
-            <ul className="flex space-x-8 text-gray-800 text-sm">
+            <ul className="flex text-gray-800 text-sm">
               {menuItems.map((menu, key) => (
                 <MenuItem key={key} menu={menu} />
               ))}
