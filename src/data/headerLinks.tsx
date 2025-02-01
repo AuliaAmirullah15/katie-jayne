@@ -13,21 +13,6 @@ export const menuItems: Menu[] = [
     label: "Collections",
     children: [
       {
-        label: "Magic 4K",
-        children: [
-          "Decanters",
-          "Glasses",
-          "Squares",
-          "Wine Glasses",
-          "Champagne Flutes",
-          "Carafes",
-        ],
-      },
-      {
-        label: "Disney",
-        children: ["Alpacas", "Goblets", "Tumblers"],
-      },
-      {
         label: "Luxury & Posh",
         children: [
           "Gold-Plated",
@@ -54,6 +39,21 @@ export const menuItems: Menu[] = [
         label: "Special Edition",
         children: ["Plastic Tumblers", "Mason Jars"],
       },
+      {
+        label: "Magic 4K",
+        children: [
+          "Decanters",
+          "Glasses",
+          "Squares",
+          "Wine Glasses",
+          "Champagne Flutes",
+          "Carafes",
+        ],
+      },
+      {
+        label: "Disney",
+        children: ["Goblets", "Tumblers"],
+      },
     ],
   },
   {
@@ -76,19 +76,20 @@ export const menuItems: Menu[] = [
         children: [
           "Iced Tea Glasses",
           "Beach Tumblers",
-          "Cocktail Shakers",
-          "Sunglasses",
           "Outdoor Picnic Sets",
           "Seaside Goblets",
           "Sunshine-Themed Glasses",
         ],
       },
       {
+        label: "Cosy Autumn",
+        children: ["Leafy Glasses", "Mushroom Goblets"],
+      },
+      {
         label: "Holiday Collection",
         children: [
           "Christmas Mugs",
           "Halloween Goblets",
-          "Thanksgiving Platters",
           "New Year Champagne Flutes",
           "Easter Egg Cups",
           "Valentine’s Heart Glasses",
