@@ -10,7 +10,10 @@ import bag from "@/assets/images/svg/bag.svg";
 import { useSelector } from "react-redux";
 import { RootState } from "@/app/stores";
 import Overlay from "../layouts/overlay";
-import { menuItems, Menu } from "@/data/headerLinks";
+import { menuItems, Menu, coreLinks } from "@/data/headerLinks";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
+import PrimaryButton, { ButtonType } from "../buttons/primaryButton";
 
 interface IconProps {
   src: string;
@@ -155,16 +158,66 @@ export default function Header() {
       </div>
 
       {/* Mobile Menu Navbar */}
-      <Overlay
-        isVisible={menuOpen}
-        onClose={() => setMenuOpen(false)}
-        className="items-center justify-center"
-      >
-        <nav className="space-y-6 text-gray-800 text-xl">
-          <ul className="flex flex-col items-center space-y-6">
+      <Overlay isVisible={menuOpen} onClose={() => setMenuOpen(false)}>
+        <div className="w-full flex flex-row items-center justify-center p-6 border-gray-200 border-b-2">
+          <Image
+            src={logo}
+            alt="Katie Jayne"
+            className="w-36 cursor-pointer "
+            onClick={handleLogoClick}
+          />
+        </div>
+        <nav className="space-y-6 text-gray-800 text-xl p-6 border-gray-200 border-b-2">
+          <ul className="flex flex-col space-y-6">
             {menuItems.map((menu, key) => (
+              <li
+                key={key}
+                className={`cursor-pointer hover:text-main_brown ${menu.style}`}
+              >
+                <div className="flex justify-between items-center w-full">
+                  <span>{menu.label}</span>
+                  {/* Right arrow icon */}
+                  <span className="ml-2">
+                    <FontAwesomeIcon icon={faChevronRight} size="sm" />
+                  </span>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </nav>
+        <div className="w-[full] m-6 flex flex-row items-center justify-center">
+          <div className="flex flex-col w-full md:w-[50%] items-center justify-center text-center">
+            <h4 className="text-lg mb-4">
+              Become a Katie Jayne Member today for the best products,
+              inspiration and offers.{" "}
+              <span className="font-semibold underline">Learn More</span>
+            </h4>
+            <div className="flex flex-row items-center justify-center space-x-2">
+              <PrimaryButton
+                type="submit"
+                className="w-auto md:mt-0 mx-0 text-md flex-auto"
+                buttonType={ButtonType.Secondary}
+              >
+                Join Us
+              </PrimaryButton>
+              <PrimaryButton
+                type="submit"
+                className="w-auto md:mt-0 mx-0 text-md flex-auto"
+                buttonType={ButtonType.Outlined}
+              >
+                Sign In
+              </PrimaryButton>
+            </div>
+          </div>
+        </div>
+        <nav className="space-y-6 text-gray-800 text-xl p-6">
+          <ul className="flex flex-col space-y-3">
+            {coreLinks.map((link, key) => (
               <li key={key} className="cursor-pointer hover:text-main_brown">
-                {menu.label}
+                <div className="flex flex-row justify-start w-full space-x-2">
+                  <Image src={link.icon} alt={link.label} width={24} />
+                  <span>{link.label}</span>
+                </div>
               </li>
             ))}
           </ul>

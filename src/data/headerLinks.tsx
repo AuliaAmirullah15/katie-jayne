@@ -1,3 +1,8 @@
+import help from "@/assets/images/svg/help.svg";
+import bag from "@/assets/images/svg/bag.svg";
+import orders from "@/assets/images/svg/orders.svg";
+import store from "@/assets/images/svg/store.svg";
+
 export type MenuItem = {
   label: string;
   children: string[];
@@ -5,12 +10,14 @@ export type MenuItem = {
 
 export type Menu = {
   label: string;
+  style?: string;
   children: MenuItem[];
 };
 
 export const menuItems: Menu[] = [
   {
     label: "Collections",
+    style: "font-semibold",
     children: [
       {
         label: "Luxury & Posh",
@@ -58,6 +65,7 @@ export const menuItems: Menu[] = [
   },
   {
     label: "New Arrivals",
+    style: "font-semibold",
     children: [
       {
         label: "Spring Collection",
@@ -98,7 +106,66 @@ export const menuItems: Menu[] = [
     ],
   },
   {
+    label: "Luxury Glassware",
+    children: [
+      {
+        label: "Lead-Free Crystal",
+        children: ["Elegant Designs", "Handmade", "Eco-Friendly Options"],
+      },
+      {
+        label: "Cut Crystal",
+        children: ["Faceted Patterns", "Classic Styles", "Vintage Pieces"],
+      },
+      {
+        label: "Etched Crystal",
+        children: ["Floral Etching", "Geometric Designs", "Custom Patterns"],
+      },
+      {
+        label: "Bespoke Crystal",
+        children: [
+          "Custom Orders",
+          "Personalized Etching",
+          "Exclusive Collections",
+        ],
+      },
+    ],
+  },
+  {
+    label: "Designer's",
+    children: [
+      {
+        label: "Brand-Name Glasses",
+        children: ["Luxury Brands", "Top Designers", "Signature Pieces"],
+      },
+      {
+        label: "Limited-Edition Designs",
+        children: [
+          "Exclusive Collections",
+          "Rare Releases",
+          "High-End Designs",
+        ],
+      },
+      {
+        label: "Celebrity-Inspired Styles",
+        children: [
+          "Hollywood Glamour",
+          "Red Carpet Looks",
+          "Celebrity Favorites",
+        ],
+      },
+      {
+        label: "Signature Collections",
+        children: [
+          "Unique Designs",
+          "Custom Glasses",
+          "High-Quality Materials",
+        ],
+      },
+    ],
+  },
+  {
     label: "Sales",
+    style: "font-semibold",
     children: [
       {
         label: "Clearance Items",
@@ -136,4 +203,14 @@ export const menuItems: Menu[] = [
       },
     ],
   },
+];
+
+export const coreLinks = [
+  {
+    label: "Orders",
+    icon: orders,
+  },
+  { label: "Help", icon: help },
+  { label: "Bag", icon: bag },
+  { label: "Find a Store", icon: store },
 ];
