@@ -20,11 +20,11 @@ export default function PrimaryButton({
 }) {
   const [style] = useState(() => {
     if (buttonType === ButtonType.Primary)
-      return "bg-black text-white md:bg-white md:text-black hover:border-2 hover:border-main_brown";
+      return "bg-black border-black border-2 text-white md:bg-white md:border-white md:text-black hover:border-2 hover:border-main_brown";
     else if (buttonType === ButtonType.Secondary)
       return "bg-black text-white border-black border-2 hover:border-main_brown";
     else if (buttonType === ButtonType.Ternary)
-      return "bg-white text-black hover:border-2 hover:border-main_brown";
+      return "bg-white border-white border-2 text-black hover:border-2 hover:border-main_brown";
     else
       return "bg-white text-black border-2 border-black hover:border-2 hover:border-main_brown";
   });
