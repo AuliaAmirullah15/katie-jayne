@@ -202,8 +202,10 @@ const MobileNavbar: React.FC<MobileNavbarProps> = ({ isOpen, onClose }) => {
               <div className="flex flex-col w-full md:w-[50%] items-center justify-center text-center">
                 <h4 className="text-lg mb-4">
                   Become a Katie Jayne Member today for the best products,
-                  inspiration and offers.
-                  <span className="font-semibold underline"> Learn More</span>
+                  inspiration and offers.{" "}
+                  <span className="font-semibold underline hover:text-main_brown cursor-pointer transition-all duration-300">
+                    Learn More
+                  </span>
                 </h4>
                 <div className="flex flex-row items-center justify-center space-x-2">
                   <PrimaryButton
