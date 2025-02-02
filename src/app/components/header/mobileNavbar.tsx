@@ -8,7 +8,7 @@ import PrimaryButton, { ButtonType } from "../buttons/primaryButton";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
-import { menuItems, coreLinks, Menu } from "@/data/headerLinks";
+import { menuItems, coreLinks, Menu, MenuItem } from "@/data/headerLinks";
 import logo from "@/assets/images/svg/logo.svg";
 import unitedKingdom from "@/assets/images/svg/united_kingdom.svg";
 
@@ -22,8 +22,13 @@ interface MobileSubMenuProps extends MobileNavbarProps {
   onBack: () => void;
 }
 
-const SubMenuNavbar: React.FC<MobileSubMenuProps> = ({
-  menu,
+interface MobileChildrenSubMenuProps extends MobileNavbarProps {
+  menuItem: MenuItem;
+  onBack: () => void;
+}
+
+const ChildrenSubMenuNavbar: React.FC<MobileChildrenSubMenuProps> = ({
+  menuItem,
   isOpen,
   onBack,
   onClose,
@@ -32,28 +37,25 @@ const SubMenuNavbar: React.FC<MobileSubMenuProps> = ({
     <Overlay isVisible={isOpen} className="lg:hidden" onClose={onClose}>
       <div className="flex flex-col justify-between h-full">
         <div>
-          <div className="w-full flex flex-row space-x-2 p-6 border-gray-200 border-b-2">
-            <span
-              className="items-center justify-center flex flex-col"
-              onClick={onBack}
-            >
+          <div
+            className="w-full flex flex-row space-x-2 p-6 border-gray-200 border-b-2 cursor-pointer"
+            onClick={onBack}
+          >
+            <span className="items-center justify-center flex flex-col">
               <FontAwesomeIcon icon={faChevronLeft} size="lg" />
             </span>
 
-            <p className="text-xl font-semibold">{menu.label}</p>
+            <p className="text-xl font-semibold">{menuItem.label}</p>
           </div>
           <nav className="space-y-4 text-gray-800 text-lg p-6 ">
             <ul className="flex flex-col space-y-4">
-              {menu.children.map((subMenu, key) => (
+              {menuItem.children.map((subMenuChild, key) => (
                 <li
                   key={key}
                   className="cursor-pointer hover:text-main_brown transition-all duration-300"
                 >
                   <div className="flex justify-between items-center w-full">
-                    <span>{subMenu.label}</span>
-                    <span className="ml-2">
-                      <FontAwesomeIcon icon={faChevronRight} size="sm" />
-                    </span>
+                    <span>{subMenuChild}</span>
                   </div>
                 </li>
               ))}
@@ -62,6 +64,74 @@ const SubMenuNavbar: React.FC<MobileSubMenuProps> = ({
         </div>
       </div>
     </Overlay>
+  );
+};
+
+const SubMenuNavbar: React.FC<MobileSubMenuProps> = ({
+  menu,
+  isOpen,
+  onBack,
+  onClose,
+}) => {
+  const [subMenuOpen, setSubMenuOpen] = useState(false);
+  const [subMenu, setSubMenu] = useState<MenuItem>({
+    label: "",
+    children: [],
+  });
+
+  const setUpSubMenu = (subMenu: MenuItem) => {
+    setSubMenu(subMenu);
+    setSubMenuOpen(true);
+  };
+
+  const setAllMenuClose = () => {
+    onClose();
+    setSubMenuOpen(false);
+  };
+
+  return (
+    <>
+      <Overlay isVisible={isOpen} className="lg:hidden" onClose={onClose}>
+        <div className="flex flex-col justify-between h-full">
+          <div>
+            <div
+              className="w-full flex flex-row space-x-2 p-6 border-gray-200 border-b-2 cursor-pointer"
+              onClick={onBack}
+            >
+              <span className="items-center justify-center flex flex-col">
+                <FontAwesomeIcon icon={faChevronLeft} size="lg" />
+              </span>
+
+              <p className="text-xl font-semibold">{menu.label}</p>
+            </div>
+            <nav className="space-y-4 text-gray-800 text-lg p-6 ">
+              <ul className="flex flex-col space-y-4">
+                {menu.children.map((subMenu, key) => (
+                  <li
+                    key={key}
+                    className="cursor-pointer hover:text-main_brown transition-all duration-300"
+                    onClick={() => setUpSubMenu(subMenu)}
+                  >
+                    <div className="flex justify-between items-center w-full">
+                      <span>{subMenu.label}</span>
+                      <span className="ml-2">
+                        <FontAwesomeIcon icon={faChevronRight} size="sm" />
+                      </span>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </Overlay>
+      <ChildrenSubMenuNavbar
+        isOpen={subMenuOpen}
+        onBack={() => setSubMenuOpen(false)}
+        onClose={setAllMenuClose}
+        menuItem={subMenu}
+      />
+    </>
   );
 };
 
