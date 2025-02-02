@@ -40,7 +40,7 @@ const MenuItem = ({ menu }: { menu: Menu }) => (
                     key={childIndex}
                     className="text-gray-600 mb-2 hover:text-main_brown transition-all duration-300"
                   >
-                    {child}
+                    {child.label}
                   </p>
                 ))}
             </div>

@@ -3,15 +3,10 @@ import bag from "@/assets/images/svg/bag.svg";
 import orders from "@/assets/images/svg/orders.svg";
 import store from "@/assets/images/svg/store.svg";
 
-export type MenuItem = {
-  label: string;
-  children: string[];
-};
-
 export type Menu = {
   label: string;
   style?: string;
-  children: MenuItem[];
+  children?: Menu[];
 };
 
 export const menuItems: Menu[] = [
@@ -22,44 +17,44 @@ export const menuItems: Menu[] = [
       {
         label: "Luxury & Posh",
         children: [
-          "Gold-Plated",
-          "Crystal",
-          "Hand-Blown",
-          "Engraved",
-          "Limited Edition",
-          "Diamond Etched",
-          "Exclusive Art Pieces",
-          "Collector’s Choice",
+          { label: "Gold-Plated" },
+          { label: "Crystal" },
+          { label: "Hand-Blown" },
+          { label: "Engraved" },
+          { label: "Limited Edition" },
+          { label: "Diamond Etched" },
+          { label: "Exclusive Art Pieces" },
+          { label: "Collector’s Choice" },
         ],
       },
       {
         label: "Casual",
         children: [
-          "Everyday Glasses",
-          "Beer Mugs",
-          "Coffee Mugs",
-          "Reusable Cups",
-          "Stainless Steel Cups",
+          { label: "Everyday Glasses" },
+          { label: "Beer Mugs" },
+          { label: "Coffee Mugs" },
+          { label: "Reusable Cups" },
+          { label: "Stainless Steel Cups" },
         ],
       },
       {
         label: "Special Edition",
-        children: ["Plastic Tumblers", "Mason Jars"],
+        children: [{ label: "Plastic Tumblers" }, { label: "Mason Jars" }],
       },
       {
         label: "Magic 4K",
         children: [
-          "Decanters",
-          "Glasses",
-          "Squares",
-          "Wine Glasses",
-          "Champagne Flutes",
-          "Carafes",
+          { label: "Decanters" },
+          { label: "Glasses" },
+          { label: "Squares" },
+          { label: "Wine Glasses" },
+          { label: "Champagne Flutes" },
+          { label: "Carafes" },
         ],
       },
       {
         label: "Disney",
-        children: ["Goblets", "Tumblers"],
+        children: [{ label: "Goblets" }, { label: "Tumblers" }],
       },
     ],
   },
@@ -70,37 +65,37 @@ export const menuItems: Menu[] = [
       {
         label: "Spring Collection",
         children: [
-          "Pastel Mugs",
-          "Floral Plates",
-          "Elegant Teapots",
-          "Vibrant Glasses",
-          "Cherry Blossom Bowls",
-          "Sunflower Pitchers",
-          "Spring-Inspired Tumblers",
+          { label: "Pastel Mugs" },
+          { label: "Floral Plates" },
+          { label: "Elegant Teapots" },
+          { label: "Vibrant Glasses" },
+          { label: "Cherry Blossom Bowls" },
+          { label: "Sunflower Pitchers" },
+          { label: "Spring-Inspired Tumblers" },
         ],
       },
       {
         label: "Summer Specials",
         children: [
-          "Iced Tea Glasses",
-          "Beach Tumblers",
-          "Outdoor Picnic Sets",
-          "Seaside Goblets",
-          "Sunshine-Themed Glasses",
+          { label: "Iced Tea Glasses" },
+          { label: "Beach Tumblers" },
+          { label: "Outdoor Picnic Sets" },
+          { label: "Seaside Goblets" },
+          { label: "Sunshine-Themed Glasses" },
         ],
       },
       {
         label: "Cosy Autumn",
-        children: ["Leafy Glasses", "Mushroom Goblets"],
+        children: [{ label: "Leafy Glasses" }, { label: "Mushroom Goblets" }],
       },
       {
         label: "Holiday Collection",
         children: [
-          "Christmas Mugs",
-          "Halloween Goblets",
-          "New Year Champagne Flutes",
-          "Easter Egg Cups",
-          "Valentine’s Heart Glasses",
+          { label: "Christmas Mugs" },
+          { label: "Halloween Goblets" },
+          { label: "New Year Champagne Flutes" },
+          { label: "Easter Egg Cups" },
+          { label: "Valentine’s Heart Glasses" },
         ],
       },
     ],
@@ -110,55 +105,71 @@ export const menuItems: Menu[] = [
     children: [
       {
         label: "Lead-Free Crystal",
-        children: ["Elegant Designs", "Handmade", "Eco-Friendly Options"],
+        children: [
+          { label: "Elegant Designs" },
+          { label: "Handmade" },
+          { label: "Eco-Friendly Options" },
+        ],
       },
       {
         label: "Cut Crystal",
-        children: ["Faceted Patterns", "Classic Styles", "Vintage Pieces"],
+        children: [
+          { label: "Faceted Patterns" },
+          { label: "Classic Styles" },
+          { label: "Vintage Pieces" },
+        ],
       },
       {
         label: "Etched Crystal",
-        children: ["Floral Etching", "Geometric Designs", "Custom Patterns"],
+        children: [
+          { label: "Floral Etching" },
+          { label: "Geometric Designs" },
+          { label: "Custom Patterns" },
+        ],
       },
       {
         label: "Bespoke Crystal",
         children: [
-          "Custom Orders",
-          "Personalized Etching",
-          "Exclusive Collections",
+          { label: "Custom Orders" },
+          { label: "Personalized Etching" },
+          { label: "Exclusive Collections" },
         ],
       },
     ],
   },
   {
-    label: "Designer's",
+    label: "Designer’s",
     children: [
       {
         label: "Brand-Name Glasses",
-        children: ["Luxury Brands", "Top Designers", "Signature Pieces"],
+        children: [
+          { label: "Luxury Brands" },
+          { label: "Top Designers" },
+          { label: "Signature Pieces" },
+        ],
       },
       {
         label: "Limited-Edition Designs",
         children: [
-          "Exclusive Collections",
-          "Rare Releases",
-          "High-End Designs",
+          { label: "Exclusive Collections" },
+          { label: "Rare Releases" },
+          { label: "High-End Designs" },
         ],
       },
       {
         label: "Celebrity-Inspired Styles",
         children: [
-          "Hollywood Glamour",
-          "Red Carpet Looks",
-          "Celebrity Favorites",
+          { label: "Hollywood Glamour" },
+          { label: "Red Carpet Looks" },
+          { label: "Celebrity Favorites" },
         ],
       },
       {
         label: "Signature Collections",
         children: [
-          "Unique Designs",
-          "Custom Glasses",
-          "High-Quality Materials",
+          { label: "Unique Designs" },
+          { label: "Custom Glasses" },
+          { label: "High-Quality Materials" },
         ],
       },
     ],
@@ -170,35 +181,35 @@ export const menuItems: Menu[] = [
       {
         label: "Clearance Items",
         children: [
-          "Discounted Glasses",
-          "Last-Chance Deals",
-          "Outlet Specials",
-          "Warehouse Clearance",
-          "Overstock Sales",
-          "Damaged Box Discounts",
+          { label: "Discounted Glasses" },
+          { label: "Last-Chance Deals" },
+          { label: "Outlet Specials" },
+          { label: "Warehouse Clearance" },
+          { label: "Overstock Sales" },
+          { label: "Damaged Box Discounts" },
         ],
       },
       {
         label: "Buy One Get One",
         children: [
-          "Mugs",
-          "Wine Glasses",
-          "Coasters",
-          "Shot Glasses",
-          "Limited Edition Sets",
-          "Holiday Bundles",
-          "Exclusive Pair Deals",
+          { label: "Mugs" },
+          { label: "Wine Glasses" },
+          { label: "Coasters" },
+          { label: "Shot Glasses" },
+          { label: "Limited Edition Sets" },
+          { label: "Holiday Bundles" },
+          { label: "Exclusive Pair Deals" },
         ],
       },
       {
         label: "Limited Time Offers",
         children: [
-          "Holiday Discounts",
-          "Exclusive Bundles",
-          "Gift Sets",
-          "Weekend Specials",
-          "Flash Sales",
-          "Seasonal Promotions",
+          { label: "Holiday Discounts" },
+          { label: "Exclusive Bundles" },
+          { label: "Gift Sets" },
+          { label: "Weekend Specials" },
+          { label: "Flash Sales" },
+          { label: "Seasonal Promotions" },
         ],
       },
     ],

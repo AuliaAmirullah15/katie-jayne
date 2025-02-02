@@ -8,7 +8,7 @@ import PrimaryButton, { ButtonType } from "../buttons/primaryButton";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
-import { menuItems, coreLinks, Menu, MenuItem } from "@/data/headerLinks";
+import { menuItems, coreLinks, Menu } from "@/data/headerLinks";
 import logo from "@/assets/images/svg/logo.svg";
 import unitedKingdom from "@/assets/images/svg/united_kingdom.svg";
 
@@ -22,13 +22,8 @@ interface MobileSubMenuProps extends MobileNavbarProps {
   onBack: () => void;
 }
 
-interface MobileChildrenSubMenuProps extends MobileNavbarProps {
-  menuItem: MenuItem;
-  onBack: () => void;
-}
-
-const ChildrenSubMenuNavbar: React.FC<MobileChildrenSubMenuProps> = ({
-  menuItem,
+const ChildrenSubMenuNavbar: React.FC<MobileSubMenuProps> = ({
+  menu,
   isOpen,
   onBack,
   onClose,
@@ -45,20 +40,21 @@ const ChildrenSubMenuNavbar: React.FC<MobileChildrenSubMenuProps> = ({
               <FontAwesomeIcon icon={faChevronLeft} size="lg" />
             </span>
 
-            <p className="text-xl font-semibold">{menuItem.label}</p>
+            <p className="text-xl font-semibold">{menu.label}</p>
           </div>
           <nav className="space-y-4 text-gray-800 text-lg p-6 ">
             <ul className="flex flex-col space-y-4">
-              {menuItem.children.map((subMenuChild, key) => (
-                <li
-                  key={key}
-                  className="cursor-pointer hover:text-main_brown transition-all duration-300"
-                >
-                  <div className="flex justify-between items-center w-full">
-                    <span>{subMenuChild}</span>
-                  </div>
-                </li>
-              ))}
+              {menu.children &&
+                menu.children.map((subMenuChild: Menu, key: number) => (
+                  <li
+                    key={key}
+                    className="cursor-pointer hover:text-main_brown transition-all duration-300"
+                  >
+                    <div className="flex justify-between items-center w-full">
+                      <span>{subMenuChild.label}</span>
+                    </div>
+                  </li>
+                ))}
             </ul>
           </nav>
         </div>
@@ -74,12 +70,12 @@ const SubMenuNavbar: React.FC<MobileSubMenuProps> = ({
   onClose,
 }) => {
   const [subMenuOpen, setSubMenuOpen] = useState(false);
-  const [subMenu, setSubMenu] = useState<MenuItem>({
+  const [subMenu, setSubMenu] = useState<Menu>({
     label: "",
     children: [],
   });
 
-  const setUpSubMenu = (subMenu: MenuItem) => {
+  const setUpSubMenu = (subMenu: Menu) => {
     setSubMenu(subMenu);
     setSubMenuOpen(true);
   };
@@ -106,20 +102,21 @@ const SubMenuNavbar: React.FC<MobileSubMenuProps> = ({
             </div>
             <nav className="space-y-4 text-gray-800 text-lg p-6 ">
               <ul className="flex flex-col space-y-4">
-                {menu.children.map((subMenu, key) => (
-                  <li
-                    key={key}
-                    className="cursor-pointer hover:text-main_brown transition-all duration-300"
-                    onClick={() => setUpSubMenu(subMenu)}
-                  >
-                    <div className="flex justify-between items-center w-full">
-                      <span>{subMenu.label}</span>
-                      <span className="ml-2">
-                        <FontAwesomeIcon icon={faChevronRight} size="sm" />
-                      </span>
-                    </div>
-                  </li>
-                ))}
+                {menu.children &&
+                  menu.children.map((subMenu, key) => (
+                    <li
+                      key={key}
+                      className="cursor-pointer hover:text-main_brown transition-all duration-300"
+                      onClick={() => setUpSubMenu(subMenu)}
+                    >
+                      <div className="flex justify-between items-center w-full">
+                        <span className={subMenu.style}>{subMenu.label}</span>
+                        <span className="ml-2">
+                          <FontAwesomeIcon icon={faChevronRight} size="sm" />
+                        </span>
+                      </div>
+                    </li>
+                  ))}
               </ul>
             </nav>
           </div>
@@ -129,7 +126,7 @@ const SubMenuNavbar: React.FC<MobileSubMenuProps> = ({
         isOpen={subMenuOpen}
         onBack={() => setSubMenuOpen(false)}
         onClose={setAllMenuClose}
-        menuItem={subMenu}
+        menu={subMenu}
       />
     </>
   );
