@@ -29,22 +29,47 @@ const MenuItem = ({ menu }: { menu: Menu }) => (
     {menu.children && (
       <div className="fixed top-[84px] left-0 w-screen bg-white shadow-lg z-40 pl-2 flex opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-opacity duration-300">
         <div className="mx-12 mt-12 mb-8 columns-6 gap-12">
-          {menu.children.map((item, index) => (
-            <div key={index} className="flex flex-col mb-6 break-inside-avoid">
-              <h2 className="text-black text-lg mb-4 font-semibold">
-                {item.label}
-              </h2>
-              {item.children &&
-                item.children.map((child, childIndex) => (
-                  <p
-                    key={childIndex}
-                    className="text-gray-600 mb-2 hover:text-main_brown transition-all duration-300"
-                  >
-                    {child.label}
-                  </p>
-                ))}
-            </div>
-          ))}
+          {menu.children.map((item, index) => {
+            return item.image ? (
+              <div key={index} className="flex flex-col mb-6 h-full">
+                {/* Parent flex container allowing grow */}
+                <div className="flex flex-col grow relative w-full h-full">
+                  <Image
+                    src={item.image}
+                    alt={item.label}
+                    className="object-cover w-full h-full"
+                    fill
+                    quality={100}
+                    priority
+                  />
+                </div>
+                <div className="flex-1 flex flex-col space-y-2 py-6">
+                  <h2 className="text-md uppercase font-semibold">
+                    {item.label}
+                  </h2>
+                  <p className="text-sm text-gray-500">{item.caption}</p>
+                </div>
+              </div>
+            ) : (
+              <div
+                key={index}
+                className="flex flex-col mb-6 break-inside-avoid"
+              >
+                <h2 className="text-black text-lg mb-4 font-semibold">
+                  {item.label}
+                </h2>
+                {item.children &&
+                  item.children.map((child, childIndex) => (
+                    <p
+                      key={childIndex}
+                      className="text-gray-600 mb-2 hover:text-main_brown transition-all duration-300"
+                    >
+                      {child.label}
+                    </p>
+                  ))}
+              </div>
+            );
+          })}
         </div>
       </div>
     )}

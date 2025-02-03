@@ -62,6 +62,9 @@ export const menuItems: Menu[] = [
           { label: "Wine Glasses" },
           { label: "Champagne Flutes" },
           { label: "Carafes" },
+          { label: "Diamond Glasses" },
+          { label: "Lush Goblets" },
+          { label: "Posh Decanters" },
         ],
       },
       {
@@ -72,8 +75,7 @@ export const menuItems: Menu[] = [
       },
       {
         label: "Diamond",
-        caption:
-          "Improve your lifestyle with our lush diamond looking designs from around the world.",
+        caption: "Improve your lifestyle with lush diamond looking designs.",
         image: product2,
         icon: diamond,
       },
