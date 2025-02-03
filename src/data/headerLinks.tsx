@@ -50,6 +50,10 @@ export const menuItems: Menu[] = [
         children: [{ label: "Plastic Tumblers" }, { label: "Mason Jars" }],
       },
       {
+        label: "Disney",
+        children: [{ label: "Goblets" }, { label: "Tumblers" }],
+      },
+      {
         label: "Magic 4K",
         children: [
           { label: "Decanters" },
@@ -59,10 +63,6 @@ export const menuItems: Menu[] = [
           { label: "Champagne Flutes" },
           { label: "Carafes" },
         ],
-      },
-      {
-        label: "Disney",
-        children: [{ label: "Goblets" }, { label: "Tumblers" }],
       },
       {
         label: "Originals",
@@ -110,6 +110,14 @@ export const menuItems: Menu[] = [
         children: [{ label: "Leafy Glasses" }, { label: "Mushroom Goblets" }],
       },
       {
+        label: "Vintage Vibes",
+        children: [
+          { label: "Retro Coffee Mugs" },
+          { label: "Classic Tea Sets" },
+          { label: "Antique Plates" },
+        ],
+      },
+      {
         label: "Holiday Collection",
         children: [
           { label: "Christmas Mugs" },
@@ -118,6 +126,19 @@ export const menuItems: Menu[] = [
           { label: "Easter Egg Cups" },
           { label: "Valentine’s Heart Glasses" },
         ],
+      },
+      {
+        label: "Fresh New Year",
+        children: [
+          { label: "January Morning Mugs" },
+          { label: "Snowy Plates" },
+          { label: "Fresh Start Tumblers" },
+          { label: "New Year Sparkle Glasses" },
+        ],
+      },
+      {
+        label: "Tropical Escape",
+        children: [{ label: "Palm Tree Mugs" }, { label: "Beachside Glasses" }],
       },
     ],
   },
@@ -191,6 +212,60 @@ export const menuItems: Menu[] = [
           { label: "Unique Designs" },
           { label: "Custom Glasses" },
           { label: "High-Quality Materials" },
+        ],
+      },
+      {
+        label: "Artisan Creations",
+        children: [
+          { label: "Handcrafted Designs" },
+          { label: "One-of-a-Kind Pieces" },
+          { label: "Eco-Friendly Materials" },
+        ],
+      },
+      {
+        label: "Fashion Forward",
+        children: [{ label: "Trendy Glasses" }, { label: "Bold Colors" }],
+      },
+      {
+        label: "High-Fashion Collaborations",
+        children: [
+          { label: "Designer Partnerships" },
+          { label: "Limited-Edition Collaborations" },
+          { label: "Runway-Inspired Styles" },
+        ],
+      },
+      {
+        label: "Heritage Designs",
+        children: [
+          { label: "Classic Styles" },
+          { label: "Timeless Collections" },
+          { label: "Vintage-Inspired Pieces" },
+        ],
+      },
+      {
+        label: "Innovative Eyewear",
+        children: [
+          { label: "Smart Glasses" },
+          { label: "High-Tech Features" },
+          { label: "Augmented Reality Glasses" },
+        ],
+      },
+      {
+        label: "Sustainable Luxury",
+        children: [
+          { label: "Eco-Friendly Glasses" },
+          { label: "Recycled Materials" },
+          { label: "Carbon Neutral Designs" },
+        ],
+      },
+      {
+        label: "Iconic Shapes",
+        children: [
+          { label: "Cat-Eye Glasses" },
+          { label: "Round Frames" },
+          { label: "Geometric Glasses" },
+          { label: "Aviator Styles" },
+          { label: "Diamond Decanter" },
         ],
       },
     ],

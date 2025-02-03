@@ -28,7 +28,7 @@ const MenuItem = ({ menu }: { menu: Menu }) => (
     {/* Full-Screen Dropdown Menu */}
     {menu.children && (
       <div className="fixed top-[84px] left-0 w-screen bg-white shadow-lg z-40 pl-2 flex opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-opacity duration-300">
-        <div className="ml-60 mt-12 mb-8 columns-6 gap-12">
+        <div className="mx-12 mt-12 mb-8 columns-6 gap-12">
           {menu.children.map((item, index) => (
             <div key={index} className="flex flex-col mb-6 break-inside-avoid">
               <h2 className="text-black text-lg mb-4 font-semibold">
