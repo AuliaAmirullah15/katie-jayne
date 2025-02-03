@@ -2,10 +2,18 @@ import help from "@/assets/images/svg/help.svg";
 import bag from "@/assets/images/svg/bag.svg";
 import orders from "@/assets/images/svg/orders.svg";
 import store from "@/assets/images/svg/store.svg";
+import product1 from "@/assets/images/jpg/product1.jpg";
+import product2 from "@/assets/images/jpg/product2.jpg";
+import diamond from "@/assets/images/png/diamond.png";
+import crown from "@/assets/images/png/crown.png";
+import { StaticImageData } from "next/image";
 
 export type Menu = {
   label: string;
   style?: string;
+  caption?: string;
+  image?: StaticImageData;
+  icon?: StaticImageData;
   children?: Menu[];
 };
 
@@ -55,6 +63,19 @@ export const menuItems: Menu[] = [
       {
         label: "Disney",
         children: [{ label: "Goblets" }, { label: "Tumblers" }],
+      },
+      {
+        label: "Originals",
+        caption: "Iconic designs. Born from a variety, adopted by caluture.",
+        image: product1,
+        icon: crown,
+      },
+      {
+        label: "Diamond",
+        caption:
+          "Improve your lifestyle with our lush diamond looking designs from around the world.",
+        image: product2,
+        icon: diamond,
       },
     ],
   },

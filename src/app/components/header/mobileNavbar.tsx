@@ -42,7 +42,7 @@ const ChildrenSubMenuNavbar: React.FC<MobileSubMenuProps> = ({
 
             <p className="text-xl font-semibold">{menu.label}</p>
           </div>
-          <nav className="space-y-4 text-gray-800 text-lg p-6 ">
+          <nav className="space-y-4 text-gray-800 text-lg px-12 py-6 ">
             <ul className="flex flex-col space-y-4">
               {menu.children &&
                 menu.children.map((subMenuChild: Menu, key: number) => (
@@ -100,23 +100,68 @@ const SubMenuNavbar: React.FC<MobileSubMenuProps> = ({
 
               <p className="text-xl font-semibold">{menu.label}</p>
             </div>
-            <nav className="space-y-4 text-gray-800 text-lg p-6 ">
-              <ul className="flex flex-col space-y-4">
+            <nav className="space-y-4 text-gray-800 text-lg py-6">
+              <ul className="flex flex-col">
                 {menu.children &&
-                  menu.children.map((subMenu, key) => (
-                    <li
-                      key={key}
-                      className="cursor-pointer hover:text-main_brown transition-all duration-300"
-                      onClick={() => setUpSubMenu(subMenu)}
-                    >
-                      <div className="flex justify-between items-center w-full">
-                        <span className={subMenu.style}>{subMenu.label}</span>
-                        <span className="ml-2">
-                          <FontAwesomeIcon icon={faChevronRight} size="sm" />
-                        </span>
-                      </div>
-                    </li>
-                  ))}
+                  menu.children.map((subMenu, key) => {
+                    const prevSubMenu =
+                      key > 0 && menu.children ? menu.children[key - 1] : null;
+                    const addTopBorder = !prevSubMenu || !prevSubMenu.image; // Only add top border if the previous item doesn't have an image
+
+                    return (
+                      <li
+                        key={key}
+                        className="cursor-pointer hover:text-main_brown transition-all duration-300"
+                        onClick={() => setUpSubMenu(subMenu)}
+                      >
+                        {subMenu.image ? (
+                          <div
+                            className={`flex flex-row items-center w-full border-gray-200 ${
+                              addTopBorder ? "border-t-2" : ""
+                            } border-b-2`}
+                          >
+                            <div className="flex-1 flex flex-col space-y-2 py-6 pl-12">
+                              <Image
+                                src={subMenu.icon ?? ""}
+                                alt={subMenu.label}
+                                height={20}
+                                width={20}
+                              />
+                              <h2 className="text-md uppercase font-semibold">
+                                {subMenu.label}
+                              </h2>
+                              <p className="text-sm text-gray-500">
+                                {subMenu.caption}
+                              </p>
+                            </div>
+
+                            <div className="relative w-[20%] h-[140px]">
+                              <Image
+                                src={subMenu.image}
+                                alt={subMenu.label}
+                                className="object-cover w-full h-full"
+                                fill
+                                quality={100}
+                                priority
+                              />
+                            </div>
+                          </div>
+                        ) : (
+                          <div className="flex justify-between items-center w-full pl-12 pr-6 mb-3">
+                            <span className={subMenu.style}>
+                              {subMenu.label}
+                            </span>
+                            <span className="ml-2">
+                              <FontAwesomeIcon
+                                icon={faChevronRight}
+                                size="sm"
+                              />
+                            </span>
+                          </div>
+                        )}
+                      </li>
+                    );
+                  })}
               </ul>
             </nav>
           </div>
