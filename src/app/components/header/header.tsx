@@ -20,56 +20,61 @@ interface IconProps {
 }
 
 const MenuItem = ({ menu }: { menu: Menu }) => (
-  <li className="group relative cursor-pointer px-6">
-    <div className="group relative hover:text-main_brown">
+  <li className="group relative cursor-pointer px-6 flex flex-row items-stretch justify-between h-full grow">
+    <div className="group flex flex-row items-center relative hover:text-main_brown">
       <span className="relative z-50">{menu.label}</span>
-      <span className="absolute left-0 bottom-[-6px] w-0 h-[2px] bg-main_brown rounded-full transition-all duration-500 ease-in-out group-hover:w-full z-50"></span>
+      <span className="absolute left-0 bottom-0 w-0 h-[4px] bg-main_brown rounded-full transition-all duration-500 ease-in-out group-hover:w-full z-50"></span>
     </div>
     {/* Full-Screen Dropdown Menu */}
     {menu.children && (
-      <div className="fixed top-[84px] left-0 w-screen bg-white shadow-lg z-40 pl-2 flex opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-opacity duration-300">
-        <div className="mx-12 mt-12 mb-8 columns-6 gap-12">
-          {menu.children.map((item, index) => {
-            return item.image ? (
-              <div key={index} className="flex flex-col mb-6 h-full">
-                {/* Parent flex container allowing grow */}
-                <div className="flex flex-col grow relative w-full h-full">
-                  <Image
-                    src={item.image}
-                    alt={item.label}
-                    className="object-cover w-full h-full"
-                    fill
-                    quality={100}
-                    priority
-                  />
+      <div className="fixed top-[84px] left-0 w-screen bg-white shadow-lg z-40 flex opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-opacity duration-300">
+        <div className="flex flex-row border-gray-200 border-t-2 w-full">
+          <div className="columns-6 mx-12 my-6 w-full relative group">
+            {menu.children.map((item, index) => {
+              return item.image ? (
+                <div
+                  key={index}
+                  className="flex flex-col pb-2 h-full border-gray-200 border-2"
+                >
+                  {/* Parent flex container allowing grow */}
+                  <div className="flex flex-col grow relative w-full h-full">
+                    <Image
+                      src={item.image}
+                      alt={item.label}
+                      className="object-cover w-full h-full"
+                      fill
+                      quality={100}
+                      priority
+                    />
+                  </div>
+                  <div className="flex-1 flex flex-col space-y-2 py-6 px-2">
+                    <h2 className="text-md uppercase font-semibold">
+                      {item.label}
+                    </h2>
+                    <p className="text-sm text-gray-500">{item.caption}</p>
+                  </div>
                 </div>
-                <div className="flex-1 flex flex-col space-y-2 py-6">
-                  <h2 className="text-md uppercase font-semibold">
+              ) : (
+                <div
+                  key={index}
+                  className="flex flex-col mb-6 break-inside-avoid"
+                >
+                  <h2 className="text-black text-lg mb-4 font-semibold">
                     {item.label}
                   </h2>
-                  <p className="text-sm text-gray-500">{item.caption}</p>
+                  {item.children &&
+                    item.children.map((child, childIndex) => (
+                      <p
+                        key={childIndex}
+                        className="text-gray-600 mb-2 hover:text-main_brown transition-all duration-300"
+                      >
+                        {child.label}
+                      </p>
+                    ))}
                 </div>
-              </div>
-            ) : (
-              <div
-                key={index}
-                className="flex flex-col mb-6 break-inside-avoid"
-              >
-                <h2 className="text-black text-lg mb-4 font-semibold">
-                  {item.label}
-                </h2>
-                {item.children &&
-                  item.children.map((child, childIndex) => (
-                    <p
-                      key={childIndex}
-                      className="text-gray-600 mb-2 hover:text-main_brown transition-all duration-300"
-                    >
-                      {child.label}
-                    </p>
-                  ))}
-              </div>
-            );
-          })}
+              );
+            })}
+          </div>
         </div>
       </div>
     )}
@@ -138,15 +143,17 @@ export default function Header() {
 
   return (
     <header className="bg-white shadow sticky top-[35px] z-40">
-      <div className="mx-6 md:mx-12 flex items-center justify-between py-2">
+      <div className="mx-6 md:mx-12 flex items-stretch justify-between">
         {/* Logo and Navigation */}
         <div className="flex space-x-8 justify-between">
-          <Image
-            src={logo}
-            alt="Katie Jayne"
-            className="w-24 md:w-auto cursor-pointer"
-            onClick={handleLogoClick}
-          />
+          <div className="flex flex-col items-center justify-center">
+            <Image
+              src={logo}
+              alt="Katie Jayne"
+              className="w-24 md:w-auto cursor-pointer"
+              onClick={handleLogoClick}
+            />
+          </div>
 
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex">
