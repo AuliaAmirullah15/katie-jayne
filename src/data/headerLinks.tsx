@@ -75,7 +75,7 @@ export const menuItems: Menu[] = [
       },
       {
         label: "Diamond",
-        caption: "Improve your lifestyle with lush diamond looking designs.",
+        caption: "Improve lifestyle with lush diamond designs.",
         image: product2,
         icon: diamond,
       },

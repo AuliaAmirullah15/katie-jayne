@@ -19,27 +19,61 @@ interface IconProps {
   link?: string;
 }
 
-const MenuItem = ({ menu }: { menu: Menu }) => (
-  <li className="group relative cursor-pointer px-6 flex flex-row items-stretch justify-between h-full grow">
-    <div className="group flex flex-row items-center relative hover:text-main_brown">
-      <span className="relative z-50">{menu.label}</span>
-      <span className="absolute left-0 bottom-0 w-0 h-[4px] bg-main_brown rounded-full transition-all duration-500 ease-in-out group-hover:w-full z-50"></span>
-    </div>
-    {/* Full-Screen Dropdown Menu */}
-    {menu.children && (
-      <div className="fixed top-[84px] left-0 w-screen bg-white shadow-lg z-40 flex opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-opacity duration-300">
-        <div className="flex flex-row border-gray-200 border-t-2 w-full">
-          <div className="columns-6 mx-12 my-6 w-full relative group">
-            {menu.children.map((item, index) => {
-              return item.image ? (
+const MenuItem = ({ menu }: { menu: Menu }) => {
+  const menuWithoutImages = menu.children
+    ? menu.children.filter((menuChild) => !menuChild.image)
+    : [];
+  const menuWithImages = menu.children
+    ? menu.children.filter((menuChild) => menuChild.image)
+    : [];
+  const columnX =
+    menuWithImages.length == 0
+      ? "columns-6"
+      : "columns-" + (6 - menuWithImages.length);
+
+  return (
+    <li className="group relative cursor-pointer px-6 flex flex-row items-stretch justify-between h-full grow">
+      <div className="group flex flex-row items-center relative hover:text-main_brown">
+        <span className="relative z-50">{menu.label}</span>
+        <span className="absolute left-0 bottom-0 w-0 h-[4px] bg-main_brown rounded-full transition-all duration-500 ease-in-out group-hover:w-full z-50"></span>
+      </div>
+      {/* Full-Screen Dropdown Menu */}
+      {menu.children && (
+        <div className="fixed top-[84px] left-0 w-screen bg-white shadow-lg z-40 flex opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-opacity duration-300">
+          <div className="flex flex-row space-x-1 border-gray-200 border-t-2 w-full">
+            {menuWithoutImages.length > 0 && (
+              <div className={`${columnX} mx-12 my-6 w-full relative group`}>
+                {menuWithoutImages.map((item, index) => (
+                  <div
+                    key={index}
+                    className="flex flex-col mb-6 break-inside-avoid"
+                  >
+                    <h2 className="text-black text-lg mb-4 font-semibold">
+                      {item.label}
+                    </h2>
+                    {item.children &&
+                      item.children.map((child, childIndex) => (
+                        <p
+                          key={childIndex}
+                          className="text-gray-600 mb-2 hover:text-main_brown transition-all duration-300"
+                        >
+                          {child.label}
+                        </p>
+                      ))}
+                  </div>
+                ))}
+              </div>
+            )}
+            {menuWithImages.length > 0 &&
+              menuWithImages.map((item, index) => (
                 <div
                   key={index}
-                  className="flex flex-col pb-2 h-full border-gray-200 border-2"
+                  className="flex flex-col pb-2 h-full border-gray-200 border-x-2"
                 >
                   {/* Parent flex container allowing grow */}
                   <div className="flex flex-col grow relative w-full h-full">
                     <Image
-                      src={item.image}
+                      src={item.image ? item.image : ""}
                       alt={item.label}
                       className="object-cover w-full h-full"
                       fill
@@ -54,32 +88,13 @@ const MenuItem = ({ menu }: { menu: Menu }) => (
                     <p className="text-sm text-gray-500">{item.caption}</p>
                   </div>
                 </div>
-              ) : (
-                <div
-                  key={index}
-                  className="flex flex-col mb-6 break-inside-avoid"
-                >
-                  <h2 className="text-black text-lg mb-4 font-semibold">
-                    {item.label}
-                  </h2>
-                  {item.children &&
-                    item.children.map((child, childIndex) => (
-                      <p
-                        key={childIndex}
-                        className="text-gray-600 mb-2 hover:text-main_brown transition-all duration-300"
-                      >
-                        {child.label}
-                      </p>
-                    ))}
-                </div>
-              );
-            })}
+              ))}
           </div>
         </div>
-      </div>
-    )}
-  </li>
-);
+      )}
+    </li>
+  );
+};
 
 const ActionIcon = ({ src, alt, badge, link }: IconProps) => {
   const router = useRouter();
