@@ -42,7 +42,11 @@ const MenuItem = ({ menu }: { menu: Menu }) => {
         <div className="fixed top-[84px] left-0 w-screen bg-white shadow-lg z-40 flex opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-opacity duration-300">
           <div className="flex flex-row space-x-1 border-gray-200 border-t-2 w-full">
             {menuWithoutImages.length > 0 && (
-              <div className={`${columnX} mx-12 my-6 w-full relative group`}>
+              <div
+                className={`${columnX} ml-12 ${
+                  menuWithImages.length == 0 ? "mr-12" : ""
+                } my-6 w-full relative group`}
+              >
                 {menuWithoutImages.map((item, index) => (
                   <div
                     key={index}
