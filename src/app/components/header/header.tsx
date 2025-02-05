@@ -81,10 +81,18 @@ const MenuItem = ({ menu }: { menu: Menu }) => {
                       priority
                     />
                   </div>
-                  <div className="flex-1 flex flex-col space-y-2 py-6 px-2">
-                    <h2 className="text-md uppercase font-semibold">
-                      {item.label}
-                    </h2>
+                  <div className="flex-1 flex flex-col space-y-4 py-6 px-2">
+                    <div className="flex flex-row justify-between">
+                      <h2 className="text-md uppercase font-semibold">
+                        {item.label}
+                      </h2>
+                      <Image
+                        src={item.icon ?? ""}
+                        alt={item.label}
+                        height={18}
+                        width={18}
+                      />
+                    </div>
                     <p className="text-sm text-gray-500">{item.caption}</p>
                   </div>
                 </div>
