@@ -68,7 +68,7 @@ const MenuItem = ({ menu }: { menu: Menu }) => {
               menuWithImages.map((item, index) => (
                 <div
                   key={index}
-                  className="flex flex-col pb-2 h-full border-gray-200 border-x-2"
+                  className="flex flex-col pb-2 h-full border-gray-200 border-x-2 w-[200px] flex-shrink-0"
                 >
                   {/* Parent flex container allowing grow */}
                   <div className="flex flex-col grow relative w-full h-full">
