@@ -135,7 +135,7 @@ const SubMenuNavbar: React.FC<MobileSubMenuProps> = ({
                               </p>
                             </div>
 
-                            <div className="relative w-[20%] h-[140px]">
+                            <div className="relative w-[22%] h-[140px]">
                               <Image
                                 src={subMenu.image}
                                 alt={subMenu.label}
