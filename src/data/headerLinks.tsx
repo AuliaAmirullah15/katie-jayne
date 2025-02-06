@@ -4,6 +4,10 @@ import orders from "@/assets/images/svg/orders.svg";
 import store from "@/assets/images/svg/store.svg";
 import product1 from "@/assets/images/jpg/product1.jpg";
 import product2 from "@/assets/images/jpg/product2.jpg";
+import product3 from "@/assets/images/jpg/product3.jpg";
+import product4 from "@/assets/images/jpg/product4.jpg";
+import banner1 from "@/assets/images/jpg/banner1.jpg";
+import heroMobile from "@/assets/images/jpg/heroMobile.jpg";
 import diamond from "@/assets/images/png/diamond.png";
 import crown from "@/assets/images/png/crown.png";
 import spring from "@/assets/images/jpg/spring.jpg";
@@ -176,35 +180,45 @@ export const menuItems: Menu[] = [
     label: "Luxury Glassware",
     children: [
       {
-        label: "Lead-Free Crystal",
+        label: "Premium Artisan Glass",
         children: [
           { label: "Elegant Designs" },
           { label: "Handmade" },
           { label: "Eco-Friendly Options" },
-        ],
-      },
-      {
-        label: "Cut Crystal",
-        children: [
           { label: "Faceted Patterns" },
           { label: "Classic Styles" },
           { label: "Vintage Pieces" },
+          { label: "Geometric Designs" },
         ],
+      },
+      {
+        label: "Lead-Free Crystal",
+        image: product1,
+        children: [{ label: "Shop Now" }],
+      },
+      {
+        label: "Cut Crystal",
+        image: product2,
+        children: [{ label: "Shop Now" }],
       },
       {
         label: "Etched Crystal",
-        children: [
-          { label: "Floral Etching" },
-          { label: "Geometric Designs" },
-          { label: "Custom Patterns" },
-        ],
+        image: product3,
+        children: [{ label: "Shop Now" }],
       },
       {
         label: "Bespoke Crystal",
+        image: product4,
+        children: [{ label: "Shop Now" }],
+      },
+      {
+        label: "Exclusive Handcrafted Crystal",
         children: [
           { label: "Custom Orders" },
           { label: "Personalized Etching" },
           { label: "Exclusive Collections" },
+          { label: "Geometric Designs" },
+          { label: "Custom Patterns" },
         ],
       },
     ],
@@ -336,7 +350,22 @@ export const menuItems: Menu[] = [
           { label: "Weekend Specials" },
           { label: "Flash Sales" },
           { label: "Seasonal Promotions" },
+          { label: "Weekend Specials" },
+          { label: "Flash Sales" },
+          { label: "Seasonal Promotions" },
         ],
+      },
+      {
+        label: "Classics",
+        caption: "Timeless glassware, crafted for every occasion.",
+        image: banner1,
+        icon: crown,
+      },
+      {
+        label: "Crystal",
+        caption: "Elegant designs to elevate your everyday moments.",
+        image: heroMobile,
+        icon: diamond,
       },
     ],
   },

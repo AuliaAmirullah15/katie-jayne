@@ -114,7 +114,7 @@ const SubMenuNavbar: React.FC<MobileSubMenuProps> = ({
                         className="cursor-pointer hover:text-main_brown transition-all duration-300"
                         onClick={() => setUpSubMenu(subMenu)}
                       >
-                        {subMenu.image ? (
+                        {subMenu.image && !subMenu.children ? (
                           <div
                             className={`flex flex-row items-center w-full border-gray-200 ${
                               addTopBorder ? "border-t-2" : ""
