@@ -10,6 +10,8 @@ import banner1 from "@/assets/images/jpg/banner1.jpg";
 import heroMobile from "@/assets/images/jpg/heroMobile.jpg";
 import diamond from "@/assets/images/png/diamond.png";
 import crown from "@/assets/images/png/crown.png";
+import classic from "@/assets/images/png/classic.png";
+import crystal from "@/assets/images/png/crystal.png";
 import spring from "@/assets/images/jpg/spring.jpg";
 import summer from "@/assets/images/jpg/summer.jpg";
 import autumn from "@/assets/images/jpg/autum.jpg";
@@ -359,13 +361,13 @@ export const menuItems: Menu[] = [
         label: "Classics",
         caption: "Timeless glassware, crafted for every occasion.",
         image: banner1,
-        icon: crown,
+        icon: classic,
       },
       {
         label: "Crystal",
         caption: "Elegant designs to elevate your everyday moments.",
         image: heroMobile,
-        icon: diamond,
+        icon: crystal,
       },
     ],
   },
