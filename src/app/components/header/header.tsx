@@ -20,16 +20,23 @@ interface IconProps {
 }
 
 const MenuItem = ({ menu }: { menu: Menu }) => {
-  const menuWithoutImages = menu.children
-    ? menu.children.filter((menuChild) => !menuChild.image)
+  const menuWithoutImageBrand = menu.children
+    ? menu.children.filter(
+        (menuChild) =>
+          !menuChild.image ||
+          (menuChild.image && menuChild.children && !menuChild.caption)
+      )
     : [];
-  const menuWithImages = menu.children
-    ? menu.children.filter((menuChild) => menuChild.image)
+  const menuWithImageBrand = menu.children
+    ? menu.children.filter(
+        (menuChild) =>
+          menuChild.image && !menuChild.children && menuChild.caption
+      )
     : [];
   const columnX =
-    menuWithImages.length == 0
+    menuWithImageBrand.length == 0
       ? "columns-6"
-      : "columns-" + (6 - menuWithImages.length);
+      : "columns-" + (6 - menuWithImageBrand.length);
 
   return (
     <li className="group relative cursor-pointer px-6 flex flex-row items-stretch justify-between h-full grow">
@@ -41,13 +48,13 @@ const MenuItem = ({ menu }: { menu: Menu }) => {
       {menu.children && (
         <div className="fixed top-[84px] left-0 w-screen bg-white shadow-lg z-40 flex opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-opacity duration-300">
           <div className="flex flex-row space-x-1 border-gray-200 border-t-2 w-full">
-            {menuWithoutImages.length > 0 && (
+            {menuWithoutImageBrand.length > 0 && (
               <div
                 className={`${columnX} ml-12 ${
-                  menuWithImages.length == 0 ? "mr-12" : ""
+                  menuWithImageBrand.length == 0 ? "mr-12" : ""
                 } my-6 w-full relative group`}
               >
-                {menuWithoutImages.map((item, index) => (
+                {menuWithoutImageBrand.map((item, index) => (
                   <div
                     key={index}
                     className="flex flex-col mb-6 break-inside-avoid"
@@ -55,6 +62,22 @@ const MenuItem = ({ menu }: { menu: Menu }) => {
                     <h2 className="text-black text-lg mb-4 font-semibold">
                       {item.label}
                     </h2>
+
+                    {/* The Image has different height and the quality is blurry */}
+                    {item.image && (
+                      <div className="relative w-full h-[100px] mb-6">
+                        {" "}
+                        {/* Set a fixed height */}
+                        <Image
+                          src={item.image ? item.image : ""}
+                          alt={item.label}
+                          className="object-cover"
+                          fill
+                          quality={100}
+                          priority
+                        />
+                      </div>
+                    )}
                     {item.children &&
                       item.children.map((child, childIndex) => (
                         <p
@@ -68,8 +91,8 @@ const MenuItem = ({ menu }: { menu: Menu }) => {
                 ))}
               </div>
             )}
-            {menuWithImages.length > 0 &&
-              menuWithImages.map((item, index) => (
+            {menuWithImageBrand.length > 0 &&
+              menuWithImageBrand.map((item, index) => (
                 <div
                   key={index}
                   className="flex flex-col pb-2 h-full border-gray-200 border-x-2 w-[200px] flex-shrink-0"

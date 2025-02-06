@@ -6,6 +6,10 @@ import product1 from "@/assets/images/jpg/product1.jpg";
 import product2 from "@/assets/images/jpg/product2.jpg";
 import diamond from "@/assets/images/png/diamond.png";
 import crown from "@/assets/images/png/crown.png";
+import spring from "@/assets/images/jpg/spring.jpg";
+import summer from "@/assets/images/jpg/summer.jpg";
+import autumn from "@/assets/images/jpg/autum.jpg";
+import winter from "@/assets/images/jpg/winter.jpg";
 import { StaticImageData } from "next/image";
 
 export type Menu = {
@@ -86,7 +90,8 @@ export const menuItems: Menu[] = [
     style: "font-semibold",
     children: [
       {
-        label: "Spring Collection",
+        label: "Spring",
+        image: spring,
         children: [
           { label: "Pastel Mugs" },
           { label: "Floral Plates" },
@@ -98,7 +103,8 @@ export const menuItems: Menu[] = [
         ],
       },
       {
-        label: "Summer Specials",
+        label: "Summer",
+        image: summer,
         children: [
           { label: "Iced Tea Glasses" },
           { label: "Beach Tumblers" },
@@ -108,8 +114,30 @@ export const menuItems: Menu[] = [
         ],
       },
       {
-        label: "Cosy Autumn",
-        children: [{ label: "Leafy Glasses" }, { label: "Mushroom Goblets" }],
+        label: "Autumn",
+        image: autumn,
+        children: [
+          { label: "Leafy Glasses" },
+          { label: "Mushroom Goblets" },
+          { label: "Pumpkin Mugs" },
+          { label: "Harvest Platters" },
+          { label: "Acorn Teacups" },
+          { label: "Rustic Wooden Bowls" },
+          { label: "Spiced Cider Tumblers" },
+        ],
+      },
+      {
+        label: "Winter",
+        image: winter,
+        children: [
+          { label: "Snowflake Glasses" },
+          { label: "Frosted Goblets" },
+          { label: "Icicle Tumblers" },
+          { label: "Peppermint Mugs" },
+          { label: "Hot Cocoa Cups" },
+          { label: "Evergreen Pitchers" },
+          { label: "Winter Wonderland Teapots" },
+        ],
       },
       {
         label: "Vintage Vibes",
