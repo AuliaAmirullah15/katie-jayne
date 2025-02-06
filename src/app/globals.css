@@ -7,6 +7,7 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --header-height: 30px;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -30,4 +31,8 @@ body {
 .no-scroll {
   overflow: hidden;
   height: 100%;
+}
+
+.columns-4 {
+  columns: 4;
 }

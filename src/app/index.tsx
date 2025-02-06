@@ -6,6 +6,7 @@ import Header from "@/app/components/header/header";
 import Hero from "@/app/components/index/hero";
 import ShopBanner from "@/app/components/index/shopBanner";
 import Trending from "@/app/components/index/trending";
+import ContentLayout from "./components/layouts/contentLayout";
 
 const IndexPage: React.FC = () => {
   return (
@@ -13,9 +14,11 @@ const IndexPage: React.FC = () => {
       <EmailPopup />
       <Banner bannerText="Complimentary shipping on orders of £100 or more. Shop now" />
       <Header />
-      <Hero />
-      <Trending />
-      <ShopBanner />
+      <ContentLayout>
+        <Hero />
+        <Trending />
+        <ShopBanner />
+      </ContentLayout>
       <FooterBanner />
       <Footer />
     </>

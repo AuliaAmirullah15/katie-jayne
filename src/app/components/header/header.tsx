@@ -9,9 +9,8 @@ import heart from "@/assets/images/svg/heart.svg";
 import bag from "@/assets/images/svg/bag.svg";
 import { useSelector } from "react-redux";
 import { RootState } from "@/app/stores";
-import Overlay from "../layouts/overlay";
-
-const MENU_ITEMS = ["Collections", "New Arrivals", "Sales"];
+import { menuItems, Menu } from "@/data/headerLinks";
+import MobileNavbar from "./mobileNavbar";
 
 interface IconProps {
   src: string;
@@ -20,12 +19,117 @@ interface IconProps {
   link?: string;
 }
 
-const MenuItem = ({ children }: { children: React.ReactNode }) => (
-  <li className="group relative hover:text-main_brown cursor-pointer">
-    {children}
-    <span className="absolute left-0 bottom-[-6px] w-0 h-[2px] bg-main_brown rounded-full transition-all duration-500 ease-in-out group-hover:w-full"></span>
-  </li>
-);
+const MenuItem = ({ menu }: { menu: Menu }) => {
+  const menuWithoutImageBrand = menu.children
+    ? menu.children.filter(
+        (menuChild) =>
+          !menuChild.image ||
+          (menuChild.image && menuChild.children && !menuChild.caption)
+      )
+    : [];
+  const menuWithImageBrand = menu.children
+    ? menu.children.filter(
+        (menuChild) =>
+          menuChild.image && !menuChild.children && menuChild.caption
+      )
+    : [];
+  const columnX =
+    menuWithImageBrand.length == 0
+      ? "columns-6"
+      : "columns-" + (6 - menuWithImageBrand.length);
+
+  return (
+    <li className="group relative cursor-pointer px-6 flex flex-row items-stretch justify-between h-full grow">
+      <div className="group flex flex-row items-center relative hover:text-main_brown">
+        <span className="relative z-50">{menu.label}</span>
+        <span className="absolute left-0 bottom-0 w-0 h-[4px] bg-main_brown rounded-full transition-all duration-500 ease-in-out group-hover:w-full z-50"></span>
+      </div>
+      {/* Full-Screen Dropdown Menu */}
+      {menu.children && (
+        <div className="fixed top-[84px] left-0 w-screen bg-white shadow-lg z-40 flex opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-opacity duration-300">
+          <div className="flex flex-row space-x-1 border-gray-200 border-t-2 w-full">
+            {menuWithoutImageBrand.length > 0 && (
+              <div
+                className={`${columnX} ml-12 ${
+                  menuWithImageBrand.length == 0 ? "mr-12" : ""
+                } my-6 w-full relative group`}
+              >
+                {menuWithoutImageBrand.map((item, index) => (
+                  <div
+                    key={index}
+                    className="flex flex-col mb-6 break-inside-avoid"
+                  >
+                    <h2 className="text-black text-lg mb-4 font-semibold">
+                      {item.label}
+                    </h2>
+
+                    {/* The Image has different height and the quality is blurry */}
+                    {item.image && (
+                      <div className="relative w-full h-[100px] mb-6">
+                        {" "}
+                        {/* Set a fixed height */}
+                        <Image
+                          src={item.image ? item.image : ""}
+                          alt={item.label}
+                          className="object-cover"
+                          fill
+                          quality={100}
+                          priority
+                        />
+                      </div>
+                    )}
+                    {item.children &&
+                      item.children.map((child, childIndex) => (
+                        <p
+                          key={childIndex}
+                          className="text-gray-600 mb-2 hover:text-main_brown transition-all duration-300"
+                        >
+                          {child.label}
+                        </p>
+                      ))}
+                  </div>
+                ))}
+              </div>
+            )}
+            {menuWithImageBrand.length > 0 &&
+              menuWithImageBrand.map((item, index) => (
+                <div
+                  key={index}
+                  className="flex flex-col pb-2 h-full border-gray-200 border-x-2 w-[200px] flex-shrink-0"
+                >
+                  {/* Parent flex container allowing grow */}
+                  <div className="flex flex-col grow relative w-full h-full">
+                    <Image
+                      src={item.image ? item.image : ""}
+                      alt={item.label}
+                      className="object-cover w-full h-full"
+                      fill
+                      quality={100}
+                      priority
+                    />
+                  </div>
+                  <div className="flex-1 flex flex-col space-y-4 py-6 px-2">
+                    <div className="flex flex-row justify-between">
+                      <h2 className="text-md uppercase font-semibold">
+                        {item.label}
+                      </h2>
+                      <Image
+                        src={item.icon ?? ""}
+                        alt={item.label}
+                        height={18}
+                        width={18}
+                      />
+                    </div>
+                    <p className="text-sm text-gray-500">{item.caption}</p>
+                  </div>
+                </div>
+              ))}
+          </div>
+        </div>
+      )}
+    </li>
+  );
+};
 
 const ActionIcon = ({ src, alt, badge, link }: IconProps) => {
   const router = useRouter();
@@ -89,21 +193,23 @@ export default function Header() {
 
   return (
     <header className="bg-white shadow sticky top-[35px] z-40">
-      <div className="mx-6 md:mx-12 flex items-center justify-between py-2">
+      <div className="mx-6 md:mx-12 flex items-stretch justify-between">
         {/* Logo and Navigation */}
         <div className="flex space-x-8 justify-between">
-          <Image
-            src={logo}
-            alt="Katie Jayne"
-            className="w-24 md:w-auto cursor-pointer"
-            onClick={handleLogoClick}
-          />
+          <div className="flex flex-col items-center justify-center">
+            <Image
+              src={logo}
+              alt="Katie Jayne"
+              className="w-24 md:w-auto cursor-pointer"
+              onClick={handleLogoClick}
+            />
+          </div>
 
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex">
-            <ul className="flex space-x-8 text-gray-800 text-sm">
-              {MENU_ITEMS.map((item) => (
-                <MenuItem key={item}>{item}</MenuItem>
+            <ul className="flex text-gray-800 text-sm">
+              {menuItems.map((menu, key) => (
+                <MenuItem key={key} menu={menu} />
               ))}
             </ul>
           </nav>
@@ -131,21 +237,7 @@ export default function Header() {
       </div>
 
       {/* Mobile Menu Navbar */}
-      <Overlay
-        isVisible={menuOpen}
-        onClose={() => setMenuOpen(false)}
-        className="items-center justify-center"
-      >
-        <nav className="space-y-6 text-gray-800 text-xl">
-          <ul className="flex flex-col items-center space-y-6">
-            {MENU_ITEMS.map((item) => (
-              <li key={item} className="cursor-pointer hover:text-main_brown">
-                {item}
-              </li>
-            ))}
-          </ul>
-        </nav>
-      </Overlay>
+      <MobileNavbar isOpen={menuOpen} onClose={() => setMenuOpen(false)} />
     </header>
   );
 }
