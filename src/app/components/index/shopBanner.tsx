@@ -3,9 +3,11 @@ import banner1 from "@/assets/images/jpg/banner1.jpg";
 import banner2 from "@/assets/images/jpg/banner2.jpg";
 import PrimaryButton, { ButtonType } from "../buttons/primaryButton";
 import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 export default function ShopBanner() {
   const [height, setHeight] = useState(300);
+  const router = useRouter();
 
   useEffect(() => {
     const updateSize = () => {
@@ -35,6 +37,7 @@ export default function ShopBanner() {
         <PrimaryButton
           className="absolute bottom-4 left-2"
           buttonType={ButtonType.Ternary}
+          onClick={() => router.push("/product")}
         >
           Shop Crystal
         </PrimaryButton>
@@ -47,6 +50,7 @@ export default function ShopBanner() {
         <PrimaryButton
           className="absolute bottom-4 left-2"
           buttonType={ButtonType.Ternary}
+          onClick={() => router.push("/product")}
         >
           Shop Essentials
         </PrimaryButton>
