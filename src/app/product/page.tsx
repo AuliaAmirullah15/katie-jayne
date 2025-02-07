@@ -5,6 +5,7 @@ import FooterBanner from "@/app/components/footer/footerBanner";
 import Header from "@/app/components/header/header";
 import React from "react";
 import ContentLayout from "@/app/components/layouts/contentLayout";
+import ProductListing from "../components/productListing/productListing";
 
 const ProductListingPage = () => {
   return (
@@ -12,7 +13,7 @@ const ProductListingPage = () => {
       <Banner bannerText="Complimentary shipping on orders of £100 or more. Shop now" />
       <Header />
       <ContentLayout>
-        <p>Product Listing</p>
+        <ProductListing />
       </ContentLayout>
 
       <FooterBanner />
