@@ -194,7 +194,7 @@ export const menuItems: Menu[] = [
         ],
       },
       {
-        label: "Lead-Free Crystal",
+        label: "Wicked Crystal",
         image: product1,
         children: [{ label: "Shop Now" }],
       },
