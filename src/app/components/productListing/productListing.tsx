@@ -1,6 +1,6 @@
 import ProductFilters from "@/app/components/productListing/productFilters";
 import FilterButton from "@/app/components/productListing/filterButton";
-import { products } from "@/data/products";
+import { productList } from "@/data/products";
 
 const ProductListing = () => {
   return (
@@ -21,7 +21,7 @@ const ProductListing = () => {
       </div>
 
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        {products.map((product, key) => (
+        {productList.map((product, key) => (
           <div
             key={key}
             className="relative flex flex-col h-96 sm:h-50 group cursor-pointer"
