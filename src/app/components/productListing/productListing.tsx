@@ -1,17 +1,64 @@
 import ProductFilters from "@/app/components/productListing/productFilters";
 import FilterButton from "@/app/components/productListing/filterButton";
-import { productList } from "@/data/products";
+import { productList, products } from "@/data/products";
+import London from "@/assets/images/jpg/london.jpeg";
+
+import Image from "next/image";
 
 const ProductListing = () => {
   return (
     <div className="my-6 flex flex-col space-y-3">
       <div className="mx-6 md:mx-14 flex flex-row items-center justify-between">
-        <h2 className="text-2xl">Shop</h2>
+        <div className="flex flex-row items-end space-x-2">
+          <h2 className="text-2xl font-bold">SHOP</h2>
+          <span className="text-sm text-gray-500">[25]</span>
+        </div>
         <div className="lg:hidden flex flex-row">
           <FilterButton />
         </div>
       </div>
-      <div className="mx-0 md:mx-14 flex items-stretch justify-between border-gray-200 border-b-2">
+      <div className="relative flex flex-col w-full pb-12">
+        <div className="z-10 flex flex-col space-y-4">
+          <h3 className="mx-6 md:mx-14 text-xl font-semibold">NEW ARRIVALS</h3>
+
+          {/* NEW ARRIVAL PRODUCTS */}
+          <div className="mx-0 md:mx-14">
+            <div className="flex flex-row w-full space-x-2 overflow-x-auto scrollbar-hide">
+              {products.map((product, key) => (
+                <div
+                  key={key}
+                  className="flex-flex-col flex-none bg-white space-y-6 w-[250px] md:w-[clamp(120px,16vw,220px)]"
+                >
+                  <div className="flex flex-col w-full h-[200px] md:h-[120px]">
+                    <Image
+                      src={product.image}
+                      alt="spring"
+                      className="object-cover h-full w-full"
+                    />
+                  </div>
+                  <div className="m-6 text-sm">
+                    <p className="underline mb-2 font-semibold tracking-widest uppercase">
+                      {product.name}
+                    </p>
+                    <p className="mb-6 text-gray-600">
+                      Stability and comfort in all conditions
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <div className="absolute bottom-0 flex flex-row w-full h-[75%]">
+          <Image
+            src={London}
+            alt="New Arrivals"
+            className="object-cover w-full h-full"
+          />
+        </div>
+      </div>
+      <div className="my-12 mx-0 md:mx-14 flex items-stretch justify-between border-gray-200 border-b-2">
         <div className="mx-6 md:mx-0 flex flex-row overflow-x-auto whitespace-nowrap md:overflow-visible scrollbar-hide">
           <ProductFilters />
         </div>
