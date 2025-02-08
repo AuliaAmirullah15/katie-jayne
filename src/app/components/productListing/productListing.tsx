@@ -1,6 +1,6 @@
 import ProductFilters from "@/app/components/productListing/productFilters";
 import FilterButton from "@/app/components/productListing/filterButton";
-import { productList, products } from "@/data/products";
+import { productList, newArrivals } from "@/data/products";
 import London from "@/assets/images/jpg/london.jpeg";
 
 import Image from "next/image";
@@ -24,7 +24,7 @@ const ProductListing = () => {
           {/* NEW ARRIVAL PRODUCTS */}
           <div className="mx-0 md:mx-14">
             <div className="flex flex-row w-full space-x-2 overflow-x-auto scrollbar-hide">
-              {products.map((product, key) => (
+              {newArrivals.map((product, key) => (
                 <div
                   key={key}
                   className="flex-flex-col flex-none bg-white space-y-6 w-[250px] md:w-[clamp(120px,16vw,220px)]"
@@ -38,11 +38,9 @@ const ProductListing = () => {
                   </div>
                   <div className="m-6 text-sm">
                     <p className="underline mb-2 font-semibold tracking-widest uppercase">
-                      {product.name}
+                      {product.label}
                     </p>
-                    <p className="mb-6 text-gray-600">
-                      Stability and comfort in all conditions
-                    </p>
+                    <p className="mb-6 text-gray-600">{product.description}</p>
                   </div>
                 </div>
               ))}

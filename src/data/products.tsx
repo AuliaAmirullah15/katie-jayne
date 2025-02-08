@@ -5,6 +5,10 @@ import product4 from "@/assets/images/jpg/product4.jpg";
 import product5 from "@/assets/images/jpg/product5.jpg";
 import { Product } from "@/app/types/product";
 import { Currency } from "@/app/types/currency";
+import heroMobile from "@/assets/images/jpg/heroMobile.jpg";
+import banner1 from "@/assets/images/jpg/banner1.jpg";
+import banner2 from "@/assets/images/jpg/banner2.jpg";
+import winter from "@/assets/images/jpg/winter.jpg";
 
 export const products: Product[] = [
   {
@@ -363,3 +367,27 @@ export const productList: Product[] = Array.from({ length: 5 }, (_, i) => [
     ],
   },
 ]).flat();
+
+export const newArrivals = [
+  {
+    label: "Vintage Vibes",
+    description:
+      "Elegant glassware with classic charm and intricate detailing.",
+    image: heroMobile,
+  },
+  {
+    label: "Fun Holiday",
+    description: "Festive designs perfect for celebrating special moments.",
+    image: banner1,
+  },
+  {
+    label: "Fresh New Year",
+    description: "Sleek and modern glassware to start the year in style.",
+    image: winter,
+  },
+  {
+    label: "Tropical Escape",
+    description: "Vibrant and refreshing designs inspired by island getaways.",
+    image: banner2,
+  },
+];
