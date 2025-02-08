@@ -1,5 +1,6 @@
 import Image from "next/image";
 import filter from "@/assets/images/png/filter.png";
+import { productFilters } from "@/data/headerLinks";
 
 const ProductListing = () => {
   return (
@@ -8,14 +9,15 @@ const ProductListing = () => {
       <div className="flex items-stretch justify-between border-gray-200 border-b-2">
         <div className="flex flex-row">
           <ul className="flex flex-row space-x-10 text-gray-800 text-sm">
-            <li className="group relative cursor-pointer flex flex-row items-center justify-between h-full grow hover:text-main_brown duration-300 transition-all">
-              <span className="relative">Decanters</span>
-              <span className="absolute left-0 -bottom-1 w-0 h-[4px] bg-main_brown rounded-full transition-all duration-500 ease-in-out group-hover:w-full"></span>
-            </li>
-            <li className="group relative cursor-pointer flex flex-row items-center justify-between h-full grow hover:text-main_brown duration-300 transition-all">
-              <span className="relative">Glasses</span>
-              <span className="absolute left-0 -bottom-1 w-0 h-[4px] bg-main_brown rounded-full transition-all duration-500 ease-in-out group-hover:w-full"></span>
-            </li>
+            {productFilters.map((productFilter, key) => (
+              <li
+                key={key}
+                className="group relative cursor-pointer flex flex-row items-center justify-between h-full grow hover:text-main_brown duration-300 transition-all"
+              >
+                <span className="relative">{productFilter}</span>
+                <span className="absolute left-0 -bottom-1 w-0 h-[4px] bg-main_brown rounded-full transition-all duration-500 ease-in-out group-hover:w-full"></span>
+              </li>
+            ))}
           </ul>
         </div>
         <div className="flex flex-row mb-2">

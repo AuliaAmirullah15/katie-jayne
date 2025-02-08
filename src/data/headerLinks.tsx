@@ -382,3 +382,12 @@ export const coreLinks = [
   { label: "Bag", icon: bag },
   { label: "Find a Store", icon: store },
 ];
+
+export const productFilters: string[] = [
+  "Gold-Plated",
+  "Crystal",
+  "Hand-Blown",
+  "Glasses",
+  "Decanters",
+  "Limited Edition",
+];
