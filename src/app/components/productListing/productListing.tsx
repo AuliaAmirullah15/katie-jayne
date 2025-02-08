@@ -4,15 +4,15 @@ import { productList } from "@/data/products";
 
 const ProductListing = () => {
   return (
-    <div className="my-6 mx-6 md:mx-14 flex flex-col space-y-3">
-      <div className="flex flex-row items-center justify-between">
+    <div className="my-6 flex flex-col space-y-3">
+      <div className="mx-6 md:mx-14 flex flex-row items-center justify-between">
         <h2 className="text-2xl">Shop</h2>
         <div className="lg:hidden flex flex-row">
           <FilterButton />
         </div>
       </div>
-      <div className="flex items-stretch justify-between border-gray-200 border-b-2">
-        <div className="flex flex-row overflow-x-auto whitespace-nowrap md:overflow-visible scrollbar-hide">
+      <div className="mx-0 md:mx-14 flex items-stretch justify-between border-gray-200 border-b-2">
+        <div className="mx-6 md:mx-0 flex flex-row overflow-x-auto whitespace-nowrap md:overflow-visible scrollbar-hide">
           <ProductFilters />
         </div>
         <div className="hidden lg:flex flex-row items-center justify-center">
@@ -20,7 +20,7 @@ const ProductListing = () => {
         </div>
       </div>
 
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-3 gap-y-6">
+      <div className="mx-0 md:mx-14 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-3 gap-y-6">
         {productList.map((product, key) => (
           <div
             key={key}
