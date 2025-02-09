@@ -129,7 +129,9 @@ const ShoppingBag: React.FC<ShoppingBagProps> = ({
   return (
     <SidebarLayout
       isOverlayVisible={isOverlayVisible}
-      title={<h2 className="text-xl">Shopping Bag</h2>}
+      title={
+        <h2 className="text-xl font-bold tracking-wide m-6">Shopping Bag</h2>
+      }
       onClose={onClose}
     >
       <BasketItemList

@@ -41,7 +41,7 @@ const SidebarLayout: React.FC<SidebarLayoutProps> = ({
         w-full md:w-[400px] right-0`}
       >
         <OverlayCloseButton onClick={onClose} />
-        <div className="m-6">{title}</div>
+        {title}
         <hr className="w-full border-t border-gray-300"></hr>
         {children}
       </div>
