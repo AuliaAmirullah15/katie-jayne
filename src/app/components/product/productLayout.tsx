@@ -156,10 +156,10 @@ const ProductLayout: React.FC<ProductPageProps> = ({ params }) => {
           <h2 className="text-center md:text-left text-2xl font-semibold mb-4 font-cardo">
             {product.name}
           </h2>
-          <p className="text-center md:text-left text-xl mb-4">
+          <p className="text-center md:text-left text-md mb-4">
             {formatCurrency(product.price, product.currency)}
           </p>
-          <p className="text-gray-600 mb-6">{product.description}</p>
+          <p className="text-sm text-gray-600 mb-6">{product.description}</p>
 
           {/* Quantity and Add to Cart */}
           <div className="flex flex-col space-y-4 lg:space-y-0 lg:gap-x-4 lg:flex-row-reverse lg:justify-end">

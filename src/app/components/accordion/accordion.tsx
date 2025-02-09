@@ -16,12 +16,12 @@ export default function Accordion({
         onClick={() => setOpenSection(!isSectionOpen)}
         className="flex justify-between items-center cursor-pointer"
       >
-        <h3 className="text-md md:text-lg font-semibold">{title}</h3>
-        <span className="text-md md:text-lg font-semibold">
+        <h3 className="text-sm font-semibold">{title}</h3>
+        <span className="text-sm font-semibold">
           {isSectionOpen ? (
-            <FaChevronDown className="w-6 h-6 text-gray-500 transform rotate-180 transition-transform duration-300" />
+            <FaChevronDown className="w-3 h-3 text-gray-500 transform rotate-180 transition-transform duration-300" />
           ) : (
-            <FaChevronDown className="w-6 h-6 text-gray-500 transform rotate-0 transition-transform duration-300" />
+            <FaChevronDown className="w-3 h-3 text-gray-500 transform rotate-0 transition-transform duration-300" />
           )}
         </span>
       </div>

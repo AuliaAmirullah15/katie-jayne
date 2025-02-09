@@ -23,7 +23,7 @@ export default function AddToCartButton({
   return (
     <PrimaryButton
       type="submit"
-      className="w-full md:w-auto md:mt-0 mx-0 text-md flex-auto"
+      className="w-full md:w-auto md:mt-0 mx-0 text-sm flex-auto"
       buttonType={ButtonType.Secondary}
       onClick={addToCart}
     >

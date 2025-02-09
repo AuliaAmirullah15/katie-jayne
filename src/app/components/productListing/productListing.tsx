@@ -6,6 +6,7 @@ import ProductListingHighlight from "./productListingHighlight";
 import SidebarLayout from "../layouts/sidebarLayout";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
+import Accordion from "../accordion/accordion";
 
 const ProductListing = () => {
   const [isOverlayVisible, setOverlayVisible] = useState(false);
@@ -28,8 +29,8 @@ const ProductListing = () => {
         }
         onClose={() => setOverlayVisible(false)}
       >
-        <div className="flex flex-row items-center justify-between m-6">
-          <div className="flex flex-col space-y-4">
+        <div className="flex flex-col items-center space-y-4 justify-between m-6">
+          <div className="flex flex-col space-y-4 w-full">
             <h4 className="text-sm font-bold">APPLIED FILTERS</h4>
             <div className="flex flex-row flex-wrap gap-2 w-full">
               <div className="inline-flex items-center space-x-2 bg-gray-200 p-2 rounded max-w-max">
@@ -57,6 +58,11 @@ const ProductListing = () => {
                 <p className="text-sm">Crystal</p>
               </div>
             </div>
+          </div>
+          <div className="flex flex-col space-y-4 w-full">
+            <Accordion title="SORT">
+              <p className="text-sm">TESTING</p>
+            </Accordion>
           </div>
         </div>
       </SidebarLayout>

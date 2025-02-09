@@ -11,7 +11,7 @@ export default function ProductAccordion({
     <>
       {contents.map((content: ProductDetails, index: number) => (
         <Accordion key={index} title={content.title}>
-          <p>{content.description}</p>
+          <p className="text-sm">{content.description}</p>
         </Accordion>
       ))}
     </>
