@@ -8,7 +8,7 @@ import quantityReducer from "@/app/reducers/quantityReducer";
 import AddToCartButton from "../buttons/addToCartButton";
 import { useSelector } from "react-redux";
 import { RootState } from "@/app/stores";
-import { defaultProduct, products } from "@/data/products";
+import { defaultProduct, productList } from "@/data/products";
 import { Product } from "@/app/types/product";
 import { ProductPageProps } from "@/app/types/componentProps";
 import ShoppingBag from "./shoppingBag";
@@ -60,7 +60,9 @@ const ProductLayout: React.FC<ProductPageProps> = ({ params }) => {
         // WAIT THE PARAMS FROM THE URL, THEN RESET THE PRODUCT
         setProductCode(param.code);
 
-        const product = products.find((product) => product.code === param.code);
+        const product = productList.find(
+          (product) => product.code === param.code
+        );
         setProduct(product as Product);
 
         setActiveImage(

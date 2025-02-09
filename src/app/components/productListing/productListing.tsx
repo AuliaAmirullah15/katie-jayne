@@ -2,10 +2,13 @@ import ProductFilters from "@/app/components/productListing/productFilters";
 import FilterButton from "@/app/components/productListing/filterButton";
 import { productList, newArrivals } from "@/data/products";
 import London from "@/assets/images/jpg/london.jpeg";
+import { useRouter } from "next/navigation";
 
 import Image from "next/image";
 
 const ProductListing = () => {
+  const router = useRouter();
+
   return (
     <div className="my-6 flex flex-col space-y-3">
       <div className="mx-6 md:mx-14 flex flex-row items-center justify-between">
@@ -70,6 +73,7 @@ const ProductListing = () => {
           <div
             key={key}
             className="relative flex flex-col h-96 sm:h-50 group cursor-pointer"
+            onClick={() => router.push(`/product/${product.code}`)}
           >
             <div
               className="h-full relative bg-cover bg-center"
