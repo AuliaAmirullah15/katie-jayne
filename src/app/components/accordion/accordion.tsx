@@ -4,17 +4,19 @@ import { FaChevronDown } from "react-icons/fa";
 export default function Accordion({
   title,
   children,
+  sectionClassName,
 }: {
   title: string;
   children: ReactNode;
+  sectionClassName?: string;
 }) {
   const [isSectionOpen, setOpenSection] = useState(false);
 
   return (
-    <div className="border-t border-b py-4">
+    <div className="border-t border-b py-3">
       <div
         onClick={() => setOpenSection(!isSectionOpen)}
-        className="flex justify-between items-center cursor-pointer"
+        className={`flex justify-between items-center cursor-pointer ${sectionClassName}`}
       >
         <h3 className="text-sm font-semibold">{title}</h3>
         <span className="text-sm font-semibold">
@@ -31,7 +33,7 @@ export default function Accordion({
           isSectionOpen ? "h-auto" : "h-0"
         }`}
       >
-        <div className="mt-6 text-gray-600">{children}</div>
+        <div className="mt-4 text-gray-600">{children}</div>
       </div>
     </div>
   );
