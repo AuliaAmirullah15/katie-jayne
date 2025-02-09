@@ -164,11 +164,14 @@ const ProductLayout: React.FC<ProductPageProps> = ({ params }) => {
           {/* Quantity and Add to Cart */}
           <div className="flex flex-col space-y-4 lg:space-y-0 lg:gap-x-4 lg:flex-row-reverse lg:justify-end">
             {/* Quantity Selector */}
-            <QuantitySelector
-              quantity={quantity}
-              dispatch={dispatch}
-              className="w-full md:w-auto justify-center"
-            />
+
+            <div className="flex flex-row justify-center items-center">
+              <QuantitySelector
+                quantity={quantity}
+                dispatch={dispatch}
+                className="justify-center"
+              />
+            </div>
 
             {/* Add to Cart Button */}
             <div className="flex flex-row-reverse md:flex-row space-x-reverse md:space-x-2 space-x-2 w-full md:w-auto">

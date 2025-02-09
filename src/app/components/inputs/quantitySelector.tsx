@@ -1,10 +1,9 @@
 import React from "react";
-import PrimaryButton, { ButtonType } from "../buttons/primaryButton";
-import { Action } from "@/app/reducers/quantityReducer";
+import { FaMinus, FaPlus } from "react-icons/fa";
 
 interface QuantitySelectorProps {
   quantity: number;
-  dispatch?: React.Dispatch<Action>;
+  dispatch?: React.Dispatch<{ type: "INCREMENT" | "DECREMENT" }>;
   onIncrement?: () => void;
   onDecrement?: () => void;
   className?: string;
@@ -28,29 +27,20 @@ const QuantitySelector: React.FC<QuantitySelectorProps> = ({
   };
 
   return (
-    <div className={`flex items-center space-x-2 ${className}`}>
-      <PrimaryButton
-        type="button"
-        className="mt-2"
-        buttonType={ButtonType.Outlined}
+    <div
+      className={`flex items-center border border-gray-500 rounded-lg p-1 ${className}`}
+    >
+      <button
         onClick={defaultDecrement}
         disabled={quantity <= 1}
+        className="p-2 disabled:opacity-50"
       >
-        -
-      </PrimaryButton>
-
-      <span className="pt-2 text-xl w-12 text-center font-semibold">
-        {quantity}
-      </span>
-
-      <PrimaryButton
-        type="button"
-        className="mt-2"
-        buttonType={ButtonType.Outlined}
-        onClick={defaultIncrement}
-      >
-        +
-      </PrimaryButton>
+        <FaMinus size={16} />
+      </button>
+      <span className="mx-4 text-lg font-semibold">{quantity}</span>
+      <button onClick={defaultIncrement} className="p-2">
+        <FaPlus size={16} />
+      </button>
     </div>
   );
 };
