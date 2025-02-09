@@ -2,7 +2,6 @@ import React, { useEffect, useReducer, useState } from "react";
 import Image, { StaticImageData } from "next/image";
 import QuantitySelector from "../inputs/quantitySelector";
 import { formatCurrency } from "@/app/utils/currencyFormatter";
-import Accordion from "../accordion/accordion";
 import FavoriteButton from "../buttons/favoriteButton";
 import quantityReducer from "@/app/reducers/quantityReducer";
 import AddToCartButton from "../buttons/addToCartButton";
@@ -12,6 +11,7 @@ import { defaultProduct, productList } from "@/data/products";
 import { Product } from "@/app/types/product";
 import { ProductPageProps } from "@/app/types/componentProps";
 import ShoppingBag from "./shoppingBag";
+import ProductAccordion from "./productAccordion";
 
 const Thumbnails = ({
   images,
@@ -188,7 +188,7 @@ const ProductLayout: React.FC<ProductPageProps> = ({ params }) => {
           </div>
 
           <div className="mt-4">
-            <Accordion contents={product.details} />
+            <ProductAccordion contents={product.details} />
           </div>
         </div>
       </div>
