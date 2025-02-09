@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 import { RootState } from "@/app/stores";
 import EmptyFavorites from "./emptyFavorites";
-import FavoritesContent from "./favoritesContent";
+import FavoritesContent from "./FavoritesContent";
 
 export default function Favorites() {
   const favorites = useSelector((state: RootState) => state.favorites);

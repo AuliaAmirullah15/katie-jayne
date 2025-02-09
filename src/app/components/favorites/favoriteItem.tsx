@@ -42,10 +42,10 @@ const FavoriteItem: React.FC<FavoriteItemProps> = ({ favorite }) => {
       <p className="text-gray-600">
         {formatCurrency(favorite.price, favorite.currency)}
       </p>
-      <div className="flex flex-row space-x-2">
+      <div className="flex flex-col space-y-2">
         <PrimaryButton
           type="submit"
-          className="w-full md:w-auto md:mt-0 mx-0 text-md flex-auto"
+          className="w-full md:w-auto md:mt-0 mx-0 text-md flex flex-row items-center justify-center"
           buttonType={ButtonType.Secondary}
           onClick={() => router.push(`/product/${favorite.code}`)}
         >
@@ -53,7 +53,7 @@ const FavoriteItem: React.FC<FavoriteItemProps> = ({ favorite }) => {
         </PrimaryButton>
         <PrimaryButton
           type="submit"
-          className="w-full md:w-auto md:mt-0 mx-0 text-md flex-auto"
+          className="w-full md:w-auto md:mt-0 mx-0 text-md flex flex-row items-center justify-center"
           buttonType={ButtonType.Outlined}
           onClick={() => dispatch(removeFavorite(favorite))}
         >
