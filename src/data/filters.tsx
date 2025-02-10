@@ -1,4 +1,12 @@
-export const filters = [
+export type Filter = {
+  id: string;
+  name: string;
+  type?: string;
+  count?: number;
+  children?: Filter[];
+};
+
+export const filters: Filter[] = [
   {
     id: "fi0001",
     name: "Collection",

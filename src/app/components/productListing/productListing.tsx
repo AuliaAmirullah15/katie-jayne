@@ -8,6 +8,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import Accordion from "../accordion/accordion";
 import Checkbox from "../buttons/checkbox";
+import { filters } from "@/data/filters";
 
 const ProductListing = () => {
   const [isOverlayVisible, setOverlayVisible] = useState(false);
@@ -77,19 +78,26 @@ const ProductListing = () => {
             </Accordion>
           </div>
 
-          <div className="flex flex-col space-y-4 w-full">
-            <Accordion title="COLLECTION" sectionClassName="mx-6">
-              <div className="flex flex-row">
-                <div className="flex flex-row mx-6 my-3">
-                  <Checkbox />
-                  <p className="ml-2 mr-1 text-md text-gray-800">Decanters</p>
-                  <span className="text-sm text-gray-500 flex flex-col items-end justify-end">
-                    [3]
-                  </span>
-                </div>
-              </div>
-            </Accordion>
-          </div>
+          {filters.map((filter, key) => (
+            <div key={key} className="flex flex-col space-y-4 w-full">
+              <Accordion title={filter.name} sectionClassName="mx-6">
+                {filter.children &&
+                  filter.children.map((filterOption, index) => (
+                    <div key={index} className="flex flex-row">
+                      <div className="flex flex-row mx-6 my-3">
+                        <Checkbox />
+                        <p className="ml-2 mr-1 text-md text-gray-800">
+                          {filterOption.name}
+                        </p>
+                        <span className="text-sm text-gray-500 flex flex-col items-end justify-end">
+                          [{filterOption.count}]
+                        </span>
+                      </div>
+                    </div>
+                  ))}
+              </Accordion>
+            </div>
+          ))}
         </div>
       </SidebarLayout>
     </div>
