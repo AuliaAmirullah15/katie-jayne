@@ -76,6 +76,7 @@ const ProductListing = () => {
               </div>
             </Accordion>
           </div>
+
           <div className="flex flex-col space-y-4 w-full">
             <Accordion title="COLLECTION" sectionClassName="mx-6">
               <div className="flex flex-row">
