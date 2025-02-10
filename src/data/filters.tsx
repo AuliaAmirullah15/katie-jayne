@@ -115,9 +115,46 @@ export const filters: Filter[] = [
       },
     ],
   },
-  //   {
-  //     id: "fi0005",
-  //     name: "Price",
-  //     type: "range",
-  //   },
+  {
+    id: "fi0005",
+    name: "Limited Time Offers",
+    type: "multioption",
+    children: [
+      {
+        id: "fi000501",
+        name: "Holiday Discounts",
+        count: 5,
+      },
+      {
+        id: "fi000502",
+        name: "Exclusive Bundles",
+        count: 10,
+      },
+      {
+        id: "fi000503",
+        name: "Gift Sets",
+        count: 2,
+      },
+      {
+        id: "fi000504",
+        name: "Weekend Specials",
+        count: 5,
+      },
+      {
+        id: "fi000505",
+        name: "Flash Sales",
+        count: 6,
+      },
+      {
+        id: "fi000506",
+        name: "Seasonal Promotions",
+        count: 9,
+      },
+    ],
+  },
+  {
+    id: "fi0005",
+    name: "Price",
+    type: "range",
+  },
 ];

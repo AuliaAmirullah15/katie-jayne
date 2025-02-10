@@ -18,7 +18,7 @@ const Checkbox = () => {
       />
       <label
         htmlFor="checkbox"
-        className={`relative w-6 h-6 cursor-pointer flex items-center justify-center border-2 border-black ${
+        className={`relative w-6 h-6 cursor-pointer flex items-center justify-center border-2 border-gray-700 ${
           isChecked ? "bg-black" : "bg-white"
         }`}
       >

@@ -78,26 +78,70 @@ const ProductListing = () => {
             </Accordion>
           </div>
 
-          {filters.map((filter, key) => (
-            <div key={key} className="flex flex-col space-y-4 w-full">
-              <Accordion title={filter.name} sectionClassName="mx-6">
-                {filter.children &&
-                  filter.children.map((filterOption, index) => (
-                    <div key={index} className="flex flex-row">
-                      <div className="flex flex-row mx-6 my-3">
-                        <Checkbox />
-                        <p className="ml-2 mr-1 text-md text-gray-800">
-                          {filterOption.name}
-                        </p>
-                        <span className="text-sm text-gray-500 flex flex-col items-end justify-end">
-                          [{filterOption.count}]
-                        </span>
+          {filters.map((filter, key) => {
+            if (filter.type === "multioption") {
+              return (
+                <div key={key} className="flex flex-col space-y-4 w-full">
+                  <Accordion
+                    title={filter.name}
+                    sectionClassName="mx-6 uppercase"
+                  >
+                    {filter.children?.map((filterOption, index) => (
+                      <div key={index} className="flex flex-row">
+                        <div className="flex flex-row mx-6 my-3">
+                          <Checkbox />
+                          <p className="ml-2 mr-1 text-md text-gray-700">
+                            {filterOption.name}
+                          </p>
+                          <span className="text-sm text-gray-500 flex flex-col items-end justify-end">
+                            [{filterOption.count}]
+                          </span>
+                        </div>
                       </div>
-                    </div>
-                  ))}
-              </Accordion>
-            </div>
-          ))}
+                    ))}
+                  </Accordion>
+                </div>
+              );
+            }
+
+            if (filter.type === "singleoption") {
+              return (
+                <div key={key} className="flex flex-col space-y-4 w-full">
+                  <Accordion
+                    title={filter.name}
+                    sectionClassName="mx-6 uppercase"
+                  >
+                    {(filter.children ?? []).map((filterOption, index, arr) => (
+                      <div key={index} className="flex flex-row">
+                        <div
+                          className={`flex flex-row mx-6 ${
+                            index < arr.length - 1 ? "my-3" : "mt-3"
+                          }`}
+                        >
+                          <p className="mr-1 text-md text-gray-700">
+                            {filterOption.name}
+                          </p>
+                          <span className="text-sm text-gray-500 flex flex-col items-end justify-end">
+                            [{filterOption.count}]
+                          </span>
+                        </div>
+                      </div>
+                    ))}
+                  </Accordion>
+                </div>
+              );
+            }
+
+            // if (filter.type === "grid") {
+            //   return <div key={key}>Grid</div>;
+            // }
+
+            // if (filter.type === "range") {
+            //   return <div key={key}>Range</div>;
+            // }
+
+            return null; // Ensure a valid return for all cases
+          })}
         </div>
       </SidebarLayout>
     </div>
