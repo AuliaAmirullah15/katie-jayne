@@ -9,6 +9,7 @@ import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import Accordion from "../accordion/accordion";
 import Checkbox from "../buttons/checkbox";
 import { filters } from "@/data/filters";
+import RangeBar from "../buttons/rangeBar";
 
 const ProductListing = () => {
   const [isOverlayVisible, setOverlayVisible] = useState(false);
@@ -132,15 +133,37 @@ const ProductListing = () => {
               );
             }
 
-            // if (filter.type === "grid") {
-            //   return <div key={key}>Grid</div>;
-            // }
+            if (filter.type === "grid") {
+              return (
+                <div key={key} className="flex flex-col space-y-4 w-full">
+                  <Accordion
+                    title={filter.name}
+                    sectionClassName="mx-6 uppercase"
+                  >
+                    <div className="flex flex-row w-full">
+                      <div className="flex flex-row mx-6 my-3 w-full">Grid</div>
+                    </div>
+                  </Accordion>
+                </div>
+              );
+            }
 
-            // if (filter.type === "range") {
-            //   return <div key={key}>Range</div>;
-            // }
-
-            return null; // Ensure a valid return for all cases
+            if (filter.type === "range") {
+              return (
+                <div key={key} className="flex flex-col space-y-4 w-full">
+                  <Accordion
+                    title={filter.name}
+                    sectionClassName="mx-6 uppercase"
+                  >
+                    <div className="flex flex-row w-full">
+                      <div className="flex flex-row mx-6 my-3 w-full">
+                        <RangeBar min={20} max={200} />
+                      </div>
+                    </div>
+                  </Accordion>
+                </div>
+              );
+            }
           })}
         </div>
       </SidebarLayout>
