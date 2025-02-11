@@ -3,6 +3,7 @@ export type Filter = {
   name: string;
   type?: string;
   count?: number;
+  colour?: string;
   children?: Filter[];
 };
 
@@ -48,31 +49,37 @@ export const filters: Filter[] = [
         id: "fi0002001",
         name: "Beige",
         count: 4,
+        colour: "bg-yellow-200",
       },
       {
         id: "fi0002002",
         name: "Rose Gold",
         count: 3,
+        colour: "bg-rose-300",
       },
       {
         id: "fi0002003",
         name: "Deep Burgundy",
         count: 5,
+        colour: "bg-red-900",
       },
       {
         id: "fi0002004",
         name: "Royal Blue",
         count: 2,
+        colour: "bg-blue-800",
       },
       {
         id: "fi0002005",
         name: "Emerald Green",
         count: 3,
+        colour: "bg-green-700",
       },
       {
         id: "fi0002006",
         name: "Amethyst Purple",
         count: 2,
+        colour: "bg-purple-600",
       },
     ],
   },

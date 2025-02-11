@@ -140,8 +140,21 @@ const ProductListing = () => {
                     title={filter.name}
                     sectionClassName="mx-6 uppercase"
                   >
-                    <div className="flex flex-row w-full">
-                      <div className="flex flex-row mx-6 my-3 w-full">Grid</div>
+                    <div className="grid grid-cols-3 gap-3 p-4">
+                      {filter.children?.map((colorOption) => (
+                        <div
+                          key={colorOption.id}
+                          className="flex flex-col items-center"
+                        >
+                          <div
+                            className={`w-10 h-10 rounded-full border border-gray-300 ${colorOption.colour}`}
+                            title={colorOption.name}
+                          ></div>
+                          <span className="text-sm text-gray-700 mt-2">
+                            {colorOption.name}
+                          </span>
+                        </div>
+                      ))}
                     </div>
                   </Accordion>
                 </div>
