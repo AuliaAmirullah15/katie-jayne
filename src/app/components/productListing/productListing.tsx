@@ -102,6 +102,9 @@ const ProductListing = () => {
                     <Accordion
                       title={filter.name}
                       sectionClassName="mx-6 uppercase"
+                      outerSectionClassName={
+                        key === filters.length - 1 ? "border-b" : ""
+                      }
                     >
                       {filter.children?.map((filterOption, index) => (
                         <div key={index} className="flex flex-row">
@@ -127,6 +130,9 @@ const ProductListing = () => {
                     <Accordion
                       title={filter.name}
                       sectionClassName="mx-6 uppercase"
+                      outerSectionClassName={
+                        key === filters.length - 1 ? "border-b" : ""
+                      }
                     >
                       {(filter.children ?? []).map(
                         (filterOption, index, arr) => (
@@ -157,6 +163,9 @@ const ProductListing = () => {
                     <Accordion
                       title={filter.name}
                       sectionClassName="mx-6 uppercase"
+                      outerSectionClassName={
+                        key === filters.length - 1 ? "border-b" : ""
+                      }
                     >
                       <div className="grid grid-cols-3 gap-3 p-4">
                         {filter.children?.map((colorOption) => (
@@ -185,6 +194,9 @@ const ProductListing = () => {
                     <Accordion
                       title={filter.name}
                       sectionClassName="mx-6 uppercase"
+                      outerSectionClassName={
+                        key === filters.length - 1 ? "border-b" : ""
+                      }
                     >
                       <div className="flex flex-row w-full">
                         <div className="flex flex-row mx-6 my-3 w-full">

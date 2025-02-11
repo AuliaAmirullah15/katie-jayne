@@ -10,7 +10,13 @@ export default function ProductAccordion({
   return (
     <>
       {contents.map((content: ProductDetails, index: number) => (
-        <Accordion key={index} title={content.title}>
+        <Accordion
+          key={index}
+          title={content.title}
+          outerSectionClassName={
+            index === contents.length - 1 ? "border-b" : ""
+          }
+        >
           <p className="text-sm">{content.description}</p>
         </Accordion>
       ))}

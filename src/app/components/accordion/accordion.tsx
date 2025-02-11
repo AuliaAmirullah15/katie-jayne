@@ -4,16 +4,18 @@ import { FaChevronDown } from "react-icons/fa";
 export default function Accordion({
   title,
   children,
+  outerSectionClassName,
   sectionClassName,
 }: {
   title: string;
   children: ReactNode;
+  outerSectionClassName?: string;
   sectionClassName?: string;
 }) {
   const [isSectionOpen, setOpenSection] = useState(false);
 
   return (
-    <div className="border-t border-b py-3">
+    <div className={`border-t py-3 ${outerSectionClassName}`}>
       <div
         onClick={() => setOpenSection(!isSectionOpen)}
         className={`flex justify-between items-center cursor-pointer ${sectionClassName}`}
