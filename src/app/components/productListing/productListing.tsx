@@ -32,7 +32,7 @@ const ProductListing = () => {
         }
         onClose={() => setOverlayVisible(false)}
       >
-        <div className="flex flex-col items-center justify-between my-6">
+        <div className="flex flex-col items-center justify-between my-6 overflow-y-auto">
           <div className="flex flex-col space-y-4 mx-6 mb-4">
             <h4 className="text-sm font-bold">APPLIED FILTERS</h4>
             <div className="flex flex-row flex-wrap gap-2 w-full">
