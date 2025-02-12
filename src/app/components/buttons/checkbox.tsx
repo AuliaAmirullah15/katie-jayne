@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const Checkbox = () => {
+const Checkbox = ({ ...props }) => {
   const [isChecked, setIsChecked] = useState(false);
 
   const handleChange = () => {
@@ -8,7 +8,7 @@ const Checkbox = () => {
   };
 
   return (
-    <div className="flex items-center">
+    <div className="flex items-center" {...props}>
       <input
         type="checkbox"
         id="checkbox"
