@@ -18,6 +18,7 @@ import {
 } from "@/app/stores/filtersSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/app/stores";
+import { faCheck } from "@fortawesome/free-solid-svg-icons";
 
 const ApplyFooter: React.FC<{ onApply: () => void }> = ({ onApply }) => {
   return (
@@ -40,8 +41,8 @@ const ProductListing = () => {
   );
   const [isOverlayVisible, setOverlayVisible] = useState(false);
 
-  const handleAddFilter = (id: string, name: string) => () => {
-    dispatch(addFilter({ id, name }));
+  const handleAddFilter = (id: string, groupId: string, name: string) => () => {
+    dispatch(addFilter({ id, groupId, name }));
   };
 
   const handleRemoveFilter = (id: string) => () => {
@@ -73,7 +74,7 @@ const ProductListing = () => {
         onClose={() => setOverlayVisible(false)}
       >
         <div className="flex-1 grow w-full overflow-y-auto">
-          <div className="flex flex-col items-center justify-between my-6">
+          <div className="flex flex-col items-center justify-between mt-6">
             <div className="flex flex-col space-y-4 mx-6 mb-4">
               <h4 className="text-sm font-bold">APPLIED FILTERS</h4>
               <div className="flex flex-row flex-wrap gap-2 w-full">
@@ -120,7 +121,7 @@ const ProductListing = () => {
                       {filter.children?.map((filterOption, index) => (
                         <div key={index} className="flex flex-row">
                           <div
-                            className="flex flex-row mx-6 my-3"
+                            className="flex flex-row mx-6 my-3 hover:cursor-pointer text-gray-700 hover:text-main_brown transition-all duration-300"
                             onClick={
                               selectedFilters.some(
                                 (selectedFilter) =>
@@ -129,6 +130,7 @@ const ProductListing = () => {
                                 ? handleRemoveFilter(filterOption.id)
                                 : handleAddFilter(
                                     filterOption.id,
+                                    filter.id,
                                     filterOption.name
                                   )
                             }
@@ -139,10 +141,10 @@ const ProductListing = () => {
                                   selectedFilter.id === filterOption.id
                               )}
                             />
-                            <p className="ml-2 mr-1 text-md text-gray-700">
+                            <p className="ml-2 mr-1 text-md">
                               {filterOption.name}
                             </p>
-                            <span className="text-sm text-gray-500 flex flex-col items-end justify-end">
+                            <span className="text-sm flex flex-col items-end justify-end">
                               [{filterOption.count}]
                             </span>
                           </div>
@@ -153,7 +155,12 @@ const ProductListing = () => {
                 );
               }
 
-              if (filter.type === "singleoption") {
+              if (
+                filter.type === "singleoption" &&
+                !selectedFilters.some(
+                  (selectedFilter) => selectedFilter.groupId === filter.id
+                )
+              ) {
                 return (
                   <div key={key} className="flex flex-col space-y-4 w-full">
                     <Accordion
@@ -167,21 +174,29 @@ const ProductListing = () => {
                         (filterOption, index, arr) => (
                           <div
                             key={index}
-                            className="flex flex-row"
-                            onClick={handleAddFilter(
-                              filterOption.id,
-                              filterOption.name
-                            )}
+                            className="flex flex-row hover:cursor-pointer"
+                            onClick={
+                              selectedFilters.some(
+                                (selectedFilter) =>
+                                  selectedFilter.id === filterOption.id
+                              )
+                                ? handleRemoveFilter(filterOption.id)
+                                : handleAddFilter(
+                                    filterOption.id,
+                                    filter.id,
+                                    filterOption.name
+                                  )
+                            }
                           >
                             <div
-                              className={`flex flex-row mx-6 ${
+                              className={`flex flex-row mx-6 hover:text-main_brown transition-all duration-300 ${
                                 index < arr.length - 1 ? "my-3" : "mt-3"
                               }`}
                             >
-                              <p className="mr-1 text-md text-gray-700">
+                              <p className="mr-1 text-md">
                                 {filterOption.name}
                               </p>
-                              <span className="text-sm text-gray-500 flex flex-col items-end justify-end">
+                              <span className="text-sm flex flex-col items-end justify-end">
                                 [{filterOption.count}]
                               </span>
                             </div>
@@ -207,16 +222,36 @@ const ProductListing = () => {
                         {filter.children?.map((colorOption) => (
                           <div
                             key={colorOption.id}
-                            className="flex flex-col items-center"
-                            onClick={handleAddFilter(
-                              colorOption.id,
-                              colorOption.name
-                            )}
+                            className="flex flex-col items-center hover:cursor-pointer"
+                            onClick={
+                              selectedFilters.some(
+                                (selectedFilter) =>
+                                  selectedFilter.id === colorOption.id
+                              )
+                                ? handleRemoveFilter(colorOption.id)
+                                : handleAddFilter(
+                                    colorOption.id,
+                                    filter.id,
+                                    colorOption.name
+                                  )
+                            }
                           >
                             <div
-                              className={`w-10 h-10 rounded-full border border-gray-300 ${colorOption.colour}`}
+                              className={`w-10 h-10 rounded-full border border-gray-300 flex flex-row items-center justify-center ${colorOption.colour}`}
                               title={colorOption.name}
-                            ></div>
+                            >
+                              {selectedFilters.some(
+                                (selectedFilters) =>
+                                  selectedFilters.id === colorOption.id
+                              ) ? (
+                                <FontAwesomeIcon
+                                  icon={faCheck}
+                                  className={colorOption.textColour}
+                                />
+                              ) : (
+                                ""
+                              )}
+                            </div>
                             <span className="text-sm text-gray-700 mt-2">
                               {colorOption.name}
                             </span>

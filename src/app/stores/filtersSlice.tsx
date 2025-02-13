@@ -2,6 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface Filter {
   id: string;
+  groupId: string;
   name: string;
 }
 
