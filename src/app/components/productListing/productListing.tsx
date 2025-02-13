@@ -119,11 +119,24 @@ const ProductListing = () => {
                     >
                       {filter.children?.map((filterOption, index) => (
                         <div key={index} className="flex flex-row">
-                          <div className="flex flex-row mx-6 my-3">
+                          <div
+                            className="flex flex-row mx-6 my-3"
+                            onClick={
+                              selectedFilters.some(
+                                (selectedFilter) =>
+                                  selectedFilter.id === filterOption.id
+                              )
+                                ? handleRemoveFilter(filterOption.id)
+                                : handleAddFilter(
+                                    filterOption.id,
+                                    filterOption.name
+                                  )
+                            }
+                          >
                             <Checkbox
-                              onClick={handleAddFilter(
-                                filterOption.id,
-                                filterOption.name
+                              isChecked={selectedFilters.some(
+                                (selectedFilter) =>
+                                  selectedFilter.id === filterOption.id
                               )}
                             />
                             <p className="ml-2 mr-1 text-md text-gray-700">

@@ -1,19 +1,10 @@
-import { useState } from "react";
-
-const Checkbox = ({ ...props }) => {
-  const [isChecked, setIsChecked] = useState(false);
-
-  const handleChange = () => {
-    setIsChecked(!isChecked);
-  };
-
+const Checkbox = ({ isChecked, ...props }: { isChecked: boolean }) => {
   return (
     <div className="flex items-center" {...props}>
       <input
         type="checkbox"
         id="checkbox"
         checked={isChecked}
-        onChange={handleChange}
         className="hidden"
       />
       <label
