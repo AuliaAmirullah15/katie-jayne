@@ -21,6 +21,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/app/stores";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
+import { setSorting } from "@/app/stores/sortingSlice";
 
 const ApplyFooter: React.FC<{ onApply: () => void }> = ({ onApply }) => {
   return (
@@ -50,6 +51,14 @@ const ProductListing = () => {
 
   const handleRemoveFilter = (id: string) => () => {
     dispatch(removeFilter(id));
+  };
+
+  const selectedSorting = useSelector(
+    (state: RootState) => state.sorting.selectedSorting
+  );
+
+  const handleSorting = (sortingOption: string) => {
+    dispatch(setSorting(sortingOption));
   };
 
   return (
@@ -104,18 +113,55 @@ const ProductListing = () => {
               </div>
             </div>
             <div className="flex flex-col space-y-4 w-full">
-              <Accordion title="SORT BY" sectionClassName="mx-6">
-                <div className="flex flex-row border-b border-gray-200">
-                  <span className="mx-6 my-3">PRICE (LOW - HIGH)</span>
+              <Accordion
+                title="SORT BY"
+                outerSectionClassName="pb-0"
+                sectionClassName="mx-6"
+              >
+                <div
+                  className="w-full border-b border-gray-200"
+                  onClick={() => handleSorting("1")}
+                >
+                  <div
+                    className={`flex flex-row w-full ${
+                      selectedSorting === "1" ? "border-l-4 border-black" : ""
+                    }`}
+                  >
+                    <span className="mx-6 my-3">PRICE (LOW - HIGH)</span>
+                  </div>
                 </div>
-                <div className="flex flex-row border-b border-gray-200">
-                  <span className="mx-6 my-3">NEWEST</span>
+                <div
+                  className="w-full border-b border-gray-200"
+                  onClick={() => handleSorting("2")}
+                >
+                  <div
+                    className={`flex flex-row w-full ${
+                      selectedSorting === "2" ? "border-l-4 border-black" : ""
+                    }`}
+                  >
+                    <span className="mx-6 my-3">NEWEST</span>
+                  </div>
                 </div>
-                <div className="flex flex-row border-b border-gray-200">
-                  <span className="mx-6 my-3">TOP SELLERS</span>
+                <div
+                  className="w-full border-b border-gray-200"
+                  onClick={() => handleSorting("3")}
+                >
+                  <div
+                    className={`flex flex-row w-full ${
+                      selectedSorting === "3" ? "border-l-4 border-black" : ""
+                    }`}
+                  >
+                    <span className="mx-6 my-3">TOP SELLERS</span>
+                  </div>
                 </div>
-                <div className="flex flex-row">
-                  <span className="mx-6 mt-3">PRICE (HIGH - LOW)</span>
+                <div className="w-full" onClick={() => handleSorting("4")}>
+                  <div
+                    className={`flex flex-row w-full ${
+                      selectedSorting === "4" ? "border-l-4 border-black" : ""
+                    }`}
+                  >
+                    <span className="mx-6 my-3">PRICE (HIGH - LOW)</span>
+                  </div>
                 </div>
               </Accordion>
             </div>
