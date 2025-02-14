@@ -8,13 +8,15 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import Accordion from "../accordion/accordion";
 import Checkbox from "../buttons/checkbox";
-import { Filter, filters } from "@/data/filters";
+import { filters } from "@/data/filters";
 import RangeBar from "../buttons/rangeBar";
 import PrimaryButton, { ButtonType } from "../buttons/primaryButton";
 import {
+  FilterState,
   addFilter,
   clearFilters,
   removeFilter,
+  updateFilter,
 } from "@/app/stores/filtersSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/app/stores";
@@ -40,6 +42,7 @@ const ProductListing = () => {
     (state: RootState) => state.filters.selectedFilters
   );
   const [isOverlayVisible, setOverlayVisible] = useState(false);
+  const [priceRange, setPriceRange] = useState<number[]>([20, 200]);
 
   const handleAddFilter = (id: string, groupId: string, name: string) => () => {
     dispatch(addFilter({ id, groupId, name }));
@@ -80,14 +83,18 @@ const ProductListing = () => {
                 <h4 className="text-sm font-bold">APPLIED FILTERS</h4>
                 <div className="flex flex-row flex-wrap gap-2 w-full">
                   {selectedFilters.length > 0 ? (
-                    selectedFilters.map((filter: Filter) => (
+                    selectedFilters.map((filter: FilterState) => (
                       <div
                         key={filter.id}
                         className="inline-flex items-center space-x-2 bg-gray-200 p-2 rounded max-w-max cursor-pointer"
                         onClick={handleRemoveFilter(filter.id)}
                       >
                         <FontAwesomeIcon icon={faXmark} size="lg" />
-                        <p className="text-sm">{filter.name}</p>
+                        <p className="text-sm">
+                          {filter.id === "price" && filter.value
+                            ? `Price: $${filter.value[0]} - $${filter.value[1]}`
+                            : filter.name}
+                        </p>
                       </div>
                     ))
                   ) : (
@@ -281,7 +288,22 @@ const ProductListing = () => {
                     >
                       <div className="flex flex-row w-full">
                         <div className="flex flex-row mx-6 my-3 w-full">
-                          <RangeBar min={20} max={200} />
+                          <RangeBar
+                            min={20}
+                            max={200}
+                            value={priceRange}
+                            onChange={(newValue) => {
+                              setPriceRange(newValue);
+                              dispatch(
+                                updateFilter({
+                                  id: "price",
+                                  groupId: "price",
+                                  name: `Price: $${newValue[0]} - $${newValue[1]}`,
+                                  value: newValue,
+                                })
+                              );
+                            }}
+                          />
                         </div>
                       </div>
                     </Accordion>

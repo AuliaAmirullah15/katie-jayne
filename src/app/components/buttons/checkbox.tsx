@@ -1,12 +1,6 @@
 const Checkbox = ({ isChecked, ...props }: { isChecked: boolean }) => {
   return (
     <div className="flex items-center" {...props}>
-      <input
-        type="checkbox"
-        id="checkbox"
-        checked={isChecked}
-        className="hidden"
-      />
       <label
         htmlFor="checkbox"
         className={`relative w-6 h-6 cursor-pointer flex items-center justify-center border-2 border-gray-700 ${

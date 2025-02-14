@@ -1,13 +1,14 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-interface Filter {
+export interface FilterState {
   id: string;
   groupId: string;
   name: string;
+  value?: number[];
 }
 
-interface FiltersState {
-  selectedFilters: Filter[];
+export interface FiltersState {
+  selectedFilters: FilterState[];
 }
 
 const loadFiltersFromLocalStorage = (): FiltersState => {
@@ -34,7 +35,7 @@ const filtersSlice = createSlice({
   name: "filters",
   initialState,
   reducers: {
-    addFilter: (state, action: PayloadAction<Filter>) => {
+    addFilter: (state, action: PayloadAction<FilterState>) => {
       const existingFilter = state.selectedFilters.find(
         (filter) => filter.id === action.payload.id
       );
@@ -42,6 +43,17 @@ const filtersSlice = createSlice({
         state.selectedFilters.push(action.payload);
         saveFiltersToLocalStorage(state);
       }
+    },
+    updateFilter: (state, action: PayloadAction<FilterState>) => {
+      const filterIndex = state.selectedFilters.findIndex(
+        (filter) => filter.id === action.payload.id
+      );
+      if (filterIndex !== -1) {
+        state.selectedFilters[filterIndex] = action.payload;
+      } else {
+        state.selectedFilters.push(action.payload);
+      }
+      saveFiltersToLocalStorage(state);
     },
     removeFilter: (state, action: PayloadAction<string>) => {
       state.selectedFilters = state.selectedFilters.filter(
@@ -56,5 +68,6 @@ const filtersSlice = createSlice({
   },
 });
 
-export const { addFilter, removeFilter, clearFilters } = filtersSlice.actions;
+export const { addFilter, updateFilter, removeFilter, clearFilters } =
+  filtersSlice.actions;
 export default filtersSlice.reducer;

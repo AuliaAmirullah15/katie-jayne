@@ -1,11 +1,19 @@
-import React, { useState } from "react";
+import React from "react";
 import { Slider } from "@mui/material";
 
-const RangeBar = ({ min, max }: { min: number; max: number }) => {
-  const [value, setValue] = useState([min, max]);
-
+const RangeBar = ({
+  min,
+  max,
+  value,
+  onChange,
+}: {
+  min: number;
+  max: number;
+  value: number[];
+  onChange: (newValue: number[]) => void;
+}) => {
   const handleChange = (event: Event, newValue: number | number[]) => {
-    setValue(newValue as number[]);
+    onChange(newValue as number[]);
   };
 
   return (
