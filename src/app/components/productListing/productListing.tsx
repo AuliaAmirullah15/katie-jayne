@@ -272,47 +272,44 @@ const ProductListing = () => {
                   <div key={key} className="flex flex-col space-y-4 w-full">
                     <Accordion
                       title={filter.name}
+                      titleChildren={
+                        isFilterSelected(filter.id) && (
+                          <div className="text-xs capitalize">
+                            {getSelectedFilterNames(filter.id)}
+                          </div>
+                        )
+                      }
                       sectionClassName="mx-6 uppercase"
                       outerSectionClassName={
                         key === filters.length - 1 ? "border-b" : ""
                       }
                     >
                       <div className="grid grid-cols-3 gap-3 p-4">
-                        {filter.children?.map((colorOption) => (
+                        {filter.children?.map((filterOption) => (
                           <div
-                            key={colorOption.id}
+                            key={filterOption.id}
                             className="flex flex-col items-center hover:cursor-pointer"
-                            onClick={
-                              selectedFilters.some(
-                                (selectedFilter) =>
-                                  selectedFilter.id === colorOption.id
-                              )
-                                ? handleRemoveFilter(colorOption.id)
-                                : handleAddFilter(
-                                    colorOption.id,
-                                    filter.id,
-                                    colorOption.name
-                                  )
-                            }
+                            onClick={toggleFilter(
+                              filterOption.id,
+                              filter.id,
+                              filterOption.name
+                            )}
                           >
                             <div
-                              className={`w-10 h-10 rounded-full border border-gray-300 flex flex-row items-center justify-center ${colorOption.colour}`}
-                              title={colorOption.name}
+                              className={`w-10 h-10 rounded-full border border-gray-300 flex flex-row items-center justify-center ${filterOption.colour}`}
+                              title={filterOption.name}
                             >
-                              {selectedFilters.some(
-                                (selectedFilters) =>
-                                  selectedFilters.id === colorOption.id
-                              ) ? (
+                              {isFilterOptionSelected(filterOption.id) ? (
                                 <FontAwesomeIcon
                                   icon={faCheck}
-                                  className={colorOption.textColour}
+                                  className={filterOption.textColour}
                                 />
                               ) : (
                                 ""
                               )}
                             </div>
                             <span className="text-sm text-gray-700 mt-2">
-                              {colorOption.name}
+                              {filterOption.name}
                             </span>
                           </div>
                         ))}
