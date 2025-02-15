@@ -21,7 +21,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/app/stores";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
-import { setSorting } from "@/app/stores/sortingSlice";
+import { clearSorting, setSorting } from "@/app/stores/sortingSlice";
 
 const ApplyFooter: React.FC<{ onApply: () => void }> = ({ onApply }) => {
   return (
@@ -61,6 +61,11 @@ const ProductListing = () => {
     dispatch(setSorting(sortingOption));
   };
 
+  const clearFiltersAndSort = () => {
+    dispatch(clearFilters());
+    dispatch(clearSorting());
+  };
+
   return (
     <div className="my-6 flex flex-col space-y-3">
       <ProductListingHeader
@@ -76,8 +81,8 @@ const ProductListing = () => {
           <div className="flex flex-row items-center justify-between ml-6 mr-16 my-6">
             <h2 className="text-xl font-bold tracking-wide">Filter & Sort</h2>
             <p
-              className="text-gray-500 underline"
-              onClick={() => dispatch(clearFilters())}
+              className="text-gray-500 underline hover:cursor-pointer hover:text-black transition-all duration-300"
+              onClick={clearFiltersAndSort}
             >
               Clear All
             </p>
@@ -127,7 +132,7 @@ const ProductListing = () => {
                     onClick={() => handleSorting(sort.id)}
                   >
                     <div
-                      className={`flex flex-row w-full ${
+                      className={`flex flex-row w-full hover:cursor-pointer hover:bg-gray-200 transition-all duration-300 ${
                         selectedSorting === sort.id
                           ? "border-l-4 border-black"
                           : ""
@@ -152,9 +157,12 @@ const ProductListing = () => {
                       }
                     >
                       {filter.children?.map((filterOption, index) => (
-                        <div key={index} className="flex flex-row">
+                        <div
+                          key={index}
+                          className="flex flex-row w-full hover:cursor-pointer text-gray-700 hover:bg-gray-200 transition-all duration-300"
+                        >
                           <div
-                            className="flex flex-row mx-6 my-3 hover:cursor-pointer text-gray-700 hover:text-main_brown transition-all duration-300"
+                            className="flex flex-row mx-6 my-3 w-full"
                             onClick={
                               selectedFilters.some(
                                 (selectedFilter) =>
@@ -207,7 +215,7 @@ const ProductListing = () => {
                         (filterOption, index, arr) => (
                           <div
                             key={index}
-                            className="flex flex-row hover:cursor-pointer"
+                            className="flex flex-row hover:cursor-pointer hover:bg-gray-200 transition-all duration-300"
                             onClick={
                               selectedFilters.some(
                                 (selectedFilter) =>
@@ -222,8 +230,8 @@ const ProductListing = () => {
                             }
                           >
                             <div
-                              className={`flex flex-row mx-6 hover:text-main_brown transition-all duration-300 ${
-                                index < arr.length - 1 ? "my-3" : "mt-3"
+                              className={`flex flex-row mx-6 my-3 ${
+                                index < arr.length - 1 ? "my-3" : "my-3"
                               }`}
                             >
                               <p className="mr-1 text-md">
