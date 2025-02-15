@@ -167,7 +167,7 @@ export const filters: Filter[] = [
     ],
   },
   {
-    id: "fi0005",
+    id: "fi0006",
     name: "Price",
     type: "range",
   },

@@ -324,6 +324,13 @@ const ProductListing = () => {
                   <div key={key} className="flex flex-col space-y-4 w-full">
                     <Accordion
                       title={filter.name}
+                      titleChildren={
+                        isFilterSelected(filter.id) && (
+                          <div className="text-xs capitalize">
+                            {getSelectedFilterNames(filter.id)}
+                          </div>
+                        )
+                      }
                       sectionClassName="mx-6 uppercase"
                       outerSectionClassName={
                         key === filters.length - 1 ? "border-b" : ""
@@ -339,8 +346,8 @@ const ProductListing = () => {
                               setPriceRange(newValue);
                               dispatch(
                                 updateFilter({
-                                  id: "price",
-                                  groupId: "price",
+                                  id: filter.id,
+                                  groupId: filter.id,
                                   name: `Price: $${newValue[0]} - $${newValue[1]}`,
                                   value: newValue,
                                 })
