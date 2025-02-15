@@ -177,10 +177,11 @@ const ProductListing = () => {
                           </div>
                         )
                       }
-                      sectionClassName="mx-6 uppercase"
+                      sectionClassName="px-6 uppercase"
                       outerSectionClassName={
                         key === filters.length - 1 ? "border-b" : ""
                       }
+                      isProductListing={true}
                     >
                       {filter.children?.map((filterOption, index) => (
                         <div
@@ -279,10 +280,11 @@ const ProductListing = () => {
                           </div>
                         )
                       }
-                      sectionClassName="mx-6 uppercase"
+                      sectionClassName="px-6 uppercase"
                       outerSectionClassName={
                         key === filters.length - 1 ? "border-b" : ""
                       }
+                      isProductListing={true}
                     >
                       <div className="grid grid-cols-3 gap-3 p-4">
                         {filter.children?.map((filterOption) => (
@@ -331,10 +333,11 @@ const ProductListing = () => {
                           </div>
                         )
                       }
-                      sectionClassName="mx-6 uppercase"
+                      sectionClassName="px-6 uppercase"
                       outerSectionClassName={
                         key === filters.length - 1 ? "border-b" : ""
                       }
+                      isProductListing={true}
                     >
                       <div className="flex flex-row w-full">
                         <div className="flex flex-row mx-6 my-3 w-full">
