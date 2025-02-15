@@ -17,7 +17,7 @@ export default function ProductAccordion({
             index === contents.length - 1 ? "border-b" : ""
           }
         >
-          <p className="text-sm">{content.description}</p>
+          <p className="text-sm mb-4">{content.description}</p>
         </Accordion>
       ))}
     </>

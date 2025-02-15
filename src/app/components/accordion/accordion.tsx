@@ -15,10 +15,10 @@ export default function Accordion({
   const [isSectionOpen, setOpenSection] = useState(false);
 
   return (
-    <div className={`border-t py-3 ${outerSectionClassName}`}>
+    <div className={`border-t ${outerSectionClassName}`}>
       <div
         onClick={() => setOpenSection(!isSectionOpen)}
-        className={`flex justify-between items-center cursor-pointer ${sectionClassName}`}
+        className={`flex justify-between items-center cursor-pointer py-3 ${sectionClassName}`}
       >
         <h3 className="text-sm font-semibold">{title}</h3>
         <span className="text-sm font-semibold">
@@ -35,7 +35,7 @@ export default function Accordion({
           isSectionOpen ? "h-auto" : "h-0"
         }`}
       >
-        <div className="mt-4 text-gray-600">{children}</div>
+        <div className="mt-2 text-gray-600">{children}</div>
       </div>
     </div>
   );

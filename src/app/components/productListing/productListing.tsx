@@ -8,7 +8,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import Accordion from "../accordion/accordion";
 import Checkbox from "../buttons/checkbox";
-import { filters } from "@/data/filters";
+import { filters, sorts } from "@/data/filters";
 import RangeBar from "../buttons/rangeBar";
 import PrimaryButton, { ButtonType } from "../buttons/primaryButton";
 import {
@@ -118,51 +118,25 @@ const ProductListing = () => {
                 outerSectionClassName="pb-0"
                 sectionClassName="mx-6"
               >
-                <div
-                  className="w-full border-b border-gray-200"
-                  onClick={() => handleSorting("1")}
-                >
+                {sorts.map((sort, index) => (
                   <div
-                    className={`flex flex-row w-full ${
-                      selectedSorting === "1" ? "border-l-4 border-black" : ""
+                    key={index}
+                    className={`w-full ${
+                      index < sorts.length - 1 ? "border-b border-gray-200" : ""
                     }`}
+                    onClick={() => handleSorting(sort.id)}
                   >
-                    <span className="mx-6 my-3">PRICE (LOW - HIGH)</span>
+                    <div
+                      className={`flex flex-row w-full ${
+                        selectedSorting === sort.id
+                          ? "border-l-4 border-black"
+                          : ""
+                      }`}
+                    >
+                      <span className="mx-6 my-3 uppercase">{sort.name}</span>
+                    </div>
                   </div>
-                </div>
-                <div
-                  className="w-full border-b border-gray-200"
-                  onClick={() => handleSorting("2")}
-                >
-                  <div
-                    className={`flex flex-row w-full ${
-                      selectedSorting === "2" ? "border-l-4 border-black" : ""
-                    }`}
-                  >
-                    <span className="mx-6 my-3">NEWEST</span>
-                  </div>
-                </div>
-                <div
-                  className="w-full border-b border-gray-200"
-                  onClick={() => handleSorting("3")}
-                >
-                  <div
-                    className={`flex flex-row w-full ${
-                      selectedSorting === "3" ? "border-l-4 border-black" : ""
-                    }`}
-                  >
-                    <span className="mx-6 my-3">TOP SELLERS</span>
-                  </div>
-                </div>
-                <div className="w-full" onClick={() => handleSorting("4")}>
-                  <div
-                    className={`flex flex-row w-full ${
-                      selectedSorting === "4" ? "border-l-4 border-black" : ""
-                    }`}
-                  >
-                    <span className="mx-6 my-3">PRICE (HIGH - LOW)</span>
-                  </div>
-                </div>
+                ))}
               </Accordion>
             </div>
 

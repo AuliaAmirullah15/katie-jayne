@@ -172,3 +172,22 @@ export const filters: Filter[] = [
     type: "range",
   },
 ];
+
+export const sorts = [
+  {
+    id: "price_ascending",
+    name: "Price (Low - High)",
+  },
+  {
+    id: "newest",
+    name: "Newest",
+  },
+  {
+    id: "top_sellers",
+    name: "Top Sellers",
+  },
+  {
+    id: "price_descending",
+    name: "Price (High - Low)",
+  },
+];
