@@ -6,7 +6,6 @@ import Accordion from "../accordion/accordion";
 import Checkbox from "../buttons/checkbox";
 import { filters, sorts } from "@/data/filters";
 import RangeBar from "../buttons/rangeBar";
-import PrimaryButton, { ButtonType } from "../buttons/primaryButton";
 import {
   FilterState,
   addFilter,
@@ -18,20 +17,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/app/stores";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import { clearSorting, setSorting } from "@/app/stores/sortingSlice";
-
-const ApplyFooter: React.FC<{ onApply: () => void }> = ({ onApply }) => {
-  return (
-    <div className="left-0 w-full p-4 bg-white border-t border-gray-300">
-      <PrimaryButton
-        buttonType={ButtonType.Secondary}
-        className="w-full"
-        onClick={onApply}
-      >
-        Apply
-      </PrimaryButton>
-    </div>
-  );
-};
+import { ApplyFooter } from "./buttons/applyButton";
 
 export const FilterSortingSidebar = ({
   isOverlayVisible,

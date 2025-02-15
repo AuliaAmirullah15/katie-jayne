@@ -1,5 +1,5 @@
 import ProductFilters from "@/app/components/productListing/productFilters";
-import FilterButton from "@/app/components/productListing/filterButton";
+import FilterButton from "@/app/components/productListing/buttons/filterButton";
 
 const FiltersSection = ({
   onFilterButtonClick,

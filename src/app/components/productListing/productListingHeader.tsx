@@ -1,4 +1,4 @@
-import FilterButton from "@/app/components/productListing/filterButton";
+import FilterButton from "@/app/components/productListing/buttons/filterButton";
 
 const ProductListingHeader = ({
   onFilterButtonClick,
