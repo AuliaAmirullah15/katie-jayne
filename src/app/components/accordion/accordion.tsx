@@ -4,11 +4,13 @@ import { FaChevronDown } from "react-icons/fa";
 export default function Accordion({
   title,
   children,
+  titleChildren,
   outerSectionClassName,
   sectionClassName,
 }: {
   title: string;
   children: ReactNode;
+  titleChildren?: ReactNode;
   outerSectionClassName?: string;
   sectionClassName?: string;
 }) {
@@ -22,6 +24,7 @@ export default function Accordion({
       >
         <div className="flex flex-col">
           <h3 className="text-sm font-semibold">{title}</h3>
+          {titleChildren}
         </div>
         <span className="text-sm font-semibold">
           {isSectionOpen ? (

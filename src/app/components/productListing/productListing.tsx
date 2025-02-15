@@ -42,9 +42,14 @@ const ProductListing = () => {
   const selectedFilters = useSelector(
     (state: RootState) => state.filters.selectedFilters
   );
+  const selectedSorting = useSelector(
+    (state: RootState) => state.sorting.selectedSorting
+  );
+
   const [isOverlayVisible, setOverlayVisible] = useState(false);
   const [priceRange, setPriceRange] = useState<number[]>([20, 200]);
 
+  /* Filter and Sort */
   const handleAddFilter = (id: string, groupId: string, name: string) => () => {
     dispatch(addFilter({ id, groupId, name }));
   };
@@ -52,10 +57,6 @@ const ProductListing = () => {
   const handleRemoveFilter = (id: string) => () => {
     dispatch(removeFilter(id));
   };
-
-  const selectedSorting = useSelector(
-    (state: RootState) => state.sorting.selectedSorting
-  );
 
   const handleSorting = (sortingOption: string) => {
     dispatch(setSorting(sortingOption));
@@ -65,6 +66,24 @@ const ProductListing = () => {
     dispatch(clearFilters());
     dispatch(clearSorting());
   };
+
+  /* UI Checker and Toggle Functions */
+  const getSelectedFilterNames = (filterId: string) =>
+    selectedFilters
+      .filter((f) => f.groupId === filterId)
+      .map((f) => f.name)
+      .join(", ");
+
+  const isFilterSelected = (filterId: string) =>
+    selectedFilters.some((f) => f.groupId === filterId);
+
+  const isFilterOptionSelected = (filterId: string) =>
+    selectedFilters.some((f) => f.id === filterId);
+
+  const toggleFilter = (id: string, groupId: string, name: string) => () =>
+    isFilterOptionSelected(id)
+      ? dispatch(removeFilter(id))
+      : dispatch(addFilter({ id, groupId, name }));
 
   return (
     <div className="my-6 flex flex-col space-y-3">
@@ -151,6 +170,13 @@ const ProductListing = () => {
                   <div key={key} className="flex flex-col space-y-4 w-full">
                     <Accordion
                       title={filter.name}
+                      titleChildren={
+                        isFilterSelected(filter.id) && (
+                          <div className="text-xs capitalize">
+                            {getSelectedFilterNames(filter.id)}
+                          </div>
+                        )
+                      }
                       sectionClassName="mx-6 uppercase"
                       outerSectionClassName={
                         key === filters.length - 1 ? "border-b" : ""
@@ -163,23 +189,15 @@ const ProductListing = () => {
                         >
                           <div
                             className="flex flex-row mx-6 my-3 w-full"
-                            onClick={
-                              selectedFilters.some(
-                                (selectedFilter) =>
-                                  selectedFilter.id === filterOption.id
-                              )
-                                ? handleRemoveFilter(filterOption.id)
-                                : handleAddFilter(
-                                    filterOption.id,
-                                    filter.id,
-                                    filterOption.name
-                                  )
-                            }
+                            onClick={toggleFilter(
+                              filterOption.id,
+                              filter.id,
+                              filterOption.name
+                            )}
                           >
                             <Checkbox
-                              isChecked={selectedFilters.some(
-                                (selectedFilter) =>
-                                  selectedFilter.id === filterOption.id
+                              isChecked={isFilterOptionSelected(
+                                filterOption.id
                               )}
                             />
                             <p className="ml-2 mr-1 text-md">
