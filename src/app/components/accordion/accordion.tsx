@@ -18,9 +18,11 @@ export default function Accordion({
     <div className={`border-t ${outerSectionClassName}`}>
       <div
         onClick={() => setOpenSection(!isSectionOpen)}
-        className={`flex justify-between items-center cursor-pointer py-3 ${sectionClassName}`}
+        className={`flex justify-between items-center cursor-pointer py-3  ${sectionClassName}`}
       >
-        <h3 className="text-sm font-semibold">{title}</h3>
+        <div className="flex flex-col">
+          <h3 className="text-sm font-semibold">{title}</h3>
+        </div>
         <span className="text-sm font-semibold">
           {isSectionOpen ? (
             <FaChevronDown className="w-3 h-3 text-gray-500 transform rotate-180 transition-transform duration-300" />
