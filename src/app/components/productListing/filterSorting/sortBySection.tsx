@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Accordion from "../../accordion/accordion";
 import { RootState } from "@/app/stores";
 import { sorts } from "@/data/filters";
-import { setSorting } from "@/app/stores/sortingSlice";
+import { SortingOption, setSorting } from "@/app/stores/sortingSlice";
 
 export const SortBySection = () => {
   const dispatch = useDispatch();
@@ -11,7 +11,7 @@ export const SortBySection = () => {
     (state: RootState) => state.sorting.selectedSorting
   );
 
-  const handleSorting = (sortingOption: string) => {
+  const handleSorting = (sortingOption: SortingOption) => {
     dispatch(setSorting(sortingOption));
   };
 
@@ -27,11 +27,11 @@ export const SortBySection = () => {
           className={`w-full ${
             index < sorts.length - 1 ? "border-b border-gray-200" : ""
           }`}
-          onClick={() => handleSorting(sort.id)}
+          onClick={() => handleSorting(sort)}
         >
           <div
             className={`flex flex-row w-full hover:cursor-pointer hover:bg-gray-200 transition-all duration-300 ${
-              selectedSorting === sort.id ? "border-l-4 border-black" : ""
+              selectedSorting?.id === sort.id ? "border-l-4 border-black" : ""
             }`}
           >
             <span className="mx-6 my-3 uppercase">{sort.name}</span>

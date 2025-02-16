@@ -1,7 +1,12 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
+export interface SortingOption {
+  id: string;
+  name: string;
+}
+
 interface SortingState {
-  selectedSorting: string | null;
+  selectedSorting: SortingOption | null;
 }
 
 const loadSortingFromLocalStorage = (): SortingState => {
@@ -30,7 +35,7 @@ const sortingSlice = createSlice({
   name: "sorting",
   initialState,
   reducers: {
-    setSorting: (state, action: PayloadAction<string>) => {
+    setSorting: (state, action: PayloadAction<SortingOption>) => {
       state.selectedSorting = action.payload;
       saveSortingToLocalStorage(state);
     },
