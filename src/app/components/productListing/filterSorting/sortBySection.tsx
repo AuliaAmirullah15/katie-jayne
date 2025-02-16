@@ -18,15 +18,23 @@ export const SortBySection = () => {
   return (
     <Accordion
       title="SORT BY"
+      titleChildren={
+        selectedSorting && (
+          <div className="text-xs capitalize">{selectedSorting.name}</div>
+        )
+      }
       outerSectionClassName="pb-0"
-      sectionClassName="mx-6"
+      sectionClassName="px-6"
+      isProductListing={true}
     >
       {sorts.map((sort, index) => (
         <div
           key={index}
           className={`w-full ${
             index < sorts.length - 1 ? "border-b border-gray-200" : ""
-          }`}
+          } ${
+            selectedSorting?.id == sort.id && "bg-gray-200"
+          } transition-all duration-300 `}
           onClick={() => handleSorting(sort)}
         >
           <div
