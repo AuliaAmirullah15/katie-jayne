@@ -7,7 +7,9 @@ import { SortBySection } from "./filterSorting/sortBySection";
 import { FiltersSidebarSection } from "./filterSorting/filtersSidebarSection";
 import { clearFilters } from "@/app/stores/filtersSlice";
 import { clearSorting } from "@/app/stores/sortingSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@/app/stores";
+import { useEffect, useState } from "react";
 
 export const FilterSortingSidebar = ({
   isOverlayVisible,
@@ -17,11 +19,24 @@ export const FilterSortingSidebar = ({
   setOverlayVisible: () => void;
 }) => {
   const dispatch = useDispatch();
+  const selectedFilters = useSelector(
+    (state: RootState) => state.filters.selectedFilters
+  );
 
   const clearFiltersAndSort = () => {
+    setPriceRange([20, 200]);
     dispatch(clearFilters());
     dispatch(clearSorting());
   };
+
+  const [priceRange, setPriceRange] = useState<number[]>([20, 200]);
+
+  useEffect(() => {
+    const newPriceRange = (selectedFilters.find((f) => f.groupId === "fi0006")
+      ?.value as number[]) || [20, 200];
+
+    setPriceRange(newPriceRange);
+  }, [selectedFilters]);
 
   return (
     <SidebarLayout
@@ -38,7 +53,11 @@ export const FilterSortingSidebar = ({
             <SortBySection />
           </div>
 
-          <FiltersSidebarSection filters={filters} />
+          <FiltersSidebarSection
+            filters={filters}
+            priceRange={priceRange}
+            setPriceRange={setPriceRange}
+          />
         </div>
       </div>
 

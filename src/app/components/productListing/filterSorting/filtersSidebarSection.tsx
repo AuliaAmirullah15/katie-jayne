@@ -11,18 +11,17 @@ import Checkbox from "../../buttons/checkbox";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import RangeBar from "../../buttons/rangeBar";
-import { useState } from "react";
 
-export const FiltersSidebarSection: React.FC<{ filters: Filter[] }> = ({
-  filters,
-}) => {
+export const FiltersSidebarSection: React.FC<{
+  filters: Filter[];
+  priceRange: number[];
+  setPriceRange: (value: number[]) => void;
+}> = ({ filters, priceRange, setPriceRange }) => {
   const dispatch = useDispatch();
 
   const selectedFilters = useSelector(
     (state: RootState) => state.filters.selectedFilters
   );
-
-  const [priceRange, setPriceRange] = useState<number[]>([20, 200]);
 
   const getSelectedFilterNames = (filterId: string) =>
     selectedFilters
