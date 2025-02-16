@@ -5,6 +5,9 @@ import { FilterSortingHeader } from "./filterSorting/filterSortingHeader";
 import { AppliedFiltersSection } from "./filterSorting/appliedFiltersSection";
 import { SortBySection } from "./filterSorting/sortBySection";
 import { FiltersSidebarSection } from "./filterSorting/filtersSidebarSection";
+import { clearFilters } from "@/app/stores/filtersSlice";
+import { clearSorting } from "@/app/stores/sortingSlice";
+import { useDispatch } from "react-redux";
 
 export const FilterSortingSidebar = ({
   isOverlayVisible,
@@ -13,10 +16,17 @@ export const FilterSortingSidebar = ({
   isOverlayVisible: boolean;
   setOverlayVisible: () => void;
 }) => {
+  const dispatch = useDispatch();
+
+  const clearFiltersAndSort = () => {
+    dispatch(clearFilters());
+    dispatch(clearSorting());
+  };
+
   return (
     <SidebarLayout
       isOverlayVisible={isOverlayVisible}
-      title={<FilterSortingHeader />}
+      title={<FilterSortingHeader onClearAll={clearFiltersAndSort} />}
       onClose={setOverlayVisible}
     >
       <div className="flex-1 grow w-full overflow-y-auto">
