@@ -4,10 +4,13 @@ import heroUrl from "@/assets/images/jpg/hero.jpg";
 import heroMobileUrl from "@/assets/images/jpg/heroMobile.jpg";
 import PrimaryButton, { ButtonType } from "../buttons/primaryButton";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function Hero() {
   const [height, setHeight] = useState(325);
   const [isMobile, setIsMobile] = useState(false);
+
+  const router = useRouter();
 
   useEffect(() => {
     const updateSize = () => {
@@ -52,7 +55,10 @@ export default function Hero() {
               timeless beauty and expert craftsmanship to your table.
             </p>
             <div className="pb-8 md:pb-0">
-              <PrimaryButton buttonType={ButtonType.Primary}>
+              <PrimaryButton
+                buttonType={ButtonType.Primary}
+                onClick={() => router.push("/product")}
+              >
                 Shop Now
               </PrimaryButton>
             </div>

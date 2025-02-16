@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import Image from "next/image";
 import QuantitySelector from "../inputs/quantitySelector";
-import OverlayCloseButton from "../buttons/overlayCloseButton";
 import { formatCurrency } from "@/app/utils/currencyFormatter";
 import { useDispatch } from "react-redux";
 import { addToBasket, removeFromBasket } from "@/app/stores/basketItemsSlice";
@@ -9,6 +8,7 @@ import BasketItem from "@/app/types/basketItem";
 import PrimaryButton, { ButtonType } from "../buttons/primaryButton";
 import quantityReducer from "@/app/reducers/quantityReducer";
 import { useRouter } from "next/navigation";
+import SidebarLayout from "../layouts/sidebarLayout";
 
 interface ShoppingBagProps {
   isOverlayVisible: boolean;
@@ -48,15 +48,17 @@ const BasketItemList: React.FC<{
             <p className="text-gray-700 text-lg mb-2">
               {formatCurrency(basketItem.price, basketItem.currency)}
             </p>
-            <QuantitySelector
-              quantity={basketItem.quantity}
-              onIncrement={() =>
-                updateBasketItemQuantity(basketItem, "INCREMENT")
-              }
-              onDecrement={() =>
-                updateBasketItemQuantity(basketItem, "DECREMENT")
-              }
-            />
+            <div className="flex flex-row">
+              <QuantitySelector
+                quantity={basketItem.quantity}
+                onIncrement={() =>
+                  updateBasketItemQuantity(basketItem, "INCREMENT")
+                }
+                onDecrement={() =>
+                  updateBasketItemQuantity(basketItem, "DECREMENT")
+                }
+              />
+            </div>
           </div>
           <div className="col-span-1 flex flex-col">
             <div
@@ -125,34 +127,20 @@ const ShoppingBag: React.FC<ShoppingBagProps> = ({
   };
 
   return (
-    <div
-      className={`fixed inset-0 z-50 bg-black bg-opacity-50 transition-opacity duration-700 ${
-        isOverlayVisible
-          ? "opacity-100 pointer-events-auto"
-          : "opacity-0 pointer-events-none"
-      }`}
+    <SidebarLayout
+      isOverlayVisible={isOverlayVisible}
+      title={
+        <h2 className="text-xl font-bold tracking-wide m-6">Shopping Bag</h2>
+      }
+      onClose={onClose}
     >
-      <div
-        className={`fixed top-0 h-full bg-white z-50 flex flex-col transition-transform duration-500 ease-in-out ${
-          isOverlayVisible
-            ? "transform translate-x-0"
-            : "transform translate-x-full"
-        } 
-        w-full md:w-[400px] right-0`}
-      >
-        <OverlayCloseButton onClick={onClose} />
-        <h2 className="text-xl m-6">Shopping Bag</h2>
-        <hr className="w-full border-t border-gray-300"></hr>
-
-        <BasketItemList
-          basketItems={basketItems}
-          updateBasketItemQuantity={updateBasketItemQuantity}
-          removeBasketItem={removeBasketItem}
-        />
-
-        <CheckoutFooter onCheckout={() => router.push(`/checkout`)} />
-      </div>
-    </div>
+      <BasketItemList
+        basketItems={basketItems}
+        updateBasketItemQuantity={updateBasketItemQuantity}
+        removeBasketItem={removeBasketItem}
+      />
+      <CheckoutFooter onCheckout={() => router.push("/checkout")} />
+    </SidebarLayout>
   );
 };
 

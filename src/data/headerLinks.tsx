@@ -194,7 +194,7 @@ export const menuItems: Menu[] = [
         ],
       },
       {
-        label: "Lead-Free Crystal",
+        label: "Wicked Crystal",
         image: product1,
         children: [{ label: "Shop Now" }],
       },
@@ -381,4 +381,13 @@ export const coreLinks = [
   { label: "Help", icon: help },
   { label: "Bag", icon: bag },
   { label: "Find a Store", icon: store },
+];
+
+export const productFilters: string[] = [
+  "Gold-Plated",
+  "Crystal",
+  "Hand-Blown",
+  "Glasses",
+  "Decanters",
+  "Limited Edition",
 ];

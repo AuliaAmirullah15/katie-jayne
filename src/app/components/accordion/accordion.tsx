@@ -1,56 +1,51 @@
-import { ProductDetails } from "@/app/types/product";
-import React, { JSX, useState } from "react";
+import React, { ReactNode, useState } from "react";
 import { FaChevronDown } from "react-icons/fa";
 
 export default function Accordion({
-  contents,
+  title,
+  children,
+  titleChildren,
+  outerSectionClassName,
+  sectionClassName,
+  isProductListing = false, // <-- New Prop
 }: {
-  contents: Array<ProductDetails>;
-}): JSX.Element {
-  const [openSections, setOpenSections] = useState<boolean[]>([
-    false,
-    false,
-    false,
-    false,
-  ]);
-
-  const toggleSection = (index: number) => {
-    setOpenSections((prev) =>
-      prev.map((isOpen, idx) => (idx === index ? !isOpen : isOpen))
-    );
-  };
+  title: string;
+  children: ReactNode;
+  titleChildren?: ReactNode;
+  outerSectionClassName?: string;
+  sectionClassName?: string;
+  isProductListing?: boolean; // <-- New Prop
+}) {
+  const [isSectionOpen, setOpenSection] = useState(false);
 
   return (
-    <>
-      {contents.map((content: ProductDetails, index: number) => (
-        <div key={index} className="border-t border-b py-4">
-          <div
-            onClick={() => toggleSection(index)}
-            className="flex justify-between items-center cursor-pointer"
-          >
-            <h3 className="text-md md:text-lg font-semibold">
-              {content.title}
-            </h3>
-            <span className="text-md md:text-lg font-semibold">
-              {openSections[index] ? (
-                <FaChevronDown className="w-6 h-6 text-gray-500 transform rotate-180 transition-transform duration-300" />
-              ) : (
-                <FaChevronDown className="w-6 h-6 text-gray-500 transform rotate-0 transition-transform duration-300" />
-              )}
-            </span>
-          </div>
-
-          <div
-            className={`overflow-hidden transition-all ease-in-out duration-500 ${
-              openSections[index] ? "h-auto" : "h-0"
-            }`}
-          >
-            <div className="mt-6 text-gray-600">
-              <p>{content.description}</p>
-            </div>
-          </div>
+    <div className={`border-t ${outerSectionClassName}`}>
+      <div
+        onClick={() => setOpenSection(!isSectionOpen)}
+        className={`flex justify-between items-center cursor-pointer py-3 ${sectionClassName} ${
+          isProductListing && titleChildren ? "border-l-4 border-black" : ""
+        }`}
+      >
+        <div className="flex flex-col">
+          <h3 className="text-sm font-semibold">{title}</h3>
+          {titleChildren}
         </div>
-      ))}
-    </>
+        <span className="text-sm font-semibold">
+          {isSectionOpen ? (
+            <FaChevronDown className="w-3 h-3 text-gray-500 transform rotate-180 transition-transform duration-300" />
+          ) : (
+            <FaChevronDown className="w-3 h-3 text-gray-500 transform rotate-0 transition-transform duration-300" />
+          )}
+        </span>
+      </div>
+
+      <div
+        className={`overflow-hidden transition-all ease-in-out duration-500 ${
+          isSectionOpen ? "h-auto" : "h-0"
+        }`}
+      >
+        <div className="mt-2 text-gray-600">{children}</div>
+      </div>
+    </div>
   );
 }

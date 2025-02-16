@@ -4,6 +4,11 @@ import product3 from "@/assets/images/jpg/product3.jpg";
 import product4 from "@/assets/images/jpg/product4.jpg";
 import product5 from "@/assets/images/jpg/product5.jpg";
 import { Product } from "@/app/types/product";
+import { Currency } from "@/app/types/currency";
+import heroMobile from "@/assets/images/jpg/heroMobile.jpg";
+import banner1 from "@/assets/images/jpg/banner1.jpg";
+import banner2 from "@/assets/images/jpg/banner2.jpg";
+import winter from "@/assets/images/jpg/winter.jpg";
 
 export const products: Product[] = [
   {
@@ -179,3 +184,210 @@ export const products: Product[] = [
 ];
 
 export const defaultProduct: Product = products[0];
+
+const productImages = [product1, product2, product3, product4, product5];
+
+function getRandomThumbnails() {
+  return productImages.sort(() => 0.5 - Math.random()).slice(0, 4);
+}
+
+export const productList: Product[] = Array.from({ length: 5 }, (_, i) => [
+  {
+    id: i * 5 + 1,
+    code: `KJ00${i * 5 + 1}`,
+    name: `Katie Deluxe Crystal Glasses ${i + 1}`,
+    subname: "Luxury Crystal Glasses",
+    description: `Experience luxury with the Katie Deluxe Crystal Glasses ${
+      i + 1
+    }, designed for elegance and sophistication. Perfect for any occasion, these glasses offer clarity and timeless beauty.`,
+    price: 100 + i * 10,
+    currency: "GBP" as Currency,
+    image: productImages[i % productImages.length],
+    thumbnails: getRandomThumbnails(),
+    details: [
+      {
+        title: "Check In-Store Availability",
+        description: `Find the Katie Deluxe Crystal Glasses ${
+          i + 1
+        } at a store near you. Experience their premium quality firsthand.`,
+      },
+      {
+        title: "Product Details",
+        description: `Crafted from high-grade crystal, these glasses feature intricate designs that enhance your drinking experience.`,
+      },
+      {
+        title: "Care Instructions",
+        description:
+          "Hand wash only with mild soap and warm water. Dry with a soft cloth to maintain clarity.",
+      },
+      {
+        title: "Delivery & Returns",
+        description:
+          "Enjoy secure packaging and reliable delivery. Our hassle-free return policy ensures your satisfaction.",
+      },
+    ],
+  },
+  {
+    id: i * 5 + 2,
+    code: `KJ00${i * 5 + 2}`,
+    name: `Katie Prestige Square Decanter ${i + 1}`,
+    subname: "Prestige Crystal Decanter",
+    description: `The Katie Prestige Square Decanter ${
+      i + 1
+    } is a refined addition to any bar, offering style and sophistication.`,
+    price: 185 + i * 5,
+    currency: "GBP" as Currency,
+    image: productImages[(i + 1) % productImages.length],
+    thumbnails: getRandomThumbnails(),
+    details: [
+      {
+        title: "Check In-Store Availability",
+        description: `See the Katie Prestige Square Decanter ${
+          i + 1
+        } in-store and appreciate its craftsmanship.`,
+      },
+      {
+        title: "Product Details",
+        description: `Made with premium crystal, this decanter features an airtight stopper to preserve your spirits.`,
+      },
+      {
+        title: "Care Instructions",
+        description:
+          "Wash by hand with lukewarm water. Avoid harsh detergents.",
+      },
+      {
+        title: "Delivery & Returns",
+        description:
+          "Secure packaging ensures safe delivery. Easy returns available if needed.",
+      },
+    ],
+  },
+  {
+    id: i * 5 + 3,
+    code: `KJ00${i * 5 + 3}`,
+    name: `Katie Modern Glass Tumblers ${i + 1}`,
+    subname: "Contemporary Tumblers",
+    description: `Enjoy your drinks in style with the Katie Modern Glass Tumblers ${
+      i + 1
+    }, blending sleek design with durability.`,
+    price: 55 + i * 5,
+    currency: "GBP" as Currency,
+    image: productImages[(i + 2) % productImages.length],
+    thumbnails: getRandomThumbnails(),
+    details: [
+      {
+        title: "Check In-Store Availability",
+        description: `Visit a nearby store to explore the Katie Modern Glass Tumblers ${
+          i + 1
+        }.`,
+      },
+      {
+        title: "Product Details",
+        description: `These tumblers feature a minimalist aesthetic and durable glass construction for everyday use.`,
+      },
+      {
+        title: "Care Instructions",
+        description:
+          "Dishwasher safe but hand washing recommended for longevity.",
+      },
+      {
+        title: "Delivery & Returns",
+        description:
+          "Fast and secure shipping ensures a smooth purchase experience.",
+      },
+    ],
+  },
+  {
+    id: i * 5 + 4,
+    code: `KJ00${i * 5 + 4}`,
+    name: `Katie Premium Old Fashioned Tumblers ${i + 1}`,
+    subname: "Classic Whiskey Tumblers",
+    description: `Savor your whiskey with the Katie Premium Old Fashioned Tumblers ${
+      i + 1
+    }, featuring an elegant etched design.`,
+    price: 105 + i * 5,
+    currency: "GBP" as Currency,
+    image: productImages[(i + 3) % productImages.length],
+    thumbnails: getRandomThumbnails(),
+    details: [
+      {
+        title: "Check In-Store Availability",
+        description: `Feel the quality of the Katie Premium Old Fashioned Tumblers ${
+          i + 1
+        } in person.`,
+      },
+      {
+        title: "Product Details",
+        description: `These glasses boast a refined cut pattern for a luxurious drinking experience.`,
+      },
+      {
+        title: "Care Instructions",
+        description: "Hand wash only to preserve the etched details.",
+      },
+      {
+        title: "Delivery & Returns",
+        description:
+          "Delivered with care and protected against damage in transit.",
+      },
+    ],
+  },
+  {
+    id: i * 5 + 5,
+    code: `KJ00${i * 5 + 5}`,
+    name: `Katie Artisan Round Decanter ${i + 1}`,
+    subname: "Handcrafted Round Decanter",
+    description: `A true work of art, the Katie Artisan Round Decanter ${
+      i + 1
+    } is designed to store and display your finest spirits.`,
+    price: 150 + i * 5,
+    currency: "GBP" as Currency,
+    image: productImages[(i + 4) % productImages.length],
+    thumbnails: getRandomThumbnails(),
+    details: [
+      {
+        title: "Check In-Store Availability",
+        description: `Admire the elegance of the Katie Artisan Round Decanter ${
+          i + 1
+        } at select retail locations.`,
+      },
+      {
+        title: "Product Details",
+        description: `Hand-blown crystal with a precision-cut stopper ensures a distinguished presentation for your spirits.`,
+      },
+      {
+        title: "Care Instructions",
+        description:
+          "Gently wash with warm soapy water and dry with a microfiber cloth.",
+      },
+      {
+        title: "Delivery & Returns",
+        description:
+          "Carefully packaged for safe shipping. Returns accepted within 30 days.",
+      },
+    ],
+  },
+]).flat();
+
+export const newArrivals = [
+  {
+    label: "Vintage Vibes",
+    description:
+      "Elegant glassware with classic charm and intricate detailing.",
+    image: heroMobile,
+  },
+  {
+    label: "Fun Holiday",
+    description: "Festive designs perfect for celebrating special moments.",
+    image: banner1,
+  },
+  {
+    label: "Fresh New Year",
+    description: "Sleek and modern glassware to start the year in style.",
+    image: winter,
+  },
+  {
+    label: "Tropical Escape",
+    description: "Vibrant and refreshing designs inspired by island getaways.",
+    image: banner2,
+  },
+];

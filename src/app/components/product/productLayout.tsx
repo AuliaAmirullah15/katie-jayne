@@ -2,16 +2,16 @@ import React, { useEffect, useReducer, useState } from "react";
 import Image, { StaticImageData } from "next/image";
 import QuantitySelector from "../inputs/quantitySelector";
 import { formatCurrency } from "@/app/utils/currencyFormatter";
-import Accordion from "../accordion/accordion";
 import FavoriteButton from "../buttons/favoriteButton";
 import quantityReducer from "@/app/reducers/quantityReducer";
 import AddToCartButton from "../buttons/addToCartButton";
 import { useSelector } from "react-redux";
 import { RootState } from "@/app/stores";
-import { defaultProduct, products } from "@/data/products";
+import { defaultProduct, productList } from "@/data/products";
 import { Product } from "@/app/types/product";
 import { ProductPageProps } from "@/app/types/componentProps";
 import ShoppingBag from "./shoppingBag";
+import ProductAccordion from "./productAccordion";
 
 const Thumbnails = ({
   images,
@@ -60,7 +60,9 @@ const ProductLayout: React.FC<ProductPageProps> = ({ params }) => {
         // WAIT THE PARAMS FROM THE URL, THEN RESET THE PRODUCT
         setProductCode(param.code);
 
-        const product = products.find((product) => product.code === param.code);
+        const product = productList.find(
+          (product) => product.code === param.code
+        );
         setProduct(product as Product);
 
         setActiveImage(
@@ -154,19 +156,22 @@ const ProductLayout: React.FC<ProductPageProps> = ({ params }) => {
           <h2 className="text-center md:text-left text-2xl font-semibold mb-4 font-cardo">
             {product.name}
           </h2>
-          <p className="text-center md:text-left text-xl mb-4">
+          <p className="text-center md:text-left text-md mb-4">
             {formatCurrency(product.price, product.currency)}
           </p>
-          <p className="text-gray-600 mb-6">{product.description}</p>
+          <p className="text-sm text-gray-600 mb-6">{product.description}</p>
 
           {/* Quantity and Add to Cart */}
           <div className="flex flex-col space-y-4 lg:space-y-0 lg:gap-x-4 lg:flex-row-reverse lg:justify-end">
             {/* Quantity Selector */}
-            <QuantitySelector
-              quantity={quantity}
-              dispatch={dispatch}
-              className="w-full md:w-auto justify-center"
-            />
+
+            <div className="flex flex-row justify-center items-center">
+              <QuantitySelector
+                quantity={quantity}
+                dispatch={dispatch}
+                className="justify-center"
+              />
+            </div>
 
             {/* Add to Cart Button */}
             <div className="flex flex-row-reverse md:flex-row space-x-reverse md:space-x-2 space-x-2 w-full md:w-auto">
@@ -183,7 +188,7 @@ const ProductLayout: React.FC<ProductPageProps> = ({ params }) => {
           </div>
 
           <div className="mt-4">
-            <Accordion contents={product.details} />
+            <ProductAccordion contents={product.details} />
           </div>
         </div>
       </div>
