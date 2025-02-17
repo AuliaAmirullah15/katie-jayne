@@ -22,7 +22,6 @@ export const metadata: Metadata = {
     "handmade glassware, luxury glassware, Katie Jayne, mouth-blown glassware, bespoke glassware, home bar accessories",
   authors: [{ name: "Katie Jayne", url: "https://katie-jayne.vercel.app" }],
   robots: "index, follow",
-  metadataBase: new URL("https://katie-jayne.vercel.app"),
 };
 
 export default function RootLayout({
