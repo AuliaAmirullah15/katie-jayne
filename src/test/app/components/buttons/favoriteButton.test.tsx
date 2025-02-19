@@ -12,8 +12,8 @@ import FavoriteButton from "@/app/components/buttons/favoriteButton";
 // import { faHeart as SolidHeart } from "@fortawesome/free-solid-svg-icons";
 // import { faHeart as RegularHeart } from "@fortawesome/free-regular-svg-icons";
 import { Product } from "@/app/types/product";
-import mockImage from "@/public/mock-image.jpg"; // Replace with an actual image
-import BasketItem from "@/app/types/basketItem"; // Ensure these types exist
+import mockImage from "@/public/mock-image.jpg";
+import BasketItem from "@/app/types/basketItem";
 import { FiltersState } from "@/app/stores/filtersSlice";
 import { SortingState } from "@/app/stores/sortingSlice";
 
