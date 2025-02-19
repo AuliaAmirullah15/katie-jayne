@@ -3,8 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/app/stores";
 import { addFavorite, removeFavorite } from "@/app/stores/favoritesSlice";
 import PrimaryButton, { ButtonType } from "./primaryButton";
-
-// Font Awesome imports
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart as SolidHeart } from "@fortawesome/free-solid-svg-icons";
 import { faHeart as RegularHeart } from "@fortawesome/free-regular-svg-icons";
