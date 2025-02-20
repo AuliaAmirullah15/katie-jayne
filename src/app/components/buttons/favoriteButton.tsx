@@ -39,6 +39,7 @@ const FavoriteButton = ({ product }: FavoriteButtonProps) => {
           isFavorited ? "text-red-500" : "text-black"
         }`}
         title={isFavorited ? "Remove from favorites" : "Add to favorites"}
+        aria-label={isFavorited ? "solid-heart" : "regular-heart"}
       />
     </PrimaryButton>
   );

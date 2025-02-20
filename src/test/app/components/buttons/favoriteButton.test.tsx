@@ -9,8 +9,6 @@ import { AnyAction } from "redux";
 import { RootState } from "@/app/stores";
 // import { addFavorite, removeFavorite } from "@/app/stores/favoritesSlice";
 import FavoriteButton from "@/app/components/buttons/favoriteButton";
-// import { faHeart as SolidHeart } from "@fortawesome/free-solid-svg-icons";
-// import { faHeart as RegularHeart } from "@fortawesome/free-regular-svg-icons";
 import { Product } from "@/app/types/product";
 import mockImage from "@/public/mock-image.jpg";
 import BasketItem from "@/app/types/basketItem";
@@ -70,36 +68,36 @@ describe("FavoriteButton Component", () => {
     expect(button).toBeInTheDocument();
   });
 
-  //   test("shows outlined heart when not favorited", () => {
-  //     render(
-  //       <Provider store={store}>
-  //         <FavoriteButton product={mockProduct} />
-  //       </Provider>
-  //     );
+  test("shows outlined heart when not favorited", () => {
+    render(
+      <Provider store={store}>
+        <FavoriteButton product={mockProduct} />
+      </Provider>
+    );
 
-  //     const heartIcon = screen.getByTitle("Add to favorites");
-  //     expect(heartIcon).toBeInTheDocument();
-  //     expect(heartIcon).toHaveAttribute("data-icon", RegularHeart.iconName);
-  //   });
+    const heartIcon = screen.getByTitle("Add to favorites");
+    expect(heartIcon).toBeInTheDocument();
+    expect(screen.getByLabelText("regular-heart")).toBeInTheDocument();
+  });
 
-  //   test("shows filled heart when favorited", () => {
-  //     store = mockStore({
-  //       favorites: [mockProduct],
-  //       basketItems: emptyBasketItems,
-  //       filters: emptyFilters,
-  //       sorting: emptySorting,
-  //     });
+  test("shows filled heart when favorited", () => {
+    store = mockStore({
+      favorites: [mockProduct],
+      basketItems: emptyBasketItems,
+      filters: emptyFilters,
+      sorting: emptySorting,
+    });
 
-  //     render(
-  //       <Provider store={store}>
-  //         <FavoriteButton product={mockProduct} />
-  //       </Provider>
-  //     );
+    render(
+      <Provider store={store}>
+        <FavoriteButton product={mockProduct} />
+      </Provider>
+    );
 
-  //     const heartIcon = screen.getByTitle("Remove from favorites");
-  //     expect(heartIcon).toBeInTheDocument();
-  //     expect(heartIcon).toHaveAttribute("data-icon", SolidHeart.iconName);
-  //   });
+    const heartIcon = screen.getByTitle("Remove from favorites");
+    expect(heartIcon).toBeInTheDocument();
+    expect(screen.getByLabelText("solid-heart")).toBeInTheDocument();
+  });
 
   //   test("dispatches addFavorite when clicked and not favorited", () => {
   //     render(
