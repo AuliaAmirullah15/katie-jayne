@@ -1,5 +1,5 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { Provider } from "react-redux";
 import configureMockStore from "redux-mock-store";
@@ -7,7 +7,7 @@ import { ThunkDispatch } from "redux-thunk";
 import { AnyAction } from "redux";
 
 import { RootState } from "@/app/stores";
-// import { addFavorite, removeFavorite } from "@/app/stores/favoritesSlice";
+import { addFavorite, removeFavorite } from "@/app/stores/favoritesSlice";
 import FavoriteButton from "@/app/components/buttons/favoriteButton";
 import { Product } from "@/app/types/product";
 import mockImage from "@/public/mock-image.jpg";
@@ -99,36 +99,36 @@ describe("FavoriteButton Component", () => {
     expect(screen.getByLabelText("solid-heart")).toBeInTheDocument();
   });
 
-  //   test("dispatches addFavorite when clicked and not favorited", () => {
-  //     render(
-  //       <Provider store={store}>
-  //         <FavoriteButton product={mockProduct} />
-  //       </Provider>
-  //     );
+  test("dispatches addFavorite when clicked and not favorited", () => {
+    render(
+      <Provider store={store}>
+        <FavoriteButton product={mockProduct} />
+      </Provider>
+    );
 
-  //     const button = screen.getByRole("button");
-  //     fireEvent.click(button);
+    const button = screen.getByRole("button");
+    fireEvent.click(button);
 
-  //     expect(store.dispatch).toHaveBeenCalledWith(expect.any(Function));
-  //   });
+    expect(store.dispatch).toHaveBeenCalledWith(addFavorite(mockProduct));
+  });
 
-  //   test("dispatches removeFavorite when clicked and already favorited", () => {
-  //     store = mockStore({
-  //       favorites: [mockProduct],
-  //       basketItems: emptyBasketItems,
-  //       filters: emptyFilters,
-  //       sorting: emptySorting,
-  //     });
+  test("dispatches removeFavorite when clicked and already favorited", () => {
+    store = mockStore({
+      favorites: [mockProduct],
+      basketItems: emptyBasketItems,
+      filters: emptyFilters,
+      sorting: emptySorting,
+    });
 
-  //     render(
-  //       <Provider store={store}>
-  //         <FavoriteButton product={mockProduct} />
-  //       </Provider>
-  //     );
+    render(
+      <Provider store={store}>
+        <FavoriteButton product={mockProduct} />
+      </Provider>
+    );
 
-  //     const button = screen.getByRole("button");
-  //     fireEvent.click(button);
+    const button = screen.getByRole("button");
+    fireEvent.click(button);
 
-  //     expect(store.dispatch).toHaveBeenCalledWith(expect.any(Function));
-  //   });
+    expect(store.dispatch).toHaveBeenCalledWith(removeFavorite(mockProduct));
+  });
 });
