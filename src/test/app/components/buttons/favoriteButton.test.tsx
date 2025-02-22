@@ -148,4 +148,14 @@ describe("FavoriteButton Component", () => {
     const heartIcon = screen.getByTestId("heart-icon");
     expect(heartIcon).toHaveAttribute("aria-label", "solid-heart");
   });
+
+  test("sets aria-label to regular heart when is not favorited", () => {
+    render(
+      <Provider store={store}>
+        <FavoriteButton product={mockProduct} />
+      </Provider>
+    );
+    const heartIcon = screen.getByTestId("heart-icon");
+    expect(heartIcon).toHaveAttribute("aria-label", "regular-heart");
+  });
 });
