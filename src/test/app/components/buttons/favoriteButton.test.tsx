@@ -131,4 +131,21 @@ describe("FavoriteButton Component", () => {
 
     expect(store.dispatch).toHaveBeenCalledWith(removeFavorite(mockProduct));
   });
+
+  test("sets aria-label to solid heart when is favorited", () => {
+    store = mockStore({
+      favorites: [mockProduct],
+      basketItems: emptyBasketItems,
+      filters: emptyFilters,
+      sorting: emptySorting,
+    });
+
+    render(
+      <Provider store={store}>
+        <FavoriteButton product={mockProduct} />
+      </Provider>
+    );
+    const heartIcon = screen.getByTestId("heart-icon");
+    expect(heartIcon).toHaveAttribute("aria-label", "solid-heart");
+  });
 });

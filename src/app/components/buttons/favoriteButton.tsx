@@ -35,6 +35,7 @@ const FavoriteButton = ({ product }: FavoriteButtonProps) => {
     >
       <FontAwesomeIcon
         icon={isFavorited ? SolidHeart : RegularHeart}
+        data-testid="heart-icon"
         className={`text-2xl transition-all ${
           isFavorited ? "text-red-500" : "text-black"
         }`}
