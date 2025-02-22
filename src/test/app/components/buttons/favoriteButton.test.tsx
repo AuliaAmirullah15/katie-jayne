@@ -7,7 +7,7 @@ import { ThunkDispatch } from "redux-thunk";
 import { AnyAction } from "redux";
 
 import { RootState } from "@/app/stores";
-import { addFavorite, removeFavorite } from "@/app/stores/favoritesSlice";
+// import { addFavorite, removeFavorite } from "@/app/stores/favoritesSlice";
 import FavoriteButton from "@/app/components/buttons/favoriteButton";
 import { Product } from "@/app/types/product";
 import mockImage from "@/public/mock-image.jpg";
@@ -20,6 +20,17 @@ const mockStore = configureMockStore<
   RootState,
   ThunkDispatch<RootState, undefined, AnyAction>
 >([]);
+
+jest.mock("@/app/stores/favoritesSlice", () => ({
+  addFavorite: jest.fn((product) => ({
+    type: "favorites/addFavorite",
+    payload: product,
+  })),
+  removeFavorite: jest.fn((product) => ({
+    type: "favorites/removeFavorite",
+    payload: product,
+  })),
+}));
 
 // Mock product data
 const mockProduct: Product = {
@@ -109,7 +120,10 @@ describe("FavoriteButton Component", () => {
     const button = screen.getByRole("button");
     fireEvent.click(button);
 
-    expect(store.dispatch).toHaveBeenCalledWith(addFavorite(mockProduct));
+    expect(store.dispatch).toHaveBeenCalledWith({
+      type: "favorites/addFavorite",
+      payload: mockProduct,
+    });
   });
 
   test("dispatches removeFavorite when clicked and already favorited", () => {
@@ -120,6 +134,8 @@ describe("FavoriteButton Component", () => {
       sorting: emptySorting,
     });
 
+    const dispatchSpy = jest.spyOn(store, "dispatch");
+
     render(
       <Provider store={store}>
         <FavoriteButton product={mockProduct} />
@@ -129,7 +145,12 @@ describe("FavoriteButton Component", () => {
     const button = screen.getByRole("button");
     fireEvent.click(button);
 
-    expect(store.dispatch).toHaveBeenCalledWith(removeFavorite(mockProduct));
+    expect(dispatchSpy).toHaveBeenCalledWith({
+      type: "favorites/removeFavorite",
+      payload: mockProduct,
+    });
+
+    dispatchSpy.mockRestore();
   });
 
   test("sets aria-label to solid heart when is favorited", () => {
