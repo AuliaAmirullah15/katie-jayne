@@ -5,7 +5,7 @@ export interface SortingOption {
   name: string;
 }
 
-interface SortingState {
+export interface SortingState {
   selectedSorting: SortingOption | null;
 }
 

@@ -116,18 +116,18 @@ const SubMenuNavbar: React.FC<MobileSubMenuProps> = ({
                       >
                         {subMenu.image && !subMenu.children ? (
                           <div
-                            className={`flex flex-row items-center w-full border-gray-200 ${
+                            className={`relative flex flex-row items-center w-full border-gray-200 ${
                               addTopBorder ? "border-t-2" : ""
                             } border-b-2`}
                           >
-                            <div className="flex-1 flex flex-col space-y-2 py-6 pl-12">
+                            <div className="flex-1 flex flex-col space-y-2 py-6 pl-12 pr-2">
                               <Image
                                 src={subMenu.icon ?? ""}
                                 alt={subMenu.label}
                                 height={20}
                                 width={20}
                               />
-                              <h2 className="text-md uppercase font-semibold">
+                              <h2 className="text-sm uppercase font-semibold">
                                 {subMenu.label}
                               </h2>
                               <p className="text-sm text-gray-500">
@@ -135,7 +135,7 @@ const SubMenuNavbar: React.FC<MobileSubMenuProps> = ({
                               </p>
                             </div>
 
-                            <div className="relative w-[22%] h-[140px]">
+                            <div className="flex flex-col relative w-[120px] h-[160px]">
                               <Image
                                 src={subMenu.image}
                                 alt={subMenu.label}
@@ -213,15 +213,16 @@ const MobileNavbar: React.FC<MobileNavbarProps> = ({ isOpen, onClose }) => {
     <>
       <Overlay isVisible={isOpen} className="lg:hidden" onClose={onClose}>
         <div className="flex flex-col justify-between h-full">
-          <div>
-            <div className="w-full flex flex-row items-center justify-center p-6 border-gray-200 border-b-2">
-              <Image
-                src={logo}
-                alt="Katie Jayne"
-                className="w-36 cursor-pointer"
-                onClick={handleLogoClick}
-              />
-            </div>
+          <div className="w-full flex flex-row items-center justify-center p-6 border-gray-200 border-b-2">
+            <Image
+              src={logo}
+              alt="Katie Jayne"
+              className="w-36 cursor-pointer"
+              onClick={handleLogoClick}
+            />
+          </div>
+          {/* Grow Child */}
+          <div className="flex-1 flex flex-col w-full overflow-y-auto">
             <nav className="space-y-4 text-gray-800 text-lg p-6 border-gray-200 border-b-2">
               <ul className="flex flex-col space-y-4">
                 {menuItems.map((menu, key) => (

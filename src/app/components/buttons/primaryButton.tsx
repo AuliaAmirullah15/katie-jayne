@@ -32,7 +32,7 @@ export default function PrimaryButton({
   const [disabledStyle] = useState(() => {
     return buttonType === ButtonType.Outlined
       ? "bg-white border-2 text-gray-400 border-gray-200 cursor-not-allowed"
-      : "opacity-50 cursor-not-allowed";
+      : "bg-gray-200 opacity-50 cursor-not-allowed";
   });
 
   return (

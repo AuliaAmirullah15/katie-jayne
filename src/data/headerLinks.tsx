@@ -190,7 +190,6 @@ export const menuItems: Menu[] = [
           { label: "Faceted Patterns" },
           { label: "Classic Styles" },
           { label: "Vintage Pieces" },
-          { label: "Geometric Designs" },
         ],
       },
       {
