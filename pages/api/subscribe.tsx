@@ -23,7 +23,7 @@ export default async function handler(
   const postUrl = `https://gmail.us21.list-manage.com/subscribe/post?u=${process.env.NEXT_PUBLIC_MAILCHIMP_U}&id=${process.env.NEXT_PUBLIC_MAILCHIMP_ID}`;
 
   const controller = new AbortController();
-  const timeout = setTimeout(() => controller.abort(), 8000); // 8s timeout
+  const timeout = setTimeout(() => controller.abort(), 60000); // 60s timeout
 
   try {
     const response = await fetch(postUrl, {
