@@ -54,7 +54,7 @@ const emptySorting: SortingState = {
   selectedSorting: null,
 };
 
-describe("FavoriteButton Component", () => {
+describe("FavoriteButton Component should", () => {
   let store: ReturnType<typeof mockStore>;
 
   beforeEach(() => {
@@ -68,7 +68,7 @@ describe("FavoriteButton Component", () => {
     store.dispatch = jest.fn();
   });
 
-  test("renders the button correctly", () => {
+  test("render the button correctly", () => {
     render(
       <Provider store={store}>
         <FavoriteButton product={mockProduct} />
@@ -79,7 +79,7 @@ describe("FavoriteButton Component", () => {
     expect(button).toBeInTheDocument();
   });
 
-  test("shows outlined heart when not favorited", () => {
+  test("show outlined heart when not favorited", () => {
     render(
       <Provider store={store}>
         <FavoriteButton product={mockProduct} />
@@ -91,7 +91,7 @@ describe("FavoriteButton Component", () => {
     expect(screen.getByLabelText("regular-heart")).toBeInTheDocument();
   });
 
-  test("shows filled heart when favorited", () => {
+  test("show filled heart when favorited", () => {
     store = mockStore({
       favorites: [mockProduct],
       basketItems: emptyBasketItems,
@@ -110,7 +110,7 @@ describe("FavoriteButton Component", () => {
     expect(screen.getByLabelText("solid-heart")).toBeInTheDocument();
   });
 
-  test("dispatches addFavorite when clicked and not favorited", () => {
+  test("dispatche addFavorite when clicked and not favorited", () => {
     render(
       <Provider store={store}>
         <FavoriteButton product={mockProduct} />
@@ -126,7 +126,7 @@ describe("FavoriteButton Component", () => {
     });
   });
 
-  test("dispatches removeFavorite when clicked and already favorited", () => {
+  test("dispatche removeFavorite when clicked and already favorited", () => {
     store = mockStore({
       favorites: [mockProduct],
       basketItems: emptyBasketItems,
@@ -153,7 +153,7 @@ describe("FavoriteButton Component", () => {
     dispatchSpy.mockRestore();
   });
 
-  test("sets aria-label to solid heart when is favorited", () => {
+  test("set aria-label to solid heart when is favorited", () => {
     store = mockStore({
       favorites: [mockProduct],
       basketItems: emptyBasketItems,
@@ -170,7 +170,7 @@ describe("FavoriteButton Component", () => {
     expect(heartIcon).toHaveAttribute("aria-label", "solid-heart");
   });
 
-  test("sets aria-label to regular heart when is not favorited", () => {
+  test("set aria-label to regular heart when is not favorited", () => {
     render(
       <Provider store={store}>
         <FavoriteButton product={mockProduct} />
