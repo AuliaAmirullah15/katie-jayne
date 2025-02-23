@@ -10,7 +10,7 @@ export default async function handler(
 
   const { u, id, email, merge0 } = req.body;
 
-  if (!email || !u || !id) {
+  if (!email) {
     return res.status(400).json({ error: "Missing required parameters" });
   }
 
