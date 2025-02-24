@@ -5,7 +5,6 @@ import { Provider } from "react-redux";
 import configureMockStore from "redux-mock-store";
 import { ThunkDispatch } from "redux-thunk";
 import { AnyAction } from "redux";
-
 import { RootState } from "@/app/stores";
 // import { addFavorite, removeFavorite } from "@/app/stores/favoritesSlice";
 import FavoriteButton from "@/app/components/buttons/favoriteButton";
