@@ -1,5 +1,5 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import { Provider } from "react-redux";
 import configureMockStore from "redux-mock-store";
 import { ThunkDispatch } from "redux-thunk";
@@ -16,6 +16,13 @@ const mockStore = configureMockStore<
   RootState,
   ThunkDispatch<RootState, undefined, AnyAction>
 >([]);
+
+jest.mock("@/app/stores/basketItemsSlice", () => ({
+  addToBasket: jest.fn((product) => ({
+    type: "basketItems/addToBasket",
+    payload: product,
+  })),
+}));
 
 // Mock product data
 const mockProduct: BasketItem = {
@@ -67,5 +74,25 @@ describe("AddToCartButton Component should", () => {
 
     const button = screen.getByTestId("add-to-cart");
     expect(button).toBeInTheDocument();
+  });
+
+  test("dispatches addToBasket action when clicked", () => {
+    render(
+      <Provider store={store}>
+        <AddToCartButton
+          product={mockProduct}
+          totalPrice={mockProduct.quantity * mockProduct.price}
+          onAddToCart={() => {}}
+        />
+      </Provider>
+    );
+
+    const button = screen.getByTestId("add-to-cart");
+    fireEvent.click(button);
+
+    expect(store.dispatch).toHaveBeenCalledWith({
+      type: "basketItems/addToBasket",
+      payload: mockProduct,
+    });
   });
 });
