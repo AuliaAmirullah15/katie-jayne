@@ -95,4 +95,22 @@ describe("AddToCartButton Component should", () => {
       payload: mockProduct,
     });
   });
+
+  test("calls onAddToCart callback when clicked", () => {
+    const mockOnAddToCart = jest.fn();
+    render(
+      <Provider store={store}>
+        <AddToCartButton
+          product={mockProduct}
+          totalPrice={mockProduct.quantity * mockProduct.price}
+          onAddToCart={mockOnAddToCart}
+        />
+      </Provider>
+    );
+
+    const button = screen.getByTestId("add-to-cart");
+    fireEvent.click(button);
+
+    expect(mockOnAddToCart).toHaveBeenCalledTimes(1);
+  });
 });
